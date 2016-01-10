@@ -1,0 +1,95 @@
+.template-container{
+  width: 80%;
+  margin:0 auto;
+}
+.page-footer{
+  margin-top: 10px;
+}
+
+.side-nav li:hover{
+  width: 100%;
+  background-color: #0066ff;
+  font-weight: bold;
+  text-align: center;
+}
+.side-nav li >a:hover{
+  font-size: 18px;
+  color: white;
+}
+.side-nav li{
+  margin-top: 0px;
+  text-align: center;
+  color: black;
+}
+
+
+#post_area_li{
+  list-style-type: none;
+  width: 100%;
+}
+#my_post_area_li{
+  list-style-type: none;
+}
+#comment_area{
+  list-style-type: none;
+}
+.hide{
+    display: none;
+  }
+.save_post_area{
+  margin-bottom: -20px;
+  margin-top: -50px;
+
+  }
+.styleComments p{
+  cursor: pointer; 
+  cursor: hand;
+}
+#editPostbtn{
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+#my_bar{
+  display: inline;
+}
+#login_hand{
+  cursor: pointer; 
+  cursor: hand;
+}
+.send_message{
+  margin-top: 20px;
+  /*margin-right: 50px;*/
+}
+.login_area_text{
+  font-weight: bold;
+}
+.btn-spacer{
+  margin-bottom: 20px;
+}
+.mynav{
+  font-size: 20px;
+}
+.nav_bar_btn{
+  margin-right: 20px;
+}
+.forget-pass{
+  margin-left: 50px;
+}
+input[type="radio"]:checked+label{ 
+  font-weight: bold; 
+} 
+.reset-btn-space{
+  margin-top: 20px;
+  margin-left: 70px;
+}
+.verification-space{
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 15px;
+}
+.save-new-btn-space{
+  margin-top: 20px;
+  margin-left: 40px;
+}
