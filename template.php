@@ -17,7 +17,11 @@
  <!-- end of navbar-->
 <!--  start of body division-->
 <div class="template-container">
-  
+  <div class="row">
+    <div class="card">
+      
+    </div>
+  </div>
 </div>
  <!--  end of body division-->
  <!--  footer section-->        

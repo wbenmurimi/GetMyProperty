@@ -45,8 +45,8 @@
         <a href="verification-code.php">
         <button type="submit" class="btn reset-btn-space waves-effect wave-dark teal lighten-2 center-align ">
         Enter verification code</button>
-        </div>
         </a>
+         </div>
       </div>
     </div>   
   </div>

@@ -93,3 +93,16 @@ input[type="radio"]:checked+label{
   margin-top: 20px;
   margin-left: 40px;
 }
+.added-info{
+  margin-top: 30px;
+}
+
+.space_dropdown_d{
+  margin-bottom: 35px;
+}
+.free-plan{
+  margin-bottom: 70px;
+}
+.nextfooter{
+  margin-right: 30px;
+}
