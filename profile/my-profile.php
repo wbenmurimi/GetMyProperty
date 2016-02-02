@@ -16,34 +16,26 @@
  <!--start of navbar-->
  <?php include "../header/header.html";?>
  <!-- end of navbar-->
- <!-- end of navbar-->
  <div class="blue lighten-1 col s12 l12">
     <div class="breadcrumb flat ">
       <a href="../index.php" class="">Home</a>
-      <a href="index.php">Add property</a>
-      <a href="property-plan.php" >Property plan</a>
-      <a href="free-plan.php" >Free plan</a>
-      <a href="review-post.php" class="active">Post review</a>
+      <a href="my-profile.php" class="active">My profile</a>
       
     </div>
   </div>
- <!--  start of body division-->
- <div class="template-container">
+<!--  start of body division-->
+<div class="template-container">
   <div class="row">
     <div class="card">
-      <h4 class="center">Review post</h4>
       
-      <div class=" right">
- <button  type="submit" class="btn nextfooter btn-spacer waves-effect wave-dark blue darken-1 center-align">Add post</button>
- </div>
     </div>
   </div>
 </div>
-<!--  end of body division-->
-<!--  footer section-->        
-<?php include "../footer/footer.html";?>
-<!--  end of footer section-->
-
+ <!--  end of body division-->
+ <!--  footer section-->        
+ <?php include "../footer/footer.html";?>
+ <!--  end of footer section-->
+ 
 <!--  Scripts-->
 <script src="../js/jquery.js"></script>
 <script src="../js/materialize.min.js"></script>
@@ -62,5 +54,6 @@
   });
  });
 </script>
+ </script>
 </body>
 </html>

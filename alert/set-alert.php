@@ -81,18 +81,19 @@
       <div class="input-field col l6 s12">
         <select id="Property_county" class="disabled multiple " value="">county</option>
           <script>
-        var myArray = new Array("1", "2", "3", "4", "5");
-        for(i=0; i<myArray.length; i++) {  
-            document.write('<option value="' + myArray[i] +'">' + myArray[i] + '</option>');
-        }
-        var e = document.getElementById("Property_county");
+            var myArray = new Array('Baringo County','Bomet County','Bungoma County','Busia County','Elgeyo Marakwet County','Embu County','Garisa County','Homa Bay County','Isiolo County','Kajiando  County','Kakamega County','Kericho County','Kiambu County','Kirifi County','Kirinyaga County','Kiii County','Kiumu County','Kitui County','Kwale County','Laikipia County','Lamu County','Machako County','Makueni County','Mandera County','Marsabit County','Meru County','Migori County','Mombasa County','Muranga County','Nairobi County','Nakuru County','Nandi County','Narok County','Nyamira County','Nyandarua County','Nyeri County','Samburu County','Siaya County','Taita Taveta County','Tana River County','Tharaka Nithi County','Trans Zoia County','Turkana County','Uasin Gishu County','Vihiga County','Wajir County','West pokot County'
+);
+            for(i=0; i<myArray.length; i++) {  
+              document.write('<option value="' + myArray[i] +'">' + myArray[i] + '</option>');
+            }
+            var e = document.getElementById("Property_county");
 
-        var e2 = document.getElementById("Property_sub_county");
-var strUser = e.options[e.selectedIndex].value;
-if (strUser.localeCompare("1")==0) {
-  alert("one");
-};
-    </script>
+            var e2 = document.getElementById("Property_sub_county");
+            var strUser = e.options[e.selectedIndex].value;
+            if (strUser.localeCompare("1")==0) {
+              alert("one");
+            };
+          </script>
         </select>
         <label>County</label> 
 
@@ -102,9 +103,7 @@ if (strUser.localeCompare("1")==0) {
           <option value="">sub county</option>
         </select>
         <label>Sub County</label> 
-
       </div>
-
       <div class="input-field col l6 s6">
         <input id="price_from" type="text" class="validate" autocomplete="off">
         <label for="price_from">Price From</label> 
@@ -113,13 +112,20 @@ if (strUser.localeCompare("1")==0) {
        <input id="price_to" type="text" class="validate" autocomplete="off">
        <label for="price_to">Price To </label> 
      </div>
-
-   </div> 
-   <div class=" center verification-space">
-    <button type="submit" onclick="saveAlert()" class="btn reset-btn-space waves-effect wave-dark teal lighten-2 center-align ">
-      Save alert</button>
+     <div class="input-field col l6 s6">
+      <input id="bedroom" type="text" class="validate" autocomplete="off">
+      <label for="bedroom">Bedroom</label> 
     </div>
+    <div class="input-field col l6 s6">
+     <input id="bathroom" type="text" class="validate" autocomplete="off">
+     <label for="bathroom">Bathroom</label> 
+   </div>
+ </div> 
+ <div class=" center verification-space">
+  <button type="submit" onclick="saveAlert()" class="btn reset-btn-space waves-effect wave-dark teal lighten-2 right ">
+    Save alert</button>
   </div>
+</div>
 </div>
 </div>
 <!--  end of body division-->

@@ -1,5 +1,5 @@
 
-var myurl = "model/main.php?";
+var myurl = "../model/main.php?";
 function sendRequest(u) {
     // Send request to server
     var obj = $.ajax({url: u, async: false});
@@ -9,7 +9,7 @@ function sendRequest(u) {
   }
 
   function hide(){
-    $(".post_area").show();
+   
     for (var i = 0; i < arguments.length; i++) {
 
       var input = arguments[i];
@@ -17,73 +17,70 @@ function sendRequest(u) {
       }
 
     }
-    function toggleDiv(newid){
-      // $(".commentDiv").hide();
-      
-      var isHidden = $( ".commentDiv" ).is( ":hidden" );
-      var isVisible = $( ".commentDiv" ).is( ":visible" );
+     function show(){
+   
+    for (var i = 0; i < arguments.length; i++) {
 
-      if (isVisible) {
-      };
-      if (isHidden) {
-        var id= newid.getAttribute('id');
-        getPostComments(id);
-      };
-      $(".commentDiv").slideToggle('slow');
-
+      var input = arguments[i];
+         $('#'+input).removeClass('hide');
+        $('#'+input).show();
+      }
 
     }
-    function hide(input){
-    // for (var i = 0; i < arguments.length; i++) {
-
-    //     var input = arguments[i];
-        $('#'+input).addClass('hide'); //jquery way
-    // }
-
-  }
-  function showDiv(input){
-    // alert("clicked")
-    $('#'+input).removeClass('hide');
-        $('#'+input).show(); //jquery way
-
-      }
-      function showAndHide(input){
-    // alert("clicked")
-    $('#'+input).removeClass('hide');
-        $('#'+input).show(); //jquery way
-
-      }
+ 
+ 
 
       function checkIfChecked(){
        var selectedOption=document.getElementById("send-option");
 
-         var genders = document.getElementsByName("reset");
-                if (genders[0].checked == true) {
-                    selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_email" type="text" class="validate" autocomplete="off"> <label for="reset_email">Email</label> </div><div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset my password</button></div>';
-                } else if (genders[1].checked == true) {
-                    selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_phone" type="text" class="validate" autocomplete="off"> <label for="reset_phone">Phone</label> </div> <div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset my password</button></div>';
-                }
+       var genders = document.getElementsByName("reset");
+       if (genders[0].checked == true) {
+        selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_email" type="text" class="validate" autocomplete="off"> <label for="reset_email">Email</label> </div><div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset my password</button></div>';
+      } else if (genders[1].checked == true) {
+        selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_phone" type="text" class="validate" autocomplete="off"> <label for="reset_phone">Phone</label> </div> <div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset my password</button></div>';
       }
+    }
+    function checkCheckedOption(){
+     var selectedOption=document.getElementById("send-option");
 
+     var genders = document.getElementsByName("reset");
+     if (genders[0].checked == true) {
+      selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_email" type="text" class="validate" autocomplete="off"> <label for="reset_email">Email</label> </div><div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Unsubscribe</button></div>';
+    } else if (genders[1].checked == true) {
+      selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_phone" type="text" class="validate" autocomplete="off"> <label for="reset_phone">Phone</label> </div> <div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Unsubscribe</button></div>';
+    }
+  }
+  function buyerMessageOption(){
+       var selectedOption=document.getElementById("send-buyer-option");
 
-      function Login(){
-        /*username*/
-        var user_name = $("#username").val();
-        /*password*/
-        var pass_word = $("#password").val();
-
-        /* empty username */
-        if(user_name.length == 0){
-          document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty username<i class="material-icons">close</i></div>';
-          return
+       var buyer_option = document.getElementsByName("buyer");
+       if (buyer_option[0].checked == true) {
+        hide("send-buyer-message");
+        show("send-buyer-email");
+      } else if (buyer_option[1].checked == true) {
+        hide("send-buyer-email");
+        show("send-buyer-message");
         }
-        if(pass_word.length == 0){
-          document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty password<i class="material-icons">close</i></div>';
-          return;
-        }
-        
-        var strUrl = myurl+"cmd=1&username="+user_name+"&password="+pass_word;
-        // prompt("url",strUrl);
+    }
+
+  function Login(){
+    /*username*/
+    var user_name = $("#login_username").val();
+    /*password*/
+    var pass_word = $("#login_password").val();
+
+    /* empty username */
+    if(user_name.length == 0){
+      document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty username<i class="material-icons">close</i></div>';
+      return
+    }
+    if(pass_word.length == 0){
+      document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty password<i class="material-icons">close</i></div>';
+      return;
+    }
+
+    var strUrl = myurl+"cmd=1&username="+user_name+"&password="+pass_word;
+        prompt("url",strUrl);
         var objResult = sendRequest(strUrl);
         var errorArea = document.getElementById("login_error_area");
         document.getElementById("login_error_area").innerHTML = '<div class="progress"><div class="indeterminate"></div></div>';
@@ -91,17 +88,14 @@ function sendRequest(u) {
           document.getElementById("login_error_area").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
           return;
         }
-        var my_user_type=objResult.user[1].user_type;
+        var my_user_type=objResult.user[0].xx_user_type;
         // alert(my_user_type);
 
         if (my_user_type.localeCompare("admin")==0) {
           window.location.href ="admin.php"
         }
-        else if (my_user_type.localeCompare("leader")==0) {
-          window.location.href = "model/device.php";
-        }
         else if (my_user_type.localeCompare("regular")==0) {
-          window.location.href ="home.php"
+          window.location.href = "../my property/index.php";
         }
         
       }
@@ -117,58 +111,89 @@ function sendRequest(u) {
           return;
         }
         document.getElementById("username").innerHTML=objResult.message;
-
       }
 
-      function addUser(){
+  function addUser(){
 
         /*password*/
-        var password = $("#user_pass").val();
+        var password = $("#password").val();
+        /*password2*/
+        var password2 = $("#confirm_password").val();
         /*username*/
-        var user_name = $("#user_name").val();
-
+        var user_name = $("#username").val();
         /*email*/
-        var yeargroup = $("#year_group").val();
+        var email = $("#email").val();
         /*phone*/
-        var phone = $("#user_phone").val();
+        var phone = $("#phone").val();
 
         /* empty username */
         if(user_name.length == 0){
-          document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty Username field<i class="material-icons">close</i></i></div>';
+          document.getElementById("serror_area").innerHTML = '<div class="chip red white-text">Empty Username field<i class="material-icons">close</i></i></div>';
           return
         }
         /* empty password */
         if(password.length == 0){
-          document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty password field<i class="material-icons">close</i></div>';
+          document.getElementById("serror_area").innerHTML = '<div class="chip red white-text">Empty password field<i class="material-icons">close</i></div>';
           return;
         }
-        /* empty year group */
-        if(yeargroup.length == 0){
-          document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty year group Field<i class="material-icons">close</i></div>';
+        /* empty confirm password */
+        if(password2.length == 0){
+          document.getElementById("serror_area").innerHTML = '<div class="chip red white-text">Empty confirm password field<i class="material-icons">close</i></div>';
+          return;
+        }
+        /* different password */
+        if(password!=password2){
+          document.getElementById("serror_area").innerHTML = '<div class="chip red white-text">The entered passwords do not match<i class="material-icons">close</i></div>';
           return;
         }
         /* empty phone */
         if(phone.length == 0){
-          document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty Phone Field<i class="material-icons">close</i></div>';
+          document.getElementById("serror_area").innerHTML = '<div class="chip red white-text">Empty Phone Field<i class="material-icons">close</i></div>';
           return;
         }
-        var strUrl = myurl+"cmd=2&username="+user_name+"&password="+password+"&year="+yeargroup+"&phone="+phone;
-   // prompt("url",strUrl);
-   var objResult = sendRequest(strUrl);
-   var errorArea = document.getElementById("error_area");
-   document.getElementById("error_area").innerHTML = '<div class="progress"><div class="indeterminate"></div></div>';
-   if(objResult.result == 0) {
-    document.getElementById("error_area").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
-    return;
+        var strUrl = myurl+"cmd=2&username="+user_name+"&password="+password+"&email="+email+"&phone="+phone;
+         
+         var objResult = sendRequest(strUrl);
+         var errorArea = document.getElementById("serror_area");
+         document.getElementById("serror_area").innerHTML = '<div class="progress"><div class="indeterminate"></div></div>';
+         if(objResult.result == 0) {
+          document.getElementById("serror_area").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
+          return;
+        }
+        $("#username").val('');
+        $("#password").val('');
+        $("#confirm_password").val('');
+        $("#email").val('');
+        $("#phone").val('');
+        document.getElementById("serror_area").innerHTML = '<div class="chip green white-text">'+objResult.message+'<i class="fa fa-remove"></i></div>';   
   }
-  $("#user_name").val('');
-  $("#user_pass").val('');
-  $("#user_phone").val('');
-  $("#year_group").val('');
-  document.getElementById("error_area").innerHTML = '<div class="chip green white-text">'+objResult.message+'<i class="fa fa-remove"></i></div>';
 
-    // window.location.href = "index.html";
-  }
+  function sendVerificationCode(){
+    /*email*/
+    var user_email = $("#reset_email").val();
+    /*phone*/
+    //var user_phone= $("#reset_phone").val();
+
+    /* email */
+    if(user_email.length == 0){
+      document.getElementById("error_div").innerHTML = '<div class="chip red white-text">Empty username<i class="material-icons">close</i></div>';
+      return
+    }
+    // if(pass_word.length == 0){
+    //   document.getElementById("error_area").innerHTML = '<div class="chip red white-text">Empty password<i class="material-icons">close</i></div>';
+    //   return;
+    // }
+
+    var strUrl = myurl+"cmd=4&email="+user_email;
+        prompt("url",strUrl);
+        var objResult = sendRequest(strUrl);
+        if(objResult.result == 0) {
+          document.getElementById("error_div").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
+          return;
+        }
+       alert(objResult.message); 
+       $("#reset_email").val("");
+      }
 
 /**
 Adding a new post

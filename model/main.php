@@ -20,45 +20,48 @@ switch ($cmd) {
   logout();
   break;
   case 4:
-  addpost();
+  sendEmail();
   break;
   case 5:
-  getAllPosts();
+  addProperty();
   break;
   case 6:
-  editPost();
+  getAllProperty();
   break;
   case 7:
-  deletePost();
+  editProperty();
   break;
   case 8:
-  getMyPosts();
+  deleteProperty();
   break;
   case 9:
-  addComment();
+  getMyProperty();
   break;
   case 10:
-  getAllComments();
+  addComment();
   break;
   case 11:
-  addLikes();
+  getAllComments();
   break;
   case 12:
-  getUpcomingPosts();
+  addLikes();
   break;
   case 13:
-  getEditPost();
+  getUpcomingPosts();
   break;
   case 14:
-  getAppUsers();
+  getEditProperty();
   break;
   case 15:
-  editUserType();
+  getAppUsers();
   break;
   case 16:
-  sendMessage();
+  editUserType();
   break;
   case 17:
+  sendMessage();
+  break;
+  case 18:
   upload_file();
   break;
   default:
@@ -69,9 +72,9 @@ switch ($cmd) {
 
 
 function login(){
-	include "user.php";
+	include "../classes/user.php";
 
-  $myuser = new user();
+  $myuser = new users();
 
   $username = $_GET['username'];
   $password = $_GET['password'];
@@ -83,7 +86,6 @@ function login(){
     session_start();
 
     $_SESSION['username'] = $username;
-    $_SESSION['password'] = $password;
     echo '{"result": 1, "user": [';
     while($row){
       echo json_encode($row);
@@ -102,16 +104,17 @@ function login(){
 
 
 function userSignUp(){
-  include "user.php";
+  include "../classes/user.php";
 
-  $myuser = new user();
+  $myuser = new users();
   $username = $_GET['username'];
   $password = $_GET['password'];
   $phone = $_GET['phone'];
-  $yeargroup = $_GET['year'];
+  $user_email = $_GET['email'];
   $usertype="regular";
+  $user_status="enable";
 
-  if(!$myuser->signUp($username,$password,$yeargroup,$phone,$usertype)){
+  if(!$myuser->signUp($username,$password,$user_email,$phone,$usertype,$user_status)){
     echo '{"result": 0, "message": "User not created"}';
     return;
   }
@@ -130,11 +133,58 @@ function logout(){
   echo '{"result": 1, "message": "The user Loged out successfully"}';
   return;
 }
+
+
+  function sendEmail(){
+  include "../classes/user.php";
+
+  $myuser = new users();
+  $email=$_GET['email'];
+  // Sanitize E-mail Address
+// $email =filter_var($email, FILTER_SANITIZE_EMAIL);
+// // Validate E-mail Address
+// $email= filter_var($email, FILTER_VALIDATE_EMAIL);
+// if (!$email){
+// echo "Invalid Sender's Email";
+// }
+$to = $email;
+$subject = "Verification code";
+$txt = "The code to change your password is 2000.";
+$headers = "From: wbenmurimi@gmail.com";
+
+//mail($to,$subject,$txt,$headers);
+
+  $admin_email = "wbenmurimi@gmail.com";
+  $email = $_REQUEST['email'];
+ // $subject = $_REQUEST['subject'];
+  //$comment = $_REQUEST['comment'];
+  
+mail($admin_email, $subject, $txt, $headers);
+  // $myuser->Login($username, $password);
+  // $row=$myuser->fetch();
+
+  // if($row){
+  //   $_SESSION['username'] = $username;
+  //   echo '{"result": 1, "user": [';
+  //   while($row){
+  //     echo json_encode($row);
+  //     $row = $myuser->fetch();
+  //     if($row){
+  //       echo ',';
+  //     }
+  //   }
+  //   echo "]}";
+  //   return; 
+  // }
+  // echo '{"result": 0, "message": "Wrong details! Please try again"}';
+  // return;
+
+}
 /**
 *Method to add a post to the database
 */
-function addpost(){
-  include "post.php";
+function addProperty(){
+  include "../classes/post.php";
 
   $post = new Post();
 
@@ -174,8 +224,8 @@ function addpost(){
 /**
 *Function to return all the posts in the database
 */
-function getAllPosts(){
-  include "post.php";
+function getAllProperty(){
+  include "../classes/post.php";
 
   $post = new Post();
   $row = $post->viewPosts();
@@ -223,8 +273,8 @@ function getUpcomingPosts(){
 /**
 *Method to edit a post to the database
 */
-function editPost(){
- include "post.php";
+function editProperty(){
+ include "../classes/post.php";
 
  $post = new Post();
 
@@ -243,8 +293,8 @@ echo '{"result": 1, "message": "Post was edited successfully"}';
 return;
 }
 
-function getEditPost(){
-  include "post.php";
+function getEditProperty(){
+  include "../classes/post.php";
 
   $post = new Post();
   $postId = $_GET['id'];
@@ -269,8 +319,8 @@ function getEditPost(){
 /**
 *Method to delete a post from the database
 */
-function deletePost(){
-  include "post.php";
+function deleteProperty(){
+  include "../classes/post.php";
 
   $post = new Post();
   $postId = $_GET['id'];
@@ -286,8 +336,8 @@ function deletePost(){
 /**
 *Method to fetch posts that have been made by a user
 */
-function getMyPosts(){
-  include "post.php";
+function getMyProperty(){
+  include "../classes/post.php";
 
   $post = new Post();
     // $userId=$_GET['username'];
@@ -310,7 +360,7 @@ function getMyPosts(){
   return;
 }
 function getAppUsers(){
-  include "user.php";
+  include "../classes/user.php";
 
   $user = new user();
 
