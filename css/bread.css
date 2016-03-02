@@ -10,7 +10,7 @@
 	display: inline-block;
 	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.35);
 	overflow: hidden;
-	border-radius: 5px;
+	border-radius: 2px;
 	/*Lets add the numbers for each link using CSS counters. flag is the name of the counter. to be defined using counter-reset in the parent element of the links*/
 	counter-reset: flag; 
 }
@@ -96,7 +96,7 @@
 	position: absolute;
 	top: 0;
 	left: 30px;
-	background: #444;
+	background: #dfe3ee;
 	background: linear-gradient(#444, #222);
 	font-weight: bold;
 }
@@ -113,5 +113,9 @@
 }
 .flat a:hover, .flat a.active, 
 .flat a:hover:after, .flat a.active:after{
-	background: blue;
+	background: #3b5998;
+}
+.mybreadcrumb{
+	background-color: #dfe3ee;
+
 }

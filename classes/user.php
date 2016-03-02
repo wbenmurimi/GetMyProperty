@@ -50,51 +50,101 @@ class users extends base{
      */
     function editUserType($user_status,$type,$id)
     {
-     $str_query = "UPDATE xx_system_users SET xx_user_type='$type', xx_user_status='$user_status'
-     WHERE xx_user_id='$id'";
-     return $this->query($str_query);
- }
+       $str_query = "UPDATE xx_system_users SET xx_user_type='$type', xx_user_status='$user_status'
+       WHERE xx_user_id='$id'";
+       return $this->query($str_query);
+   }
 
     /**
-     * @method boolean getOneUser() fetches a user in the database with a given email or phone
+     * @method boolean getOneUserPhone($phone) fetches a user in the database with a given phone
         * @return bool
      */
-    function getOneUser($phone_or_email)
+    function getOneUserPhone($phone)
     {
-        $str_query = "SELECT * FROM xx_system_users where xx_user_phone='$phone_or_email' or xx_user_email='$phone_or_email'";
+        $str_query = "SELECT * FROM xx_system_users where xx_user_phone='$phone'";
         return $this->query($str_query);
     }
 
-     /**
-     * @method boolean sendPasswordResetCode($phone_or_email) changes the details of the user in the database
-     * @param $phone_or_email the user email or phone in the database
+    /**
+     * @method boolean getOneUser($email) fetches a user in the database with a given email
+        * @return bool
      */
-     function sendPasswordResetCode($phone_or_email)
-     {
-       getOneUser($phone_or_email);
-       $row=fetch();
+    function getOneUserEmail($email)
+    {
+        $str_query = "SELECT * FROM xx_system_users where xx_user_email='$email'";
+        return $this->query($str_query);
+    } 
 
-       if($row){
+     /**
+     * @method boolean sendPasswordResetCodePhone($phone) changes the details of the user in the database with a given phone
+     * @param $phone the user phone in the database
+     */
+     function sendPasswordResetCodePhone($phone)
+     {
+        $myuser = new users();
+        $myuser->getOneUserPhone($phone);
+        $row=$myuser->fetch();    
+
+        if($row){
+            $random_code= rand(1000,9999);
+        //send the code here
+
+            include "../model/smsGateway.php";
+            $smsGateway = new SmsGateway('wbenmurimi@gmail.com', 'murimi2015');
+
+            $deviceID = 14246;
+            $number = '+'.$phone;
+            $message = 'Your password reset code is; '.$random_code;
+
+            $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID);
+
+            $str_query = "UPDATE xx_system_users SET xx_password_reset_code='$random_code'
+            where xx_user_phone='$phone'";
+            return $this->query($str_query);
+        }
+    }
+    /**
+     * @method boolean sendPasswordResetCodeEmail($email) changes the details of the user in the database with a given email
+     * @param $email the user email in the database
+     */
+    function sendPasswordResetCodePhoneEmail($email)
+    {
+     $myuser = new users();
+     $myuser->getOneUserEmail($email);
+     $row=$myuser-> fetch();
+
+     if($row){
         $random_code= rand(1000,9999);
         //send the code here
         $str_query = "UPDATE xx_system_users SET xx_password_reset_code='$random_code'
-        where xx_user_phone='$phone_or_email' or xx_user_email='$phone_or_email'";
+        where xx_user_email='$email'";
         return $this->query($str_query);
     }
-}
+    }
+
+    /**
+     * @method boolean deleteResetCode($code) deetes generated code in the database
+        * @return bool
+     */
+    function deleteResetCode($code)
+    {
+        $str_query = "UPDATE xx_system_users SET xx_password_reset_code=''
+        where xx_password_reset_code='$code'";
+        return $this->query($str_query);
+    }
      /**
      * @method boolean changeUserPassword($password,$code) changes the password of the user
-     * @param $id the user id in the database
      * @param $password the new password for the user
      * @param $code the new password for the user
      * @return bool
      */
      function changeUserPassword($password, $code)
      {
-         $str_query = "UPDATE xx_system_users SET xx_user_password='$password'
-         WHERE xx_password_reset_code='$code'";
-         return $this->query($str_query);
-     }
-     
- }
- ?>
+       $str_query = "UPDATE xx_system_users SET xx_user_password=md5('$password')
+       WHERE xx_password_reset_code='$code'";
+         
+       return $this->query($str_query);
+    }
+
+}
+?>

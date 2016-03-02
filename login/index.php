@@ -15,18 +15,19 @@
   <!--start of navbar-->
   <div>
    <?php include "../header/header.html";?>
-   </div>
-   <div class="blue lighten-1 col s12 l12">
-    <div class="breadcrumb flat ">
-      <a href="../index.php" class="">Home</a>
-      <a href="index.php" class="active">Login</a>
-    </div>
+ </div>
+ <div class="mybreadcrumb col s12 l12">
+  <div class="breadcrumb flat ">
+    <a href="../index.php" class="">Home</a>
+    <a href="index.php" class="active">Login</a>
   </div>
-  <!-- end of navbar-->
-  <!--Start of body area-->
+</div>
+<!-- end of navbar-->
+<!--Start of body area-->
 
-  <div class="template-container">
-    <div class="row">
+<div class="template-container">
+  <div class="row">
+    <div class="login_div" id="login_div">
       <div class="col l6">
         <div class="row">
           <div class="card white">
@@ -37,7 +38,7 @@
             <hr>
             <div class="card-content black-text">
               <span class=" bold card-title black-text "><p class="login_area_text">Why Use Our Site</p></span>
-              <ol>
+              <ol class="leftSpace">
                <li>Manage all your real estate property on one site</li>
                <li>View comprehensive photo galleries – full-screen, high resolution photographs</li>
                <li>Search for houses and land for sale and rent in any region in Kenya</li>
@@ -50,10 +51,8 @@
       <div class="row">
         <div class="col l12">
           <div class="card white">
-
-            <hr>
-            <ul class="tabs">
-              <li class="tab col s3"><a class="active"  href="#login">Login</a></li>
+            <ul class="tabs color">
+              <li class="tab col s3"><a class="active text-color"  href="#login">Login</a></li>
               <li class="tab col s3"><a href="#signup">Sign up</a></li>
             </ul>
 
@@ -72,7 +71,8 @@
                 <label for="login_password">Password</label>
               </div>
               <div class="left">
-                <a href="reset-password.php"><span class="forget-pass" >Forgot password</span></a>
+                <a href="#" onclick="hide('login_div','verification_code_div'); show('reset_pass_div')">
+                <span class="forget-pass" >Forgot password</span></a>
               </div>
               <div class="loginfooter right">
                 <button onclick="Login()" type="submit" class=" btn btn-spacer waves-effect wave-dark loginbtn btnColor center-align">Log In</button>
@@ -119,17 +119,90 @@
                 <label for="confirm_password">Confirm Password</label>
               </div>
               <div class="loginfooter right">
-                <button onclick="addUser()" type="submit" class="btn btn-spacer waves-effect wave-dark blue darken-1 center-align">Sign Up</button>
+                <button onclick="addUser()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Sign Up</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  
+    
+  </div>  
+  <div class="reset_pass_div" id="reset_pass_div">
+    <div class="card">
+     
+        <h4 class="center">Reset user password</h4>
+        <div class="error_div_reset center" id="error_div_reset">
 
-    <!--end of body area-->
-  </div>
+        </div>
+        <div class="row">
+        <div class="col l8 s8">
+        <ol>
+          <li>Select if you want to get the reset code on email or phone</li>
+          <li>Enter the registered email or registered phone number in the textbox </li>
+          <li>Check for the verification code in your email inbox or messages</li>
+          <li>Click on the<a href="verification-code.php"><span> Enter verification code</span></a> link to proceed to change your password</li>
+        </ol>
+     
+      <div class="input-field col s6 l6">
+        <i class="fa fa-envelope prefix"></i>
+        <input onclick="checkIfChecked()" name="reset" id="email_radio" type="radio" class="validate with-gap" autocomplete="off">
+        <label for="email_radio">Email</label>
+      </div>
+      <div class="input-field col l6 s6">
+        <i class="fa fa-phone prefix"></i>
+        <input onclick="checkIfChecked()" name="reset" id="phone_radio" type="radio" class="validate with-gap" autocomplete="off">
+        <label for="phone_radio">phone</label>
+      </div>
+      <div id="send-option" class="input-field col l12 s12">
+
+      </div>
+      </div>
+      <div class="col l4 s4">
+      <div class="verification-space">
+          <button type="submit" onclick="hide('login_div','reset_pass_div'); show('verification_code_div')" class="btn reset-btn-space waves-effect wave-dark btnColor center-align ">
+            Enter verification code</button>
+         
+        </div>
+      </div>
+      </div>
+    </div> 
+    </div>
+    <div class="verification_code_div" id="verification_code_div">
+      <div class="card">
+        <div>
+         <h4 class="center">Enter new user password</h4>
+         <div class="error_div_new center" id="error_div_new">
+
+        </div>
+       </div>
+       <div>
+        <div class="input-field col l6 s12">
+          <i class="fa fa-cube prefix"></i>
+          <input id="verification_code" type="text" class="validate" autocomplete="off">
+          <label for="verification_code">Verification code</label> 
+        </div>
+        <div class="input-field col l6 s12">
+         <i class="fa fa-key prefix"></i>
+         <input id="new_password" type="password" class="validate" autocomplete="off">
+         <label for="new_password">New Password</label> 
+       </div>
+       <div class="input-field col l6 s12">
+         <i class="fa fa-key prefix"></i>
+         <input id="confirm_new_password" type="password" class="validate" autocomplete="off">
+         <label for="confirm_new_password">Confirm password</label> 
+       </div>
+       <div class="col l6 m6 s12"> 
+         <button onclick="resetUserPassword()" type="submit" class="btn save-new-btn-space waves-effect wave-dark btnColor center-align ">
+           Save new password</button>
+         </div>
+       </div>
+     </div>
+   </div> 
+ </div>
 </div>
+<!--end of body area-->
 <!--  footer section-->  
 <div>      
   <?php include "../footer/footer.html";?>
@@ -144,6 +217,7 @@
  $(document).ready(function() {
    $(".button-collapse").sideNav();
    $('select').material_select();
+   hide("reset_pass_div","verification_code_div");
  });
 </script>
 </body>

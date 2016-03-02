@@ -1,3 +1,4 @@
+<?php include "../model/check.php";?>
 <!DOCTYPE html>
 
 <html>
@@ -14,78 +15,94 @@
 </head>
 <body onload="">
  <!--start of navbar-->
- <?php include "../header/header.html";?>
+ <?php include "../header/header-login.html";?>
  <!-- end of navbar-->
- <div class="blue lighten-1 col s12 l12">
-    <div class="breadcrumb flat ">
-      <a href="../index.php" class="">Home</a>
-      <a href="index.php">Add property</a>
-      <a href="property-plan.php" >Property plan</a>
-      <a href="free-plan.php" class="active">Free plan</a>
-    </div>
+ <div class="mybreadcrumb col s12 l12">
+  <div class="breadcrumb flat ">
+    <a href="../index.php" class="">Home</a>
+    <a href="index.php">Add property</a>
+    <a href="property-plan.php" >Property plan</a>
+    <a href="free-plan.php" class="active">Free plan</a>
   </div>
- <!--  start of body division-->
- <div class="template-container">
+</div>
+<!--  start of body division-->
+<div class="template-container">
   <div class="row">
     <div class="card">
       <h4 class="center">Free plan</h4>
       <div class="col l6 s6 card">
-        <form action="#">
+        <form action="../model/fileUpload.php" menctype="multipart/form-data">
           <div class="file-field input-field">
             <div class="btn">
               <span>File</span>
-              <input type="file">
+              <input type="file" id="fileToUpload" name="fileToUpload">
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
+              <input class="file-path validate" type="text" >
             </div>
           </div>
-        </form>
-      </div>
-      <div class="col l6 s6 card">
-        <form action="#">
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>File</span>
-              <input type="file">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
+          <div class="right">
+           <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+         </div>
+       </form>
+     </div>
+     <div class="col l6 s6 card">
+      <form action="../model/fileUpload.php">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>File</span>
+            <input type="file">
           </div>
-        </form>
-      </div>
-      <div class="col l6 s6 card">
-        <form action="#">
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>File</span>
-              <input type="file">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" >
           </div>
-        </form>
+        </div>
+        <div class="right">
+         <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+       </div>
+     </form>
+   </div>
+   <div class="col l6 s6 card">
+    <form action="../model/fileUpload.php">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>File</span>
+          <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
       </div>
-      <div class="col l6 s6 card">
-        <form action="#">
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>File</span>
-              <input type="file">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="loginfooter right">
- <a href="review-post.php"> <button  type="submit" class="btn btn-spacer waves-effect wave-dark blue darken-1 center-align">next</button>
+      <div class="right">
+       <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+     </div>
+   </form>
  </div>
+ <div class="col l6 s6 card">
+ <form action="../model/fileUpload.php">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>File</span>
+        <input type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+      </div>
     </div>
-  </div>
+    <div class="right">
+     <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+   </div>
+ </form>
+</div>
+<div class="left">
+ <a href="property-plan.php"> <button  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Back</button></a>
+</div>
+<div class="loginfooter right">
+ <a href="review-post.php"> <button  type="submit" class="btn btn-spacer waves-effect wave-dark blue darken-1 center-align">Next</button>
+ </a>
+</div>
+</div>
+</div>
 </div>
 <!--  end of body division-->
 <!--  footer section-->        

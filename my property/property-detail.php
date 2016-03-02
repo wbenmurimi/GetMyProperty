@@ -16,12 +16,12 @@
 </head>
 <body onload="">
  <!--start of navbar-->
- <?php include "../header/header.html";?>
+ <?php include "../header/header-login.html";?>
  <div class="mybreadcrumb col s12 l12">
   <div class="breadcrumb flat ">
     <a href="../index.php" class="">Home</a>
-    <a href="search-result.php" class="">Search</a>
-    <a href="index.php" class="active">property details</a>
+    <a href="index.php" class="">search</a>
+    <a href="property-detail.php" class="active">Property details</a>
   </div>
 </div>
  <!-- end of navbar-->
@@ -84,14 +84,14 @@
             </div>
           </div>
           <div class="detail_div">
-            <table class="category-table">
+            <table class="category-table striped">
               <thead>
                 <tr>
                   <th data-field="category" class="center bold">All Information</th>
                 </tr>
               </thead>
 
-              <tbody class="all-info-table">
+              <tbody class="all-info-table ">
                 <tr onclick="">
                   <td >Decription <span class="right">500</span></td>
                 </tr>
@@ -155,7 +155,7 @@
     </div>
     <div class="col l4 12 card">
       <div class="single_property_bold_heading_msg center">
-       <span class="" >Contact Seller</span>
+       <span class="" >Contact Ben</span>
      </div>
      <ul class="collapsible" data-collapsible="accordion">
       <li>
@@ -169,11 +169,11 @@
     </ul>
     <div class="input-field col s12 l12">
       <input onclick="buyerMessageOption()" name="buyer" id="buyer_email_radio" type="radio" class="validate with-gap" autocomplete="off">
-      <label for="buyer_email_radio">Send Email to Seller</label>
+      <label for="buyer_email_radio">Send Email to Ben</label>
     </div>
     <div class="input-field col l12 s12 mesage-div">
       <input onclick="buyerMessageOption()" name="buyer" id="buyer_phone_radio" type="radio" class="validate with-gap" autocomplete="off">
-      <label for="buyer_phone_radio">Send Mesage to Seller</label>
+      <label for="buyer_phone_radio">Send Mesage to Ben</label>
     </div>
     <div id="send-buyer-message" class="input-field col l12 s12">
       <div class="col l12 s12">

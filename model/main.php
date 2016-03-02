@@ -20,18 +20,27 @@ switch ($cmd) {
   logout();
   break;
   case 4:
-  sendEmail();
+  sendVerificationCode();
   break;
   case 5:
-  addProperty();
+  resetPassword();
   break;
   case 6:
-  getAllProperty();
+  subscribeAlert();
   break;
-  case 7:
-  editProperty();
+   case 7:
+  searchAlerts();
   break;
   case 8:
+  addProperty();
+  break;
+  case 9:
+  getAllProperty();
+  break;
+  case 9:
+  editProperty();
+  break;
+  case 9:
   deleteProperty();
   break;
   case 9:
@@ -63,6 +72,12 @@ switch ($cmd) {
   break;
   case 18:
   upload_file();
+  break;
+  case 20:
+  saveSession();
+  break;
+  case 21:
+  destroySession();
   break;
   default:
   echo '{"result": 0, "message": "Unknown command"}';
@@ -102,7 +117,6 @@ function login(){
 
 }
 
-
 function userSignUp(){
   include "../classes/user.php";
 
@@ -135,11 +149,33 @@ function logout(){
 }
 
 
-  function sendEmail(){
+function sendVerificationCode(){
   include "../classes/user.php";
 
   $myuser = new users();
-  $email=$_GET['email'];
+  $phone;
+  $email;
+  if(isset($_GET['email'])){
+    $email=$_GET['email'];
+    if(!$myuser->sendPasswordResetCodePhoneEmail($email)){
+      echo '{"result": 0, "message": "Email was not sent successfully"}';
+      return;
+    }
+    echo '{"result": 1, "message": "Email was sent successfully"}';
+
+    return;
+  }
+  if(isset($_GET['phone'])){
+    $phone=$_GET['phone'];
+    if(!$myuser->sendPasswordResetCodePhone($phone)){
+      echo '{"result": 0, "message": "Message was not sent successfully"}';
+      return;
+    }
+    echo '{"result": 1, "message": "Message was sent successfully"}';
+
+    return;
+  }
+}
   // Sanitize E-mail Address
 // $email =filter_var($email, FILTER_SANITIZE_EMAIL);
 // // Validate E-mail Address
@@ -147,38 +183,142 @@ function logout(){
 // if (!$email){
 // echo "Invalid Sender's Email";
 // }
-$to = $email;
-$subject = "Verification code";
-$txt = "The code to change your password is 2000.";
-$headers = "From: wbenmurimi@gmail.com";
+        // $to = $email;
+        // $subject = "Verification code";
+        // $txt = "The code to change your password is 2000.";
+        // $headers = "From: wbenmurimi@gmail.com";
 
 //mail($to,$subject,$txt,$headers);
 
-  $admin_email = "wbenmurimi@gmail.com";
-  $email = $_REQUEST['email'];
+            // $admin_email = "wbenmurimi@gmail.com";
+            // $email = $_REQUEST['email'];
  // $subject = $_REQUEST['subject'];
   //$comment = $_REQUEST['comment'];
-  
-mail($admin_email, $subject, $txt, $headers);
-  // $myuser->Login($username, $password);
-  // $row=$myuser->fetch();
 
-  // if($row){
-  //   $_SESSION['username'] = $username;
-  //   echo '{"result": 1, "user": [';
-  //   while($row){
-  //     echo json_encode($row);
-  //     $row = $myuser->fetch();
-  //     if($row){
-  //       echo ',';
-  //     }
-  //   }
-  //   echo "]}";
-  //   return; 
-  // }
-  // echo '{"result": 0, "message": "Wrong details! Please try again"}';
-  // return;
+            // mail($admin_email, $subject, $txt, $headers);
 
+
+function resetPassword(){
+  include "../classes/user.php";
+
+  $myuser = new users();
+  $password = $_GET['password'];
+  $code = $_GET['code'];
+
+  if(!$myuser->changeUserPassword($password, $code)){
+    echo '{"result": 0, "message": "User password was not changed"}';
+    return;
+  }
+  if(!$myuser->deleteResetCode($code)){
+   echo '{"result": 0, "message": "Code not deleted"}';
+ }
+ echo '{"result": 1, "message": "password change was successful"}';
+
+ return;
+
+}
+
+
+function subscribeAlert(){
+  include "../classes/alerts.php";
+
+  $myAlert = new Alerts();
+
+  $county = $_GET['county'];
+  $sub_county = $_GET['sub_county'];
+  $buyrent = $_GET['buy_rent'];
+  $property_category = $_GET['Property_category'];
+  $price_from = $_GET['p_from'];
+  $price_to = $_GET['p_to'];
+  $bedroom ;
+  $bathroom ;
+  $property_type ;
+  $acre ;
+  $status="enable";
+  if (isset($_GET['acres'])) {
+    $acre = $_GET['acres'];
+    $bedroom="";
+    $bathroom="" ;
+    $property_type = "";
+  }
+  else{
+    $acre="";
+    $bedroom = $_GET['p_bed'];
+    $bathroom = $_GET['p_bath'];
+    $property_type = $_GET['property_type'];
+
+  }
+  if (isset($_GET['email'])) {
+   $email = $_GET['email'];
+   if(!$myAlert->setAnAlertEmail($email,$property_type,$property_category,
+     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status)){
+    echo '{"result": 0, "message": "Email alert was not created"}';
+  return;
+}
+echo '{"result": 1, "message": "Email alert created successfully"}';
+
+return;
+}
+if (isset($_GET['phone'])) {
+ $phone = $_GET['phone'];
+ if(!$myAlert->setAnAlertPhone($phone,$property_type,$property_category,
+   $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status)){
+   echo '{"result": 0, "message": "Message alert was not created"}';
+ return;
+}
+echo '{"result": 1, "message": "Message alert created successfully"}';
+
+return;
+}
+}
+
+
+function searchAlerts(){
+  include "../classes/alerts.php";
+
+  $myAlert = new Alerts();
+
+  if (isset($_GET['email'])) {
+   $email = $_GET['email'];
+
+   $myAlert->emailAlertSearch($email);
+   $row =$myAlert->fetch();
+  if(!$row){
+    echo '{"result": 0, "message": "You have no subscribed email alerts in the database"}';
+    return;
+  }
+
+  echo '{"result": 1, "alert": [';
+  while($row){
+    echo json_encode($row);
+    $row = $myAlert->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+return;
+}
+if (isset($_GET['phone'])) {
+ $phone = $_GET['phone'];
+  $myAlert->phoneAlertSearch($phone);
+  $row =$myAlert->fetch();
+  if(!$row){
+    echo '{"result": 0, "message": "You have no subscribed message alerts in the database"}';
+    return;
+  }
+
+  echo '{"result": 1, "alert": [';
+  while($row){
+    echo json_encode($row);
+    $row = $myAlert->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+return;
+}
 }
 /**
 *Method to add a post to the database
@@ -187,14 +327,24 @@ function addProperty(){
   include "../classes/post.php";
 
   $post = new Post();
+  // if(isset($_GET['email'])){
 
-  $name = $_GET['name'];
-  $description = $_GET['description'];
-  $d= $_GET['date'];
-  $date=date("Y-m-d",strtotime($d));
-  // $poster ="poster";
-  $poster = $_GET['poster'];
-  $user= $_SESSION['username'];
+
+  // }
+  // $name = $_GET['name'];
+  // $description = $_GET['description'];
+  // $d= $_GET['date'];
+  // $date=date("Y-m-d",strtotime($d));
+ 
+    $pic=$_REQUEST['pic'];
+
+    // if(!$post->addFood($fname,$fcateg,$fprice,$pic)){
+    //   echo '{"result":0,"message":"Could not add the food"}';
+    //   return;
+    // }
+
+    // echo '{"result":1,"message":"Succesfully added food"}';
+  }
   // if(empty($_FILES['postername'])){
   //   echo 'not there';
   // }
@@ -211,14 +361,73 @@ function addProperty(){
 //   $path="/image.$filename";
 //   move_uploaded_file($tempname, $path);
 
-  if(!$post->addMyPost($name,$description,$date,$poster,$user)){
-    echo '{"result": 0, "message": "post was not added"}';
-    return;
+ function saveSession(){
+  
+
+  if(!isset( $_SESSION["longitude"])){
+  $_SESSION["count"]=0;
+  if (isset($_GET['longitude'])) {
+    $_SESSION["longitude"]=$_GET['longitude'];
   }
-  echo '{"result": 1, "message": "post was added successfully"}';
+}
+
+  if(!isset( $_SESSION["latitude"])){
+  
+  if (isset($_GET['latitude'])) {
+    $_SESSION["latitude"]=$_GET['latitude'];
+  }
+}
+  if(!isset( $_SESSION["county"])){
+
+  if (isset($_GET['county'])) {
+    $_SESSION["county"]=$_GET['county'];
+  }
+}
+  if(!isset( $_SESSION["sub_county"])){
+  
+  if (isset($_GET['sub_county'])) {
+    $_SESSION["sub_county"]=$_GET['sub_county'];
+  }
+}
+ 
+  echo '{"result": 1, "message": "session created"}';
 
   return;
 }
+function destroySession(){
+  unset($_SESSION['longitude']);
+  unset($_SESSION['latitude']);
+  unset($_SESSION['county']);
+  unset($_SESSION['sub_county']);
+ 
+  echo '{"result": 1, "message": "session created"}';
+
+  return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -485,63 +694,63 @@ function sendMessage(){
 
 function upload_file(){
 
-        if (!empty($_FILES['postername'])) {
+  if (!empty($_FILES['postername'])) {
 
-            $myFile = $_FILES['postername'];
-            $name = preg_replace("/[^A-Z0-9._-]/i","_",$myFile["name"]);
-            $extension = pathinfo($name, PATHINFO_EXTENSION);
-            if ($myFile['error'] !== UPLOAD_ERR_OK) {
+    $myFile = $_FILES['postername'];
+    $name = preg_replace("/[^A-Z0-9._-]/i","_",$myFile["name"]);
+    $extension = pathinfo($name, PATHINFO_EXTENSION);
+    if ($myFile['error'] !== UPLOAD_ERR_OK) {
 
-                echo '{"results":0,"message":"Had an error uploading file."}';
-                exit;
-            }
-
-            if ($extension == "JPG" || $extension == "PNG" ) {
-
-            } else{
-                echo '{"results":0,"message":"Only jpeg,png format files are allowed"}';
-                exit;
-            }
-             $i=0;
-            $parts=pathinfo($name);
-
-            while (file_exists(UPLOAD_DIR.$name)) {
-
-                $i++;
-                $name = $parts["filename"] . "-" . $i ."." . $parts["extension"];
-            }
-
-            $success = move_uploaded_file($myFile["tmp_name"],UPLOAD_DIR . $name);
-
-            if (!$success) {
-                echo '{"results":0,"message":"Could not successfully move the file to target directory"}';
-                exit;
-            }
-            else{
-                include "post.php";
-
-                $post = new Post();
-                $name = $_REQUEST['ename'];
-                 $description = $_REQUEST['description'];
-                 $d= $_REQUEST['event_date'];
-                 $date=date("Y-m-d",strtotime($d));;
-                // $image=$_REQUEST['postername'];
-                 $user= $_SESSION['username'];
-              if(!$post->addMyPost($name,$description,$date,$filename,$user)){
-                echo '{"result": 0, "message": "post was not added"}';
-                return;
-              }
-              echo '{"result": 1, "message": "post was added successfully"}';
-
-              return;
-            }
-
-
-        }
-        else{
-            echo '{"results":"Empty file called"}';
-        }
+      echo '{"results":0,"message":"Had an error uploading file."}';
+      exit;
     }
+
+    if ($extension == "JPG" || $extension == "PNG" ) {
+
+    } else{
+      echo '{"results":0,"message":"Only jpeg,png format files are allowed"}';
+      exit;
+    }
+    $i=0;
+    $parts=pathinfo($name);
+
+    while (file_exists(UPLOAD_DIR.$name)) {
+
+      $i++;
+      $name = $parts["filename"] . "-" . $i ."." . $parts["extension"];
+    }
+
+    $success = move_uploaded_file($myFile["tmp_name"],UPLOAD_DIR . $name);
+
+    if (!$success) {
+      echo '{"results":0,"message":"Could not successfully move the file to target directory"}';
+      exit;
+    }
+    else{
+      include "post.php";
+
+      $post = new Post();
+      $name = $_REQUEST['ename'];
+      $description = $_REQUEST['description'];
+      $d= $_REQUEST['event_date'];
+      $date=date("Y-m-d",strtotime($d));;
+                // $image=$_REQUEST['postername'];
+      $user= $_SESSION['username'];
+      if(!$post->addMyPost($name,$description,$date,$filename,$user)){
+        echo '{"result": 0, "message": "post was not added"}';
+        return;
+      }
+      echo '{"result": 1, "message": "post was added successfully"}';
+
+      return;
+    }
+
+
+  }
+  else{
+    echo '{"results":"Empty file called"}';
+  }
+}
 
 
 function getuserSession(){

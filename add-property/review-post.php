@@ -1,3 +1,4 @@
+<?php include "../model/check.php";?>
 <!DOCTYPE html>
 
 <html>
@@ -14,10 +15,10 @@
 </head>
 <body onload="">
  <!--start of navbar-->
- <?php include "../header/header.html";?>
+ <?php include "../header/header-login.html";?>
  <!-- end of navbar-->
  <!-- end of navbar-->
- <div class="blue lighten-1 col s12 l12">
+ <div class="mybreadcrumb col s12 l12">
     <div class="breadcrumb flat ">
       <a href="../index.php" class="">Home</a>
       <a href="index.php">Add property</a>

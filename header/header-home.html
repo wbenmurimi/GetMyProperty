@@ -1,72 +1,73 @@
 <div class="top-menu">
-   <img src="image/logo.jpg" width="" height="50px">
-   <span class="black-text text-darken 2 logo_name ">Real Estate Experts</span> 
-   <div class="login-welcome welcome"> 
-     <a href='login/'><span class="text-color logout blue-text text-darken 2" ><i class="fa fa-user prefix"> </i> Login</span></a>
-   </div>
+ <img src="image/logo.jpg" width="" height="50px">
+ <span class="black-text text-darken 2 logo_name ">Real Estate Experts</span> 
+ <div class="login-welcome welcome"> 
+   <a href='login/'><span class="text-color logout blue-text text-darken 2" ><i class="fa fa-user prefix"> </i> Login</span></a>
  </div>
-<nav class="color mynav">
+</div>
+<nav class="color mynav mynav2">
   <div class="nav-wrapper">
     <!-- <a href="#" class="brand-logo center">Logo </a>   -->
     <!-- <img src="image/logo.jpg" width="100" height="65"> -->
     <!-- These navigation links disappear if the screen gets too small. -->
     <ul class="right hide-on-med-and-down">
-      <li class="active"><a  href="index.php">Home</i>
-        <li><a href="add-property/" >Add Property</a></li>
-        <li><a href="#" onclick="">Just Added</a></li>
-        <ul id="land" class="dropdown-content">
-          <li><a href="#!" class="white-text">land for sale</a></li>
-          <li class="divider"></li>
-          <li><a href="#!" class="white-text">land for rent</a></li>
-        </ul>
-        <ul id="house" class="dropdown-content">
-          <li><a href="#!" class="white-text">House for sale</a></li>
-          <li class="divider"></li>
-          <li><a href="#!" class="white-text">House for rent</a></li>
-        </ul>
-        <ul id="other" class="dropdown-content">      
-          <li><a href="#!" class="white-text">Comemrcial</a></li>
-          <li class="divider"></li>
-          <li><a href="#!" class="white-text">Flats & Apartment</a></li>
-        </ul>
-        <li><a class="dropdown-button" href="#!" data-activates="land">Lands <i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="house">Houses<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="other">Others <i class="material-icons right">arrow_drop_down</i></a></li>
+      <li class="active"><a  href="index.php">Home</li>
+      <ul id="property" class="dropdown-content">
+        <li><a href="search/index.php" class="white-text">All </a></li>
 
-        <li><a href="alert/set-alert.php" onclick="">Create an Alert</a></li>
-        
+        <li class="divider"></li>
+        <li><a href="#!" class="white-text">Lands</a></li>
+        <li class="divider"></li>
+        <li><a href="#!" class="white-text">Houses</a></li>
+        <li class="divider"></li>
+        <li><a href="#!" class="white-text">Others</a></li>
       </ul>
-      <!-- Put up a "hamburger" menu when the web page gets too narrow -->
-      <a href="#" data-activates="side-menu" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      <!-- These navigation links appear when the web page gets narrow. -->
-      <!-- They appear when the user clicks the hamburger menu. -->
-       <ul class="side-nav" id="side-menu">
-     <li class="active"><a  href="index.php">Home</i>
-        <li><a href="#" >Add Property</a></li>
-        <li><a href="#" onclick="">Just Added</a></li>
-        <ul id="dropdown1" class="dropdown-content">
-          <li><a href="#!">land for sale</a></li>
-          <li class="divider"></li>
-          <li><a href="#!">land for rent</a></li>
-        </ul>
-        <ul id="dropdown2" class="dropdown-content">
-          <li><a href="#!">House for sale</a></li>
-          <li class="divider"></li>
-          <li><a href="#!">House for rent</a></li>
-        </ul>
-        <ul id="dropdown3" class="dropdown-content">      
-          <li><a href="#!">Comemrcial</a></li>
-          <li class="divider"></li>
-          <li><a href="#!">Flats & Apartment</a></li>
-        </ul>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Lands <i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Houses<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Others <i class="material-icons right">arrow_drop_down</i></a></li>
+      <ul id="alert" class="dropdown-content">
+        <li><a href="alert/set-alert.php" class="white-text">Set alert</a></li>
+      </ul>
 
-        <li><a href="alert/set-alert.php" onclick="">Create an Alert</a></li>
-        <li>
-          <button onclick="login/" class="btn waves-effect waves-light teal lighten-2" type="submit" name="action">Login</button>
-        </li>
-      </ul>
-    </div>
-  </nav>
+      <li>
+      <a class="dropdown-button" href="#!" data-activates="property">Properties <i class="material-icons right">arrow_drop_down</i></a>
+      </li>
+
+      <li>
+      <a class="dropdown-button" href="#!" data-activates="alert">Alert<i class="material-icons right">arrow_drop_down</i></a>
+      </li>
+      <li><a href="add-property/" >Add Property</a></li>
+      <li><a href="contact/contact-us.php" onclick="">Contact us</a></li>
+
+
+    </ul>
+    <!-- Put up a "hamburger" menu when the web page gets too narrow -->
+    <a href="#" data-activates="side-menu" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    <!-- These navigation links appear when the web page gets narrow. -->
+    <!-- They appear when the user clicks the hamburger menu. -->
+    <ul class="side-nav" id="side-menu">
+     <li class="active"><a  href="index.php">Home</li>
+     <ul id="property2" class="dropdown-content">
+      <li><a href="#!" class="white-text">All properties</a></li>
+      <li class="divider"></li>
+      <li><a href="#!" class="white-text">Lands</a></li>
+      <li class="divider"></li>
+      <li><a href="#!" class="white-text">Houses</a></li>
+      <li class="divider"></li>
+      <li><a href="#!" class="white-text">Others</a></li>
+    </ul>
+    <ul id="alert2" class="dropdown-content">
+      <li><a href="alert/set-alert.php" class="white-text">Set alert</a></li>
+    </ul>
+
+    <li><a class="dropdown-button" href="#!" data-activates="property2">Properties <i class="material-icons right">arrow_drop_down</i></a></li>
+
+    <li><a class="dropdown-button" href="#!" data-activates="alert2">Alert<i class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="add-property/" >Add Property</a></li>
+    <li><a href="contact/contact-us.php" onclick="">Contact us</a></li>
+
+    <li>
+      <div class="login-welcome welcome"> 
+       <a href='login/'><span class="text-color logout blue-text text-darken 2" ><i class="fa fa-user prefix"> </i> Login</span></a>
+     </div>
+   </li>
+ </ul>
+</div>
+</nav>
