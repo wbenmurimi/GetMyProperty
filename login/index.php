@@ -72,139 +72,154 @@
               </div>
               <div class="left">
                 <a href="#" onclick="hide('login_div','verification_code_div'); show('reset_pass_div')">
-                <span class="forget-pass" >Forgot password</span></a>
-              </div>
-              <div class="loginfooter right">
-                <button onclick="Login()" type="submit" class=" btn btn-spacer waves-effect wave-dark loginbtn btnColor center-align">Log In</button>
+                  <span class="forget-pass" >Forgot password</span></a>
+                </div>
+                <div class="loginfooter right">
+                  <button onclick="Login()" type="submit" class=" btn btn-spacer waves-effect wave-dark loginbtn btnColor center-align">Log In</button>
 
+                </div>
               </div>
-            </div>
-            <div id="signup" class="col s12 textcontainer">
-              <div class="serror_area center" id="serror_area">
-              </div>
+              <div id="signup" class="col s12 textcontainer">
+                <div class="serror_area center" id="serror_area">
+                </div>
 
-              <div class="input-field col s12">
-                <i class="fa fa-user prefix"></i>
-                <input id="username" type="text" class="validate" autocomplete="off">
-                <label for="username">Username</label>
-              </div>
-              <div class="input-field col s12">
-                <i class="fa fa-envelope prefix"></i>
-                <input id="email" type="email" class="validate" autocomplete="off">
-                <label for="email">Email</label>
-              </div>
-              <div class="input-field col s12">
-                <i class="fa fa-phone prefix"></i>
-                <input id="phone" type="tel" class="validate" autocomplete="off">
-                <label for="phone">Phone</label>
-              </div>
-                <!-- <div class="input-field col s12">
-                  <i class="fa fa-users prefix"></i>
-                  <select class="usertype">
-                    <option value="" disabled selected>select user type</option>
-                    <option value="Private Seller">Private Seller</option>
-                    <option value="Agent">Agent</option>
+                <div class="input-field col s12">
+                  <i class="fa fa-user prefix"></i>
+                  <input id="fname" type="text" class="validate" autocomplete="off">
+                  <label for="fname">First name</label>
+                </div>
+                <div class="input-field col s12">
+                  <i class="fa fa-user prefix"></i>
+                  <input id="lname" type="text" class="validate" autocomplete="off">
+                  <label for="lname">Last name</label>
+                </div>
+                <div class="input-field col s12">
+                  <i class="fa fa-venus prefix"></i>
+                  <select class="gender" id="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                   </select>
-                <label>User type</label> 
+                  <label>User type</label> 
 
-              </div> -->
-              <div class="input-field col s12 mypass">
-                <i class="fa fa-key prefix"></i>
-                <input id="password" type="password" class="validate" autocomplete="off">
-                <label for="password">Password</label>
-              </div>
-              <div class="input-field col s12 mypass">
-                <i class="fa fa-key prefix"></i>
-                <input id="confirm_password" type="password" class="validate" autocomplete="off">
-                <label for="confirm_password">Confirm Password</label>
-              </div>
-              <div class="loginfooter right">
-                <button onclick="addUser()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Sign Up</button>
+                </div>
+                <div class="input-field col s12">
+                  <i class="fa fa-calendar prefix"></i>
+                  <input id="dob" type="date" class="datepicker" autocomplete="off">
+                  <label for="dob">Date of Birth</label>
+                </div>
+                <div class="input-field col s12">
+                  <i class="fa fa-user prefix"></i>
+                  <input id="username" type="text" class="validate" autocomplete="off">
+                  <label for="username">Username</label>
+                </div>
+                <div class="input-field col s12">
+                  <i class="fa fa-envelope prefix"></i>
+                  <input id="email" type="email" class="validate" autocomplete="off">
+                  <label for="email">Email</label>
+                </div>
+                <div class="input-field col s12">
+                  <i class="fa fa-phone prefix"></i>
+                  <input id="phone" type="tel" class="validate" autocomplete="off">
+                  <label for="phone">Phone</label>
+                </div>
+                
+                <div class="input-field col s12 mypass">
+                  <i class="fa fa-key prefix"></i>
+                  <input id="password" type="password" class="validate" autocomplete="off">
+                  <label for="password">Password</label>
+                </div>
+                <div class="input-field col s12 mypass">
+                  <i class="fa fa-key prefix"></i>
+                  <input id="confirm_password" type="password" class="validate" autocomplete="off">
+                  <label for="confirm_password">Confirm Password</label>
+                </div>
+                <div class="loginfooter right">
+                  <button onclick="addUser()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Sign Up</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  
-    
-  </div>  
-  <div class="reset_pass_div" id="reset_pass_div">
-    <div class="card">
-     
+
+
+    </div>  
+    <div class="reset_pass_div" id="reset_pass_div">
+      <div class="card">
+
         <h4 class="center">Reset user password</h4>
         <div class="error_div_reset center" id="error_div_reset">
 
         </div>
         <div class="row">
-        <div class="col l8 s8">
-        <ol>
-          <li>Select if you want to get the reset code on email or phone</li>
-          <li>Enter the registered email or registered phone number in the textbox </li>
-          <li>Check for the verification code in your email inbox or messages</li>
-          <li>Click on the<a href="verification-code.php"><span> Enter verification code</span></a> link to proceed to change your password</li>
-        </ol>
-     
-      <div class="input-field col s6 l6">
-        <i class="fa fa-envelope prefix"></i>
-        <input onclick="checkIfChecked()" name="reset" id="email_radio" type="radio" class="validate with-gap" autocomplete="off">
-        <label for="email_radio">Email</label>
-      </div>
-      <div class="input-field col l6 s6">
-        <i class="fa fa-phone prefix"></i>
-        <input onclick="checkIfChecked()" name="reset" id="phone_radio" type="radio" class="validate with-gap" autocomplete="off">
-        <label for="phone_radio">phone</label>
-      </div>
-      <div id="send-option" class="input-field col l12 s12">
+          <div class="col l8 s8">
+            <ol>
+              <li>Select if you want to get the reset code on email or phone</li>
+              <li>Enter the registered email or registered phone number in the textbox </li>
+              <li>Check for the verification code in your email inbox or messages</li>
+              <li>Click on the<a href="verification-code.php"><span> Enter verification code</span></a> link to proceed to change your password</li>
+            </ol>
 
-      </div>
-      </div>
-      <div class="col l4 s4">
-      <div class="verification-space">
-          <button type="submit" onclick="hide('login_div','reset_pass_div'); show('verification_code_div')" class="btn reset-btn-space waves-effect wave-dark btnColor center-align ">
-            Enter verification code</button>
-         
-        </div>
-      </div>
-      </div>
-    </div> 
-    </div>
-    <div class="verification_code_div" id="verification_code_div">
-      <div class="card">
-        <div>
-         <h4 class="center">Enter new user password</h4>
-         <div class="error_div_new center" id="error_div_new">
+            <div class="input-field col s6 l6">
+              <i class="fa fa-envelope prefix"></i>
+              <input onclick="checkIfChecked()" name="reset" id="email_radio" type="radio" class="validate with-gap" autocomplete="off">
+              <label for="email_radio">Email</label>
+            </div>
+            <div class="input-field col l6 s6">
+              <i class="fa fa-phone prefix"></i>
+              <input onclick="checkIfChecked()" name="reset" id="phone_radio" type="radio" class="validate with-gap" autocomplete="off">
+              <label for="phone_radio">phone</label>
+            </div>
+            <div id="send-option" class="input-field col l12 s12">
 
-        </div>
-       </div>
-       <div>
-        <div class="input-field col l6 s12">
-          <i class="fa fa-cube prefix"></i>
-          <input id="verification_code" type="text" class="validate" autocomplete="off">
-          <label for="verification_code">Verification code</label> 
-        </div>
-        <div class="input-field col l6 s12">
-         <i class="fa fa-key prefix"></i>
-         <input id="new_password" type="password" class="validate" autocomplete="off">
-         <label for="new_password">New Password</label> 
-       </div>
-       <div class="input-field col l6 s12">
-         <i class="fa fa-key prefix"></i>
-         <input id="confirm_new_password" type="password" class="validate" autocomplete="off">
-         <label for="confirm_new_password">Confirm password</label> 
-       </div>
-       <div class="col l6 m6 s12"> 
-         <button onclick="resetUserPassword()" type="submit" class="btn save-new-btn-space waves-effect wave-dark btnColor center-align ">
-           Save new password</button>
+            </div>
+          </div>
+          <div class="col l4 s4">
+            <div class="verification-space">
+              <button type="submit" onclick="hide('login_div','reset_pass_div'); show('verification_code_div')" class="btn reset-btn-space waves-effect wave-dark btnColor center-align ">
+                Enter verification code</button>
+
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <div class="verification_code_div" id="verification_code_div">
+        <div class="card">
+          <div>
+           <h4 class="center">Enter new user password</h4>
+           <div class="error_div_new center" id="error_div_new">
+
+           </div>
+         </div>
+         <div>
+          <div class="input-field col l6 s12">
+            <i class="fa fa-cube prefix"></i>
+            <input id="verification_code" type="text" class="validate" autocomplete="off">
+            <label for="verification_code">Verification code</label> 
+          </div>
+          <div class="input-field col l6 s12">
+           <i class="fa fa-key prefix"></i>
+           <input id="new_password" type="password" class="validate" autocomplete="off">
+           <label for="new_password">New Password</label> 
+         </div>
+         <div class="input-field col l6 s12">
+           <i class="fa fa-key prefix"></i>
+           <input id="confirm_new_password" type="password" class="validate" autocomplete="off">
+           <label for="confirm_new_password">Confirm password</label> 
+         </div>
+         <div class="col l6 m6 s12"> 
+           <button onclick="resetUserPassword()" type="submit" class="btn save-new-btn-space waves-effect wave-dark btnColor center-align ">
+             Save new password</button>
+           </div>
          </div>
        </div>
-     </div>
-   </div> 
+     </div> 
+   </div>
  </div>
-</div>
-<!--end of body area-->
-<!--  footer section-->  
-<div>      
+ <!--end of body area-->
+ <!--  footer section-->  
+ <div>      
   <?php include "../footer/footer.html";?>
 </div>
 <!--  end of footer section-->
@@ -218,6 +233,10 @@
    $(".button-collapse").sideNav();
    $('select').material_select();
    hide("reset_pass_div","verification_code_div");
+   $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+      })
  });
 </script>
 </body>

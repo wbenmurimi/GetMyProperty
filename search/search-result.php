@@ -18,7 +18,7 @@
  session_start();
  if(isset($_SESSION["username"])){
    if($_SESSION["username"]){
-    echo $_SESSION['username'];
+
     include "../header/header-login.html";
   }
   else if(!$_SESSION["username"]){
@@ -41,7 +41,7 @@ if(!isset($_SESSION["username"])){
   <div class="col l12 s12 top-search">
     <div class="row">
       <div class="card">
-      <div class="row  ">
+        <div class="row  ">
           <div class="col l3 s2 search-result-view">
             <span>50 Results Found</span>
           </div>
@@ -90,24 +90,24 @@ if(!isset($_SESSION["username"])){
               <label>Category</label> 
             </div>
             <div class="input-field col l12 s12">
-        <select id="Property_county" class="" onchange="loadSubCounty()" value=""></option>
-          <script>
-            var myArray = new Array('All','Baringo County','Bomet County','Bungoma County','Busia County','Elgeyo Marakwet County','Embu County','Garisa County','Homa Bay County','Isiolo County','Kajiando  County','Kakamega County','Kericho County','Kiambu County','Kirifi County','Kirinyaga County','Kisii County','Kiumu County','Kitui County','Kwale County','Laikipia County','Lamu County','Machako County','Makueni County','Mandera County','Marsabit County','Meru County','Migori County','Mombasa County','Muranga County','Nairobi County','Nakuru County','Nandi County','Narok County','Nyamira County','Nyandarua County','Nyeri County','Samburu County','Siaya County','Taita Taveta County','Tana River County','Tharaka Nithi County','Trans Zoia County','Turkana County','Uasin Gishu County','Vihiga County','Wajir County','West pokot County'
-              );
-            for(i=0; i<myArray.length; i++) {  
-              document.write('<option value="' + myArray[i] +'">' + myArray[i] + '</option>');
-            }
+              <select id="Property_county" class="" onchange="loadSubCounty()" value=""></option>
+                <script>
+                  var myArray = new Array('All','Baringo County','Bomet County','Bungoma County','Busia County','Elgeyo Marakwet County','Embu County','Garisa County','Homa Bay County','Isiolo County','Kajiando  County','Kakamega County','Kericho County','Kiambu County','Kirifi County','Kirinyaga County','Kisii County','Kiumu County','Kitui County','Kwale County','Laikipia County','Lamu County','Machako County','Makueni County','Mandera County','Marsabit County','Meru County','Migori County','Mombasa County','Muranga County','Nairobi County','Nakuru County','Nandi County','Narok County','Nyamira County','Nyandarua County','Nyeri County','Samburu County','Siaya County','Taita Taveta County','Tana River County','Tharaka Nithi County','Trans Zoia County','Turkana County','Uasin Gishu County','Vihiga County','Wajir County','West pokot County'
+                    );
+                  for(i=0; i<myArray.length; i++) {  
+                    document.write('<option value="' + myArray[i] +'">' + myArray[i] + '</option>');
+                  }
 
-          </script>
-        </select>
-        <label>County</label> 
-      </div>
-      <div class="input-field col l12 s12" id="selectDiv">
-        <select id="Property_sub_county" class="Property_sub_county_alert">
-          <option value="">sub county</option>
-        </select>
-        <label>Sub County</label> 
-      </div>
+                </script>
+              </select>
+              <label>County</label> 
+            </div>
+            <div class="input-field col l12 s12" id="selectDiv">
+              <select id="Property_sub_county" class="Property_sub_county_alert">
+                <option value="">sub county</option>
+              </select>
+              <label>Sub County</label> 
+            </div>
             <div class="input-field col l6 s6">
               <input id="price_from" type="text" class="validate" autocomplete="off">
               <label for="price_from">Price From</label> 
@@ -136,18 +136,11 @@ if(!isset($_SESSION["username"])){
               <div><span class="p_location" onclick="" >Hurligham</span></div>
             </div>
           </div>
-          <div class="card property-row">
-            <div class=" col l2 ">
-              <a href="property-detail.php"><img src="../image/4.jpg" alt="" class="circle responsive-img"></a>
-            </div>
-            <div class=" col l10 ">
-              <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">One bedroom house for rent in Nairobi, Hurligham</span></a> <span id="cost_area" class="cost_area right" >KES 20,000</span> </div>
-              <div><span class="description_area">Located next to Argwings Khodek road</span> </div>
-              <div><span class="bedroom">Bedroom <span id="bd_qty">1 </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">1</span> </span> </div>
-              <div><span class="posted_on">26/01/2016 4:50pm</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div>
-              <div><span class="p_location" onclick="" >Hurligham</span></div>
-            </div>
-          </div>
+                    
+          <ol class="" id="search_posts_li">
+
+          </ol>
+
         </div>
       </div>
       <ul class="pagination center">
@@ -180,6 +173,9 @@ if(!isset($_SESSION["username"])){
 <script>
 
  $(document).ready(function(){
+  // getHousePosts();
+  // getLandPosts();
+  getAllPosts();
    // Activate the side menu 
    $('select').material_select();
    $(".button-collapse").sideNav();

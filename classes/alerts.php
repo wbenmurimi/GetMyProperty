@@ -26,15 +26,15 @@ class Alerts extends base{
      **/
 
     function setAnAlertEmail($email,$property_type,$property_category,
-     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status)
+     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status,$userID)
     {
         $date = date('Y-m-d');
         $endtime=date('Y-m-d', strtotime('+1 month', strtotime($date)));
-      $str_query = "INSERT INTO xx_property_alerts( xx_email,xx_property_type,
+      $str_query = "INSERT INTO _alerts( xx_email_alert,xx_property_type,
         xx_property_category,xx_county,xx_sub_county, xx_buy_rent, xx_price_from, 
-        xx_price_to , xx_bedroom,xx_bathroom, xx_acres, xx_alert_status, xx_end_time) 
+        xx_price_to , xx_bedroom,xx_bathroom, xx_acres, xx_alert_status, xx_end_time,xx_userId) 
     VALUES('$email','$property_type','$property_category','$county','$sub_county','$buyrent',
-      '$price_from','$price_to','$bedroom','$bathroom','$acre','$status','$endtime')";
+      '$price_from','$price_to','$bedroom','$bathroom','$acre','$status','$endtime', '$userID')";
     return $this->query($str_query);
     }
 
@@ -57,30 +57,28 @@ class Alerts extends base{
      **/
 
     function setAnAlertPhone($phone,$property_type,$property_category,
-     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status)
+     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status,$userID)
     {
     $date = date('Y-m-d');
         $endtime=date('Y-m-d', strtotime('+1 month', strtotime($date)));
-      $str_query = "INSERT INTO xx_property_alerts(xx_phone,xx_property_type,
+      $str_query = "INSERT INTO _alerts(xx_message_alert,xx_property_type,
         xx_property_category,xx_county,xx_sub_county, xx_buy_rent, xx_price_from, 
-        xx_price_to , xx_bedroom,xx_bathroom,xx_acres, xx_alert_status, xx_end_time) 
+        xx_price_to , xx_bedroom,xx_bathroom,xx_acres, xx_alert_status, xx_end_time, xx_userId) 
     VALUES('$phone','$property_type','$property_category','$county','$sub_county','$buyrent',
-      '$price_from','$price_to','$bedroom','$bathroom','$acre','$status','$endtime')";
+      '$price_from','$price_to','$bedroom','$bathroom','$acre','$status','$endtime', '$userID')";
     return $this->query($str_query);
     }
 
-
-/**
-     * @method boolean mailAlertSearch($email)to view all the subscribed alerts on a given email
-     * @param $email
+    /**
+     * @method boolean alertSearch() to view all the subscribed alerts on a given user
      * @return boolean
      **/
 
-    function emailAlertSearch($email)
+    function alertSearch($userID)
     {
-      $str_query = "SELECT xx_alert_id, xx_phone,xx_email,
+      $str_query = "SELECT xx_alert_id, xx_message_alert,xx_email_alert,
         xx_property_category,xx_sub_county, xx_buy_rent, 
-    xx_alert_status,Date_Format(xx_start_time,'%Y-%m-%d') As start_date, xx_end_time FROM xx_property_alerts FROM xx_property_alerts where xx_email='$email'";
+    xx_alert_status,Date_Format(xx_start_time,'%Y-%m-%d') As start_date, xx_end_time FROM _alerts where xx_userId='$userID'";
       return $this->query($str_query);
     }
 
@@ -130,6 +128,19 @@ class Alerts extends base{
      function deleteAlert($alertId)
      {
       $str_query = "DELETE FROM xx_property_alerts where xx_alert_id='$alertId'";
+      return $this->query($str_query);
+    }
+
+    /**
+    * @method boolean alertCountPerUser($id)gets the count of property added by a user
+    * @param $id user id
+    * @return boolean
+    **/
+
+    function alertCountPerUser($id)
+    {
+      $str_query = "SELECT count(xx_alert_id) as alert_count FROM  _alerts WHERE xx_userId='$id' ";
+      
       return $this->query($str_query);
     }
   }

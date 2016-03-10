@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
 
 </head>
-<body onload="loadCounty()">
+<body onload=" searchAlerts();">
  <!--start of navbar-->
  <?php 
  if($_SESSION["username"]){
@@ -34,34 +34,10 @@
 <!--  start of body division-->
 <div class="template-container">
   <div class="row">
-    <div class="searchAlertDiv" id="searchAlertDiv">
-      <div class="card ">
-        <div>
-          <h4 class="center">Search alerts</h4>
-          <ol>
-            <li>Select if you want to search email or phone alerts</li>
-            <li>Enter the subscribed email or subscribed phone number in the textbox </li>
-          </ol>
-        </div>
-        <div class="input-field col s6 l6">
-          <i class="fa fa-envelope prefix"></i>
-          <input onclick="checkCheckedOption()" name="search-option" id="email_radio" type="radio" class="validate with-gap" autocomplete="off">
-          <label for="email_radio">Email</label>
-        </div>
-        <div class="input-field col l6 s6">
-          <i class="fa fa-phone prefix"></i>
-          <input onclick="checkCheckedOption()" name="search-option" id="phone_radio" type="radio" class="validate with-gap" autocomplete="off">
-          <label for="phone_radio">phone</label>
-        </div>
-        <div id="search-option-div" class="input-field col l12 s12">
-
-        </div>
-      </div>
-    </div>
     <div class=" card listAlertsDiv" id="listAlertsDiv">
-      <table id="jsontable" class="striped" cellspacing="0" width="100%">
+      <table id="jsontable" class="striped" cellspacing="0" width="100%" >
         <thead>
-          <tr>
+          <tr >
             <th>ID</th>
             <th>Phone</th>
             <th>Email</th>
@@ -109,7 +85,9 @@
 <script>
 
  $(document).ready(function(){
- 
+ // loadCounty();
+showFirstName();
+ // searchAlerts();
    // Activate the side menu 
    $(".button-collapse").sideNav();
    $("#demo").intlTelInput();
@@ -120,7 +98,7 @@
 $('select').material_select();
 $('.modal-trigger').leanModal();
 $(".dropdown-button").dropdown();
-  hide("listAlertsDiv");
+  // hide("listAlertsDiv");
   $('#jsontable').DataTable( {
     responsive: true
 } );

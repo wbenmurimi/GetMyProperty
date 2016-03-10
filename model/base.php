@@ -5,7 +5,7 @@
  */
 
 define("DB_HOST", 'localhost');
-define("DB_NAME", 'real_estate');
+define("DB_NAME", '_real_estate');
 define("DB_PORT", 3306);
 define("DB_USER", "root");
 define("DB_PWORD", "");

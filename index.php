@@ -267,8 +267,7 @@ else if(!$_SESSION["username"]){
     <div><span class="bedroom">Bedroom <span id="bd_qty">1 </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">1</span> </span> </div>
     <div><span class="posted_on">26/01/2016 4:50pm</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div>
     <div><span class="p_location" onclick="" >Hurligham</span></div>
-  </div>
-  
+  </div>  
 </div> 
 </div>         
 <div class="col l3 " id="">
@@ -294,9 +293,29 @@ else if(!$_SESSION["username"]){
     <div><span class="posted_on">26/01/2016 4:50pm</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div>
     <div><span class="p_location" onclick="" >Hurligham</span></div>
   </div>
-  
+</div>
+     
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </div>
+<div class="row col l12" id="home_posts">
+  <ol class="row col l12" id="home_posts_li">
+
+  </ol>
 </div>
 </div>
 <!--  end of body division-->
@@ -308,11 +327,13 @@ else if(!$_SESSION["username"]){
 <script src="js/jquery.js"></script>
 <script src="js/materialize.min.js"></script>
 <script src="js/script.js"></script>
-<script src="js/county_add.js"></script>
+<script src="js/county.js"></script>
 
 <script>
 
  $(document).ready(function(){
+  getHomePosts();
+  showHomeFirstName();
    // Activate the side menu 
    $('select').material_select();
    $(".button-collapse").sideNav();

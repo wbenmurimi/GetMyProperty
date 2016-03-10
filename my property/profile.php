@@ -41,10 +41,13 @@ if(!isset($_SESSION["username"])){
 <div class="template-container">
   <div class="row">
     <div class="col m4 s12 card ">
+    <div class="center">
+      <img src="../image/user_icon.jpg">
+    </div>
     <h4 class="center-align">Statistics</h4>
-      <ol class="leftSpace btn-spacer">
-        <li>Total ads <span class=""> 20</span> </li>
-        <li>Total alerts <span class="">5</span> </li>
+      <ol class="center btn-spacer">
+        <li class="myStats">Total ads : <a href="index.php"><span class="stats" id="total_adds"> </span> </a></li>
+        <li class="myStats">Total alerts : <a href="../alert/unsubscribe-alert.php"><span class="stats" id="total_alerts"></span></a> </li>
       </ol>
     </div>
     <div class="col m8 s12 card">
@@ -63,8 +66,8 @@ if(!isset($_SESSION["username"])){
               </div>
               <div class="input-field col s12 mypass">
                 <i class="fa fa-key prefix"></i>
-                <input id="password" type="password" class="validate" autocomplete="off">
-                <label for="password"> Current Password</label>
+                <input id="current_password" type="password" class="validate" autocomplete="off">
+                <label for="current_password"> Current Password</label>
               </div>
               <div class="input-field col s12 mypass">
                 <i class="fa fa-key prefix"></i>
@@ -78,7 +81,7 @@ if(!isset($_SESSION["username"])){
                 <label for="confirm_password">Confirm Password</label>
               </div>
               <div class="loginfooter right">
-                <button onclick="changePass()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Change</button>
+                <button onclick="resetProfileUserPassword()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Change</button>
               </div>
 
             </div>
@@ -86,6 +89,26 @@ if(!isset($_SESSION["username"])){
               <div class="serror_area center" id="serror_area">
               </div>
 
+<div class="input-field col s12">
+                <i class="fa fa-user prefix"></i>
+                <input id="fname" type="text" class="validate" >
+                <label for="fname">Firstname</label>
+              </div>
+              <div class="input-field col s12">
+                <i class="fa fa-user prefix"></i>
+                <input id="lname" type="text" class="validate" >
+                <label for="lname">Lastname</label>
+              </div>
+              <div class="input-field col s12">
+                <i class="fa fa-user prefix"></i>
+                <input id="gender" type="text" class="validate" >
+                <label for="gender">Gender</label>
+              </div>
+              <div class="input-field col s12">
+                <i class="fa fa-user prefix"></i>
+                <input id="dob" type="text" class="validate" >
+                <label for="dob">Date of Birth</label>
+              </div>
               <div class="input-field col s12">
                 <i class="fa fa-user prefix"></i>
                 <input id="username" type="text" class="validate" readonly>
@@ -140,6 +163,10 @@ if(!isset($_SESSION["username"])){
 <script>
 
  $(document).ready(function(){
+  showFirstName();
+  getUserDetails();
+  getCountOfUserPosts();
+  getCountOfUserAlerts();
    // Activate the side menu 
    $(".button-collapse").sideNav();
    $('select').material_select();

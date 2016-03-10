@@ -298,6 +298,7 @@
 <script>
 
  $(document).ready(function(){
+  showFirstName();
    hide("send-buyer-email","send-buyer-message");
    $("#demo").intlTelInput();
    $("#demo2").intlTelInput();

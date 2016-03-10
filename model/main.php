@@ -28,7 +28,7 @@ switch ($cmd) {
   case 6:
   subscribeAlert();
   break;
-   case 7:
+  case 7:
   searchAlerts();
   break;
   case 8:
@@ -37,47 +37,59 @@ switch ($cmd) {
   case 9:
   getAllProperty();
   break;
-  case 9:
-  editProperty();
-  break;
-  case 9:
-  deleteProperty();
-  break;
-  case 9:
+  case 10:
   getMyProperty();
   break;
-  case 10:
-  addComment();
-  break;
   case 11:
-  getAllComments();
+  homePageProperty();
   break;
   case 12:
-  addLikes();
+  deleteProperty();
   break;
   case 13:
-  getUpcomingPosts();
+  returnUserFirstName();
   break;
   case 14:
-  getEditProperty();
+  saveFreePlan();
   break;
   case 15:
-  getAppUsers();
+  saveFeaturedPlan();
   break;
   case 16:
-  editUserType();
+  getUploadPageSession();
   break;
   case 17:
-  sendMessage();
+  getHouseProperty();
   break;
   case 18:
-  upload_file();
+  getLandProperty();
+  break;
+  case 19:
+  getAllSearchProperty();
   break;
   case 20:
   saveSession();
   break;
   case 21:
+  getPageoneSession();
+  break;
+  case 22:
+  returnUserFirstName();
+  break;
+  case 23:
+  getUserDetails();
+  break;
+  case 24:
   destroySession();
+  break;
+  case 25:
+  getPostCount();
+  break;
+  case 26:
+  getAlertCount();
+  break;
+  case 27:
+  resetProfileUserPassword();
   break;
   default:
   echo '{"result": 0, "message": "Unknown command"}';
@@ -101,6 +113,8 @@ function login(){
     session_start();
 
     $_SESSION['username'] = $username;
+    $_SESSION['userId']= $row['xx_user_id'];
+    $_SESSION['fname']= $row['xx_fname'];
     echo '{"result": 1, "user": [';
     while($row){
       echo json_encode($row);
@@ -121,20 +135,68 @@ function userSignUp(){
   include "../classes/user.php";
 
   $myuser = new users();
+  $fname = $_GET['fname'];
+  $lname = $_GET['lname'];
+  $dob = date("Y-m-d",strtotime($_GET['dob']));
+  $gender = $_GET['gender'];
   $username = $_GET['username'];
   $password = $_GET['password'];
   $phone = $_GET['phone'];
   $user_email = $_GET['email'];
   $usertype="regular";
-  $user_status="enable";
+  $user_status="enabled";
 
-  if(!$myuser->signUp($username,$password,$user_email,$phone,$usertype,$user_status)){
+  if(!$myuser->signUp($fname,$lname,$dob,$gender,$username,$password,$user_email,$phone,$usertype,$user_status)){
     echo '{"result": 0, "message": "User not created"}';
     return;
   }
   echo '{"result": 1, "message": "Sign up was successful"}';
 
   return;
+}
+
+function returnUserFirstName(){
+  if (  $_SESSION['fname']) {
+    $loginName[] =array("person"=>$_SESSION['fname']);
+    echo '{"result": 1, "uname": ';   
+    echo json_encode($loginName);
+
+    echo "}";
+    return; 
+  }
+  else{
+    echo '{"result": 0, "message": "User not logged in"}';
+    return;
+  }
+}
+
+function saveFreePlan(){
+ unset( $_SESSION["free"]);
+ if(!isset( $_SESSION["free"])){
+   $_SESSION["free"]="Free";
+
+   echo '{"result": 1, "message": "free package"}';
+   return;
+ }
+ else{
+  $_SESSION["free"]="Free";
+  echo '{"result": 0, "message": "Failed"}';
+  return;
+}
+}
+
+function saveFeaturedPlan(){
+
+  if(!isset( $_SESSION["free"])){
+   $_SESSION["free"]="Featured";
+   echo '{"result": 1, "message": "Featured package"}';
+   return;
+ }
+ else{
+  $_SESSION["free"]="Featured";
+  echo '{"result": 0, "message": "Failed"}';
+  return;
+}
 }
 
 function logout(){
@@ -144,6 +206,7 @@ function logout(){
     return;
   }
   session_destroy();
+  unset($_SESSION['userId']);
   echo '{"result": 1, "message": "The user Loged out successfully"}';
   return;
 }
@@ -176,27 +239,6 @@ function sendVerificationCode(){
     return;
   }
 }
-  // Sanitize E-mail Address
-// $email =filter_var($email, FILTER_SANITIZE_EMAIL);
-// // Validate E-mail Address
-// $email= filter_var($email, FILTER_VALIDATE_EMAIL);
-// if (!$email){
-// echo "Invalid Sender's Email";
-// }
-        // $to = $email;
-        // $subject = "Verification code";
-        // $txt = "The code to change your password is 2000.";
-        // $headers = "From: wbenmurimi@gmail.com";
-
-//mail($to,$subject,$txt,$headers);
-
-            // $admin_email = "wbenmurimi@gmail.com";
-            // $email = $_REQUEST['email'];
- // $subject = $_REQUEST['subject'];
-  //$comment = $_REQUEST['comment'];
-
-            // mail($admin_email, $subject, $txt, $headers);
-
 
 function resetPassword(){
   include "../classes/user.php";
@@ -229,17 +271,20 @@ function subscribeAlert(){
   $buyrent = $_GET['buy_rent'];
   $property_category = $_GET['Property_category'];
   $price_from = $_GET['p_from'];
-  $price_to = $_GET['p_to'];
-  $bedroom ;
-  $bathroom ;
-  $property_type ;
+  $price_to = $_REQUEST['p_to'];
+  $bedroom =$_REQUEST['p_bed'] ;
+  $bathroom = $_REQUEST['p_bath'];
+  $property_type = $_GET['property_type'] ;
   $acre ;
-  $status="enable";
-  if (isset($_GET['acres'])) {
-    $acre = $_GET['acres'];
-    $bedroom="";
-    $bathroom="" ;
-    $property_type = "";
+  $status="enabled";
+  $userID=$_SESSION['userId'];
+  if(strcmp($_GET['acres'],"undefined")!=0){
+    if (isset($_GET['acres'])) {
+      $acre = $_GET['acres'];
+      $bedroom="";
+      $bathroom="" ;
+      $property_type = "";
+    }
   }
   else{
     $acre="";
@@ -251,60 +296,36 @@ function subscribeAlert(){
   if (isset($_GET['email'])) {
    $email = $_GET['email'];
    if(!$myAlert->setAnAlertEmail($email,$property_type,$property_category,
-     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status)){
+     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status,$userID)){
     echo '{"result": 0, "message": "Email alert was not created"}';
   return;
-}
-echo '{"result": 1, "message": "Email alert created successfully"}';
+  }
+  echo '{"result": 1, "message": "Email alert created successfully"}';
 
-return;
-}
-if (isset($_GET['phone'])) {
- $phone = $_GET['phone'];
- if(!$myAlert->setAnAlertPhone($phone,$property_type,$property_category,
-   $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status)){
-   echo '{"result": 0, "message": "Message alert was not created"}';
- return;
-}
-echo '{"result": 1, "message": "Message alert created successfully"}';
+  return;
+  }
+  if (isset($_GET['phone'])) {
+   $phone = $_GET['phone'];
+   if(!$myAlert->setAnAlertPhone($phone,$property_type,$property_category,
+     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status,$userID)){
+     echo '{"result": 0, "message": "Message alert was not created"}';
+   return;
+  }
+  echo '{"result": 1, "message": "Message alert created successfully"}';
 
-return;
+  return;
+  }
 }
-}
-
 
 function searchAlerts(){
   include "../classes/alerts.php";
 
   $myAlert = new Alerts();
-
-  if (isset($_GET['email'])) {
-   $email = $_GET['email'];
-
-   $myAlert->emailAlertSearch($email);
-   $row =$myAlert->fetch();
-  if(!$row){
-    echo '{"result": 0, "message": "You have no subscribed email alerts in the database"}';
-    return;
-  }
-
-  echo '{"result": 1, "alert": [';
-  while($row){
-    echo json_encode($row);
-    $row = $myAlert->fetch();
-    if($row){
-      echo ',';
-    }
-  }
-  echo "]}";
-return;
-}
-if (isset($_GET['phone'])) {
- $phone = $_GET['phone'];
-  $myAlert->phoneAlertSearch($phone);
+  $userID=$_SESSION['userId'];
+  $myAlert->alertSearch($userID);
   $row =$myAlert->fetch();
   if(!$row){
-    echo '{"result": 0, "message": "You have no subscribed message alerts in the database"}';
+    echo '{"result": 0, "message": "You have no subscribed email or message alerts"}';
     return;
   }
 
@@ -317,109 +338,561 @@ if (isset($_GET['phone'])) {
     }
   }
   echo "]}";
-return;
+  return;
 }
-}
+
 /**
-*Method to add a post to the database
+*Method to add a property to the database
 */
 function addProperty(){
   include "../classes/post.php";
 
   $post = new Post();
-  // if(isset($_GET['email'])){
 
+  if (isset($_SESSION['p_cat'])) {
 
-  // }
-  // $name = $_GET['name'];
-  // $description = $_GET['description'];
-  // $d= $_GET['date'];
-  // $date=date("Y-m-d",strtotime($d));
- 
-    $pic=$_REQUEST['pic'];
+    $county= $_SESSION["county"];
+    $sub_county= $_SESSION["sub_county"];
+    $property_category=$_SESSION['p_cat'];
+    $buyrent= $_SESSION["buy_rent"];
+    $userId= $_SESSION['userId'];
+    $free_featured= $_SESSION["free"];
 
-    // if(!$post->addFood($fname,$fcateg,$fprice,$pic)){
-    //   echo '{"result":0,"message":"Could not add the food"}';
-    //   return;
-    // }
+    
+    if(strcmp($property_category,"House")==0){
+      $price=$_SESSION["price"];
+      $description=$_SESSION["description"];
+    }
+    else{
+      $price=$_SESSION["lprice"];
+      $description=$_SESSION["ldescription"];
+    }
 
-    // echo '{"result":1,"message":"Succesfully added food"}';
-  }
-  // if(empty($_FILES['postername'])){
-  //   echo 'not there';
-  // }
+    $longitude =4.2130450;
+    $latitude=0.01254365;
 
-//   $name = $_REQUEST['ename'];
-//   $description = $_REQUEST['description'];
-//   $d= $_REQUEST['event_date'];
-//     $date=date("Y-m-d",strtotime($d));
-//   // $poster = $_REQUEST['poster'];
-//   $user= $_SESSION['username'];
-// // postername
-//   $tempname=$_FILES["postername"]["tmp_name"];
-//   $filename=$_FILES["postername"]["name"];
-//   $path="/image.$filename";
-//   move_uploaded_file($tempname, $path);
+    if($post->addPopertyBasics($county,$sub_county,$free_featured,$buyrent,$userId,$property_category,$longitude, $latitude,$price,$description )){
+      // echo '{"result": 1, "message": "Prorpety added successfully"}';
+    }
+    $p_id= $post->getLastProrpertyId();
+    // echo "p id: "+$p_id;
 
- function saveSession(){
-  
+ //    $p_id="6";
+    if(strcmp($_SESSION["p_cat"],"House")==0){
 
-  if(!isset( $_SESSION["longitude"])){
-  $_SESSION["count"]=0;
-  if (isset($_GET['longitude'])) {
-    $_SESSION["longitude"]=$_GET['longitude'];
+      $bathroom= $_SESSION["bathroom"];
+      $bedroom= $_SESSION["bedroom"];
+      $floors= $_SESSION["floors"];
+      $parking= $_SESSION["parking"];
+      $hr=$_SESSION["hr"];
+      $cctv=$_SESSION["cctv"];
+      $alarm=$_SESSION["alarm"];
+      $electric_fence=$_SESSION["electric_fence"];
+      $wall=$_SESSION["wall"];
+      $internet=$_SESSION["internet"];
+      $pool= $_SESSION["pool"];
+      $garden=$_SESSION["garden"];
+      $gym=$_SESSION["gym"];
+      $disability= $_SESSION["disability"];
+      $water = $_SESSION["water_storage"];
+      $furnished=$_SESSION["furnished"];
+      $p_type=$_SESSION["p_type"];
+
+      if($post->addPopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym,$disability,$water,$furnished,$p_id)){
+        // echo '{"result": 1, "message": "Prorpety features added successfully"}';
+      }
+    }
+
+    if(strcmp($_SESSION["p_cat"],"Land")==0){
+      $acres=$_SESSION["acre_size"];
+      if($post->addLandFeatures($acres,$p_id)){
+       // echo '{"result": 1, "message": "Land features added successfully"}';
+      }
+    }
+
+    if(!empty( $_SESSION["pics"])){
+
+      for ($i=0; $i <count( $_SESSION["pics"]); $i++) { 
+        $post->addPropertyPictures($_SESSION["pics"][$i],$p_id);
+      } 
+    }
+    destroySession();
+    echo '{"result": 1, "message": "Property added successfully"}';
+    return;
+
   }
 }
 
-  if(!isset( $_SESSION["latitude"])){
-  
-  if (isset($_GET['latitude'])) {
-    $_SESSION["latitude"]=$_GET['latitude'];
-  }
-}
-  if(!isset( $_SESSION["county"])){
 
-  if (isset($_GET['county'])) {
-    $_SESSION["county"]=$_GET['county'];
-  }
-}
-  if(!isset( $_SESSION["sub_county"])){
-  
-  if (isset($_GET['sub_county'])) {
-    $_SESSION["sub_county"]=$_GET['sub_county'];
-  }
-}
- 
-  echo '{"result": 1, "message": "session created"}';
+function saveSession(){
 
+
+  if(!isset( $_SESSION["price"])){
+    $_SESSION["price"];
+  }
+  if(!isset( $_SESSION["description"])){
+   $_SESSION["description"];
+ }
+ if(!isset( $_SESSION["county"])){
+   $_SESSION["county"];
+ }
+ if(!isset( $_SESSION["sub_county"])){
+   $_SESSION["sub_county"];
+ }
+ if(!isset( $_SESSION["bathroom"])){
+  $_SESSION["bathroom"];
+}
+if(!isset( $_SESSION["bedroom"])){
+ $_SESSION["bedroom"];
+}
+if(!isset( $_SESSION["floors"])){
+ $_SESSION["floors"];
+}
+if(!isset( $_SESSION["parking"])){
+ $_SESSION["parking"];
+}
+if(!isset( $_SESSION["acre_size"])){
+ $_SESSION["acre_size"];
+}
+if(!isset( $_SESSION["lprice"])){
+ $_SESSION["lprice"];
+}
+if(!isset( $_SESSION["ldescription"])){
+ $_SESSION["ldescription"];
+}
+if(!isset( $_SESSION["p_type"])){
+ $_SESSION["p_type"];
+}
+if(!isset( $_SESSION["p_cat"])){
+ $_SESSION["p_cat"];
+}
+if(!isset( $_SESSION["buy_rent"])){
+ $_SESSION["buy_rent"];
+}
+if(!isset( $_SESSION["hr"])){
+ $_SESSION["hr"];
+}
+if(!isset( $_SESSION["cctv"])){
+ $_SESSION["cctv"];
+}
+if(!isset( $_SESSION["alarm"])){
+ $_SESSION["alarm"];
+}
+if(!isset( $_SESSION["electric_fence"])){
+ $_SESSION["electric_fence"];
+}
+if(!isset( $_SESSION["wall"])){
+ $_SESSION["wall"];
+}
+if(!isset( $_SESSION["internet"])){
+ $_SESSION["internet"];
+}
+if(!isset( $_SESSION["pool"])){
+ $_SESSION["pool"];
+}
+if(!isset( $_SESSION["garden"])){
+ $_SESSION["garden"];
+}
+if(!isset( $_SESSION["water_storage"])){
+ $_SESSION["water_storage"];
+}
+if(!isset( $_SESSION["gym"])){
+ $_SESSION["gym"];
+}
+if(!isset( $_SESSION["disability"])){
+ $_SESSION["disability"];
+}
+if(!isset( $_SESSION["furnished"])){
+ $_SESSION["furnished"];
+}
+
+
+if (isset($_GET['hr'])) {
+  $_SESSION["hr"]=$_GET['hr'];
+}
+if (isset($_GET['cctv'])) {
+  $_SESSION["cctv"]=$_GET['cctv'];
+}
+if (isset($_GET['alarm'])) {
+  $_SESSION["alarm"]=$_GET['alarm'];
+}
+if (isset($_GET['electric_fence'])) {
+  $_SESSION["electric_fence"]=$_GET['electric_fence'];
+}
+if (isset($_GET['wall'])) {
+  $_SESSION["wall"]=$_GET['wall'];
+}
+if (isset($_GET['internet'])) {
+  $_SESSION["internet"]=$_GET['internet'];
+}
+if (isset($_GET['pool'])) {
+  $_SESSION["pool"]=$_GET['pool'];
+}
+if (isset($_GET['garden'])) {
+  $_SESSION["garden"]=$_GET['garden'];
+}
+if (isset($_GET['water_storage'])) {
+  $_SESSION["water_storage"]=$_GET['water_storage'];
+}
+if (isset($_GET['gym'])) {
+  $_SESSION["gym"]=$_GET['gym'];
+}
+if (isset($_GET['disability'])) {
+  $_SESSION["disability"]=$_GET['disability'];
+}
+if (isset($_GET['furnished'])) {
+  $_SESSION["furnished"]=$_GET['furnished'];
+}
+if (isset($_GET['price'])) {
+  $_SESSION["price"]=$_GET['price'];
+}
+if (isset($_GET['description'])) {
+  $_SESSION["description"]=$_GET['description'];
+}
+if (isset($_GET['county'])) {
+  $_SESSION["county"]=$_GET['county'];
+}
+if (isset($_GET['sub_county'])) {
+  $_SESSION["sub_county"]=$_GET['sub_county'];
+}
+if (isset($_GET['bathroom'])) {
+  $_SESSION["bathroom"]=$_GET['bathroom'];
+}
+if (isset($_GET['bedroom'])) {
+  $_SESSION["bedroom"]=$_GET['bedroom'];
+}
+if (isset($_GET['floors'])) {
+  $_SESSION["floors"]=$_GET['floors'];
+}
+if (isset($_GET['parking'])) {
+  $_SESSION["parking"]=$_GET['parking'];
+}
+if (isset($_GET['acres'])) {
+  $_SESSION["acre_size"]=$_GET['acres'];
+}
+if (isset($_GET['ldescription'])) {
+  $_SESSION["ldescription"]=$_GET['ldescription'];
+}
+if (isset($_GET['lprice'])) {
+  $_SESSION["lprice"]=$_GET['lprice'];}
+  if (isset($_GET['p_type'])) {
+    $_SESSION["p_type"]=$_GET['p_type'];
+  }
+  if (isset($_GET['buy_rent'])) {
+    $_SESSION["buy_rent"]=$_GET['buy_rent'];
+  }
+  if (isset($_GET['p_cat'])) {
+    $_SESSION["p_cat"]=$_GET['p_cat'];
+  }
+
+  echo '{"result": 1, "message": "session saved"}';
   return;
 }
+
+function getPageoneSession(){
+
+  $mydata=array();
+  if(isset( $_SESSION["county"])){
+
+    $mydata[]=array('county'=>$_SESSION["county"],'sub_county'=>$_SESSION["sub_county"],'price'=>$_SESSION["price"],'description'=>$_SESSION["description"], 'bathroom'=>$_SESSION["bathroom"],'bedroom'=>$_SESSION["bedroom"],'floors'=>$_SESSION["floors"],'parking'=>$_SESSION["parking"], 'acre_size'=>$_SESSION["acre_size"],'ldescription'=>$_SESSION["ldescription"],'lprice'=>$_SESSION["lprice"],'p_type'=>$_SESSION["p_type"],'p_cat'=>$_SESSION["p_cat"],'buy_rent'=>$_SESSION["buy_rent"],'hr'=>$_SESSION["hr"],'cctv'=>$_SESSION["cctv"],'alarm'=>$_SESSION["alarm"],'electric_fence'=>$_SESSION["electric_fence"],'wall'=>$_SESSION["wall"],'internet'=>$_SESSION["internet"],'pool'=>$_SESSION["pool"],'water_storage'=>$_SESSION["water_storage"]
+      ,'garden'=>$_SESSION["garden"],'disability'=>$_SESSION["disability"],'furnished'=>$_SESSION["furnished"],'gym'=>$_SESSION["gym"]);
+
+    echo '{"result": 1, "p1":';
+    echo json_encode($mydata);
+
+    echo "}";
+    return;
+  }
+  else{
+    echo '{"result": 0, "message": "No set sessions"}';
+    return;
+  }
+}
+
+function getUploadPageSession(){
+
+  $mydata=array();
+  if(!empty( $_SESSION["pics"])){
+    for ($i=0; $i <count( $_SESSION["pics"]); $i++) { 
+      $mydata[]=array('pic'.$i=>$_SESSION["pics"][$i]);
+    }
+    
+    echo '{"result": 1, "picture":';
+    echo json_encode($mydata);
+
+    echo "}";
+    return;
+  }
+  else{
+    echo '{"result": 0, "message": "No set sessions"}';
+    return;
+  }
+}
+
 function destroySession(){
-  unset($_SESSION['longitude']);
-  unset($_SESSION['latitude']);
+  unset($_SESSION['price']);
+  unset($_SESSION['description']);
   unset($_SESSION['county']);
   unset($_SESSION['sub_county']);
- 
-  echo '{"result": 1, "message": "session created"}';
+  unset($_SESSION["bathroom"]);
+  unset($_SESSION['bedroom']);
+  unset($_SESSION['floors']);
+  unset($_SESSION['parking']);
+  unset($_SESSION['acre_size']);
+  unset($_SESSION["ldescription"]);
+  unset($_SESSION['p_type']);
+  unset($_SESSION["lprice"]);
+
+  unset($_SESSION['cctv']);
+  unset($_SESSION['hr']);
+  unset($_SESSION['county']);
+  unset($_SESSION['wall']);
+  unset($_SESSION["electric_fence"]);
+  unset($_SESSION['alarm']);
+  unset($_SESSION['internet']);
+  unset($_SESSION['pool']);
+  unset($_SESSION['garden']);
+  unset($_SESSION["water_storage"]);
+  unset($_SESSION['disability']);
+  unset($_SESSION["furnished"]);
+  unset($_SESSION['p_cat']);
+  unset($_SESSION['buy_rent']);
+  unset($_SESSION["pics"]);
+
+  echo '{"result": 1, "message": "session destroyed"}';
 
   return;
 }
 
+/**
+*Method to fetch posts that have been made by a user
+*/
+function getMyProperty(){
+  include "../classes/post.php";
+
+  $post = new Post();
+
+  $userId=$_SESSION['userId'];
+  $row = $post->getMyProperty($userId);
+  if(!$row){
+    echo '{"result": 0, "message": "You have not made any posts"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
+
+/**
+*Method to fetch posts that have been made by a user
+*/
+function homePageProperty(){
+  include "../classes/post.php";
+
+  $post = new Post();
+
+  $row = $post->fetchHomePageProperty();
+  if(!$row){
+    echo '{"result": 0, "message": "You have not made any posts"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
+
+/**
+*Method to fetch all the houses
+*/
+function getHouseProperty(){
+  include "../classes/post.php";
+
+  $post = new Post();
+
+  $row = $post->fetchHouses();
+  if(!$row){
+    echo '{"result": 0, "message": "You have not made any posts"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
 
 
+/**
+*Method to fetch the lands
+*/
+function getLandProperty(){
+  include "../classes/post.php";
 
+  $post = new Post();
 
+  $row = $post->fetchLands();
+  if(!$row){
+    echo '{"result": 0, "message": "You have not made any posts"}';
+    return;
+  }
 
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
 
+/**
+*Method to fetch all properties
+*/
+function getAllSearchProperty(){
+  include "../classes/post.php";
 
+  $post = new Post();
 
+  $row = $post->fetchAllSearchProperty();
+  if(!$row){
+    echo '{"result": 0, "message": "You have not made any posts"}';
+    return;
+  }
 
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
 
+/**
+*Method to fetch all the details of logged in user
+*/
+function getUserDetails(){
+  include "../classes/user.php";
 
+  $myuser = new users();
+  $id=$_SESSION['userId'];
+  $row = $myuser->getUserDetail($id);
+  if(!$row){
+    echo '{"result": 0, "message": "user does not exist"}';
+    return;
+  }
 
+  echo '{"result": 1, "user": [';
+  while($row){
+    echo json_encode($row);
+    $row = $myuser->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
 
+/**
+*Method to fetch the count of properties by a user
+*/
+function getPostCount(){
+  include "../classes/post.php";
 
+  $post = new Post();
+ $id=$_SESSION['userId'];
+  $row = $post->propertyCountPerUser($id);
+  if(!$row){
+    echo '{"result": 0, "message": "You have not made any posts"}';
+    return;
+  }
 
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
+
+/**
+*Method to fetch the count of alerts set by a user
+*/
+function getAlertCount(){
+   include "../classes/alerts.php";
+
+    $myAlert = new Alerts();
+    $id=$_SESSION['userId'];
+    $row = $myAlert->alertCountPerUser($id);
+    if(!$row){
+      echo '{"result": 0, "message": "You have not made any alerts"}';
+      return;
+    }
+
+    echo '{"result": 1, "alert": [';
+    while($row){
+      echo json_encode($row);
+      $row = $myAlert->fetch();
+      if($row){
+        echo ',';
+      }
+    }
+    echo "]}";
+    return;
+}
+/**
+*Method to reset user password from the profile
+*/
+function resetProfileUserPassword(){
+  include "../classes/user.php";
+
+  $myuser = new users();
+  $password = $_GET['password'];
+  $current_password= $_GET['c_password'];
+
+  if(!$myuser->changeProfilePassword($password, $current_password)){
+    echo '{"result": 0, "message": "User password was not changed"}';
+    return;
+  }
+  else{
+  echo '{"result": 1, "message": "password change was successful"}';
+ return;
+}
+
+}
 
 
 
@@ -542,32 +1015,9 @@ function deleteProperty(){
 
   return;
 }
-/**
-*Method to fetch posts that have been made by a user
-*/
-function getMyProperty(){
-  include "../classes/post.php";
 
-  $post = new Post();
-    // $userId=$_GET['username'];
-  $userId=$_SESSION['username'];
-  $row = $post->getMyPosts($userId);
-  if(!$row){
-    echo '{"result": 0, "message": "You have not made any posts"}';
-    return;
-  }
 
-  echo '{"result": 1, "post": [';
-  while($row){
-    echo json_encode($row);
-    $row = $post->fetch();
-    if($row){
-      echo ',';
-    }
-  }
-  echo "]}";
-  return;
-}
+
 function getAppUsers(){
   include "../classes/user.php";
 
@@ -660,7 +1110,7 @@ return;
 }
 
 function editUserType(){
- include "user.php";
+ include "../classes/user.php";
 
  $user = new user();
 
@@ -763,6 +1213,29 @@ function getuserSession(){
   return;
 
 }
+
+  // Sanitize E-mail Address
+// $email =filter_var($email, FILTER_SANITIZE_EMAIL);
+// // Validate E-mail Address
+// $email= filter_var($email, FILTER_VALIDATE_EMAIL);
+// if (!$email){
+// echo "Invalid Sender's Email";
+// }
+        // $to = $email;
+        // $subject = "Verification code";
+        // $txt = "The code to change your password is 2000.";
+        // $headers = "From: wbenmurimi@gmail.com";
+
+//mail($to,$subject,$txt,$headers);
+
+            // $admin_email = "wbenmurimi@gmail.com";
+            // $email = $_REQUEST['email'];
+ // $subject = $_REQUEST['subject'];
+  //$comment = $_REQUEST['comment'];
+
+            // mail($admin_email, $subject, $txt, $headers);
+
+
 ob_end_flush();
 
 ?>

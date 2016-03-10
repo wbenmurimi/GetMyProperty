@@ -41,12 +41,12 @@
       </div>
       <div class="col l6 s12">
         <div class="input-field col l6 s12">
-         <input onclick="alertMessageOption()" name="alert_option" id="email_option_radio" type="radio" class="validate with-gap" autocomplete="off">
+         <input onclick="" name="alert_option" id="email_option_radio" type="radio" class="validate with-gap" autocomplete="off">
          <label for="email_option_radio">Email</label>
        </div>
        
        <div class="input-field col l6 s12">
-        <input  onclick="alertMessageOption()" name="alert_option" id="phone_option_radio" type="radio" class="validate with-gap" autocomplete="off">
+        <input  onclick="" name="alert_option" id="phone_option_radio" type="radio" class="validate with-gap" autocomplete="off">
         <label for="phone_option_radio">Phone</label>
       </div>
       <div id="alertOptionDiv" class="input-field col l12">
@@ -168,6 +168,7 @@
 
  $(document).ready(function(){
    hide("land_property_div");
+   showFirstName();
    // Activate the side menu 
    $(".button-collapse").sideNav();
    $("#alert_phone").intlTelInput();

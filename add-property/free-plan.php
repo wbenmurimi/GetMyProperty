@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="">
+<body onload="freePlan()">
  <!--start of navbar-->
  <?php include "../header/header-login.html";?>
  <!-- end of navbar-->
@@ -29,13 +29,14 @@
 <div class="template-container">
   <div class="row">
     <div class="card">
-      <h4 class="center">Free plan</h4>
+      <h4 class="center">Upload property pictures</h4>
       <div class="col l6 s6 card">
-        <form action="../model/fileUpload.php" menctype="multipart/form-data">
+
+        <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
           <div class="file-field input-field">
             <div class="btn">
               <span>File</span>
-              <input type="file" id="fileToUpload" name="fileToUpload">
+              <input type="file" id="fileToUpload" name="image">
             </div>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text" >
@@ -45,13 +46,14 @@
            <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
          </div>
        </form>
+
      </div>
      <div class="col l6 s6 card">
-      <form action="../model/fileUpload.php">
+      <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
         <div class="file-field input-field">
           <div class="btn">
             <span>File</span>
-            <input type="file">
+            <input type="file" id="fileToUpload" name="image">
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text" >
@@ -63,11 +65,11 @@
      </form>
    </div>
    <div class="col l6 s6 card">
-    <form action="../model/fileUpload.php">
+    <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
       <div class="file-field input-field">
         <div class="btn">
           <span>File</span>
-          <input type="file">
+          <input type="file" id="fileToUpload" name="image">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
@@ -79,11 +81,11 @@
    </form>
  </div>
  <div class="col l6 s6 card">
- <form action="../model/fileUpload.php">
+  <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
     <div class="file-field input-field">
       <div class="btn">
         <span>File</span>
-        <input type="file">
+        <input type="file" id="fileToUpload" name="image">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
@@ -98,7 +100,7 @@
  <a href="property-plan.php"> <button  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Back</button></a>
 </div>
 <div class="loginfooter right">
- <a href="review-post.php"> <button  type="submit" class="btn btn-spacer waves-effect wave-dark blue darken-1 center-align">Next</button>
+ <a href="review-post.php"> <button  type="submit" class="btn btnColor btn-spacer waves-effect wave-dark blue darken-1 center-align">Next</button>
  </a>
 </div>
 </div>
@@ -112,11 +114,12 @@
 <!--  Scripts-->
 <script src="../js/jquery.js"></script>
 <script src="../js/materialize.min.js"></script>
-<script src="''/js/script.js"></script>
+<script src="../js/script.js"></script>
 
 <script>
 
  $(document).ready(function(){
+  showFirstName();
    // Activate the side menu 
    $(".button-collapse").sideNav();
    $('.modal-trigger').leanModal();

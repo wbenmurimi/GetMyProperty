@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="">
+<body onload="featuredPlan()">
  <!--start of navbar-->
  <?php include "../header/header-login.html";?>
  <!-- end of navbar-->
@@ -24,105 +24,111 @@
         <div class="row">
           <div class="card">
             <h4 class="center">Featured plan</h4>
-            <div class="col l4 s6 card">
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
+            <div class="col l4 s6 ">
+             <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>File</span>
+                  <input type="file" id="fileToUpload" name="image">
                 </div>
-              </form>
-            </div>
-            <div class="col l4 s6 card">
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" >
                 </div>
-              </form>
+              </div>
+              <div class="right">
+               <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+             </div>
+           </form>
+         </div>
+         <div class="col l4 s6 ">
+          <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>File</span>
+                <input type="file" id="fileToUpload" name="image">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" >
+              </div>
             </div>
-            <div class="col l4 s6 card">
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
-                </div>
-              </form>
+            <div class="right">
+             <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+           </div>
+         </form>
+       </div>
+       <div class="col l4 s6 ">
+         <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input type="file" id="fileToUpload" name="image">
             </div>
-            <div class="col l4 s6 card">
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
-                </div>
-              </form>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" >
             </div>
-            <div class="col l4 s6 card">
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col l4 s6 card">
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col l4 s6 card">
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
-                </div>
-              </form>
-            </div>
-<div class=" right">
- <a href=".php"> <button  type="submit" class="btn nextfooter btn-spacer waves-effect wave-dark blue darken-1 center-align">next</button>
- </div>
+          </div>
+          <div class="right">
+           <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+         </div>
+       </form>
+     </div>
+     <div class="col l4 s6 ">
+      <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>File</span>
+            <input type="file" id="fileToUpload" name="image">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" >
           </div>
         </div>
+        <div class="right">
+         <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+       </div>
+     </form>
+   </div>
+   <div class="col l4 s6">
+     <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>File</span>
+          <input type="file" id="fileToUpload" name="image">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" >
+        </div>
+      </div>
+      <div class="right">
+       <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+     </div>
+   </form>
+ </div>
+ <div class="col l4 s6 ">
+   <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>File</span>
+        <input type="file" id="fileToUpload" name="image">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" >
       </div>
     </div>
-  </div>
+    <div class="right">
+     <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+   </div>
+ </form>
+</div>
+
+<div class=" right">
+ <a href=".php"> <button  type="submit" class="btn btnColor nextfooter btn-spacer waves-effect center-align">next</button>
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <!--  end of body division-->
 <!--  footer section-->        
@@ -132,7 +138,7 @@
 <!--  Scripts-->
 <script src="../js/jquery.js"></script>
 <script src="../js/materialize.min.js"></script>
-<script src="''/js/script.js"></script>
+<script src="../js/script.js"></script>
 
 <script>
 

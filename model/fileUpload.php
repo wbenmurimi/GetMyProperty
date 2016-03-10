@@ -1,5 +1,8 @@
 <?php
 $target_dir="../image/";
+if (isset($_FILES["fileToUpload"])) {
+    echo "LOL";
+}
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 echo "string ". basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;

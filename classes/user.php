@@ -14,11 +14,16 @@ class users extends base{
      */
     function Login($username, $user_password)
     {
-        $str_query = "SELECT xx_username, xx_user_type FROM xx_system_users WHERE xx_username = '$username' AND xx_user_password = md5('$user_password') AND xx_user_status='enable'";
+        $str_query = "SELECT xx_username, xx_user_type, xx_user_id ,xx_fname FROM _system_users WHERE xx_username = '$username' AND xx_user_password = md5('$user_password') AND xx_user_status='enabled'";
         return $this->query($str_query);
     }
     /**
-     * @method boolean signUp($username,$password,$user_email,$phone,$usertype,$user_status) sign up information of user to be stored in the database
+     * @method boolean signUp($fname,$lname,$dob,$gender,$username,$password,$user_email,$phone,$usertype,
+     *$user_status) sign up information of user to be stored in the database
+     * @param $fname user first name
+     * @param $lname user last name
+     * @param $dob user date of birth
+     * @param $gender user gender
      * @param $username name user will sign in with
      * @param $password password of user
      * @param $user_email email of user
@@ -27,9 +32,9 @@ class users extends base{
      * @param $phone phone number of user
      * @return bool
      */
-    function signUp($username,$password,$user_email,$phone,$usertype,$user_status)
+    function signUp($fname,$lname,$dob,$gender,$username,$password,$user_email,$phone,$usertype,$user_status)
     {
-        $str_query = "INSERT INTO xx_system_users SET xx_username='$username', xx_user_password=md5('$password'),xx_user_status='$user_status', xx_user_email='$user_email',xx_user_phone='$phone',xx_user_type='$usertype'";
+        $str_query = "INSERT INTO _system_users SET xx_fname='$fname',xx_lname='$lname',xx_dob='$dob', xx_gender='$gender', xx_username='$username', xx_user_password=md5('$password'),xx_user_status='$user_status', xx_user_email='$user_email',xx_user_phone='$phone',xx_user_type='$usertype'";
         return $this->query($str_query);
     }
     /**
@@ -38,7 +43,16 @@ class users extends base{
      */
     function getUsers()
     {
-        $str_query = "SELECT * FROM xx_system_users order by user_type";
+        $str_query = "SELECT * FROM _system_users order by user_type";
+        return $this->query($str_query);
+    }
+    /**
+     * @method boolean getUserDetails() fetches all the details of a user in the database
+        * @return bool
+     */
+    function getUserDetail($id)
+    {
+        $str_query = "SELECT * FROM _system_users where xx_user_id='$id' ";
         return $this->query($str_query);
     }
     /**
@@ -50,10 +64,10 @@ class users extends base{
      */
     function editUserType($user_status,$type,$id)
     {
-       $str_query = "UPDATE xx_system_users SET xx_user_type='$type', xx_user_status='$user_status'
-       WHERE xx_user_id='$id'";
-       return $this->query($str_query);
-   }
+     $str_query = "UPDATE _system_users SET xx_user_type='$type', xx_user_status='$user_status'
+     WHERE xx_user_id='$id'";
+     return $this->query($str_query);
+ }
 
     /**
      * @method boolean getOneUserPhone($phone) fetches a user in the database with a given phone
@@ -61,7 +75,7 @@ class users extends base{
      */
     function getOneUserPhone($phone)
     {
-        $str_query = "SELECT * FROM xx_system_users where xx_user_phone='$phone'";
+        $str_query = "SELECT * FROM _system_users where xx_user_phone='$phone'";
         return $this->query($str_query);
     }
 
@@ -71,7 +85,7 @@ class users extends base{
      */
     function getOneUserEmail($email)
     {
-        $str_query = "SELECT * FROM xx_system_users where xx_user_email='$email'";
+        $str_query = "SELECT * FROM _system_users where xx_user_email='$email'";
         return $this->query($str_query);
     } 
 
@@ -98,7 +112,7 @@ class users extends base{
 
             $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID);
 
-            $str_query = "UPDATE xx_system_users SET xx_password_reset_code='$random_code'
+            $str_query = "UPDATE _system_users SET xx_password_reset_code='$random_code'
             where xx_user_phone='$phone'";
             return $this->query($str_query);
         }
@@ -109,18 +123,18 @@ class users extends base{
      */
     function sendPasswordResetCodePhoneEmail($email)
     {
-     $myuser = new users();
-     $myuser->getOneUserEmail($email);
-     $row=$myuser-> fetch();
+       $myuser = new users();
+       $myuser->getOneUserEmail($email);
+       $row=$myuser-> fetch();
 
-     if($row){
+       if($row){
         $random_code= rand(1000,9999);
         //send the code here
-        $str_query = "UPDATE xx_system_users SET xx_password_reset_code='$random_code'
+        $str_query = "UPDATE _system_users SET xx_password_reset_code='$random_code'
         where xx_user_email='$email'";
         return $this->query($str_query);
     }
-    }
+}
 
     /**
      * @method boolean deleteResetCode($code) deetes generated code in the database
@@ -128,7 +142,7 @@ class users extends base{
      */
     function deleteResetCode($code)
     {
-        $str_query = "UPDATE xx_system_users SET xx_password_reset_code=''
+        $str_query = "UPDATE _system_users SET xx_password_reset_code=''
         where xx_password_reset_code='$code'";
         return $this->query($str_query);
     }
@@ -140,11 +154,25 @@ class users extends base{
      */
      function changeUserPassword($password, $code)
      {
-       $str_query = "UPDATE xx_system_users SET xx_user_password=md5('$password')
-       WHERE xx_password_reset_code='$code'";
+         $str_query = "UPDATE _system_users SET xx_user_password=md5('$password')
+         WHERE xx_password_reset_code='$code'";
          
-       return $this->query($str_query);
-    }
+         return $this->query($str_query);
+     }
 
-}
-?>
+      /**
+     * @method boolean changeProfilePassword($password, $current_password) changes the password of the user
+     * @param $password the new password for the user
+     * @param $current_password current password for the user
+     * @return bool
+     */
+     function changeProfilePassword($password, $current_password)
+     {
+         $str_query = "UPDATE _system_users SET xx_user_password=md5('$password')
+         WHERE xx_user_password=md5('$current_password')";
+         
+         return $this->query($str_query);
+     }
+
+ }
+ ?>
