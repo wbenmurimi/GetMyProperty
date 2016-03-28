@@ -40,6 +40,31 @@ function checkIfChecked(){
       }
 }
 
+function checkIfResidentialSearchIsChecked(){
+     
+     var send_option = document.getElementsByName("residential_R");
+     if (send_option[0].checked == true) {
+      } 
+      else if (send_option[1].checked == true) {
+     }
+}
+function checkIfCommercialSearchIsChecked(){
+     var send_option = document.getElementsByName("commercial_R");
+     if (send_option[0].checked == true) {
+     } 
+      else if (send_option[1].checked == true) {
+      }
+}
+function checkIfLandSearchIsChecked(){
+     
+
+     var send_option = document.getElementsByName("land_R");
+     if (send_option[0].checked == true) {
+       } 
+      else if (send_option[1].checked == true) {
+     }
+}
+
 function checkAddOption(){
 
     var add_option = document.getElementsByName("p_cat");
@@ -496,7 +521,7 @@ function searchAlerts(){
 
   var mytable=$('#jsontable').dataTable();
   mytable.fnClearTable();
-  for(i=0;i<objResult.alert.length;i++){
+  for(i=1;i<objResult.alert.length;i++){
   mytable.fnAddData([ objResult.alert[i].xx_alert_id, objResult.alert[i].xx_message_alert, objResult.alert[i].xx_email_alert,
     objResult.alert[i].xx_property_category, objResult.alert[i].xx_sub_county, 
     objResult.alert[i].xx_buy_rent,objResult.alert[i].start_date, objResult.alert[i].xx_end_time
@@ -571,107 +596,204 @@ function page1Session(){
 
  if (hr_[0].checked == true) {
   hr="Yes";
-  }
-  else{
-    hr="No";
-  }
-  if (cctv_[0].checked == true) {
-    cctv="Yes";
-  }
-  else{
-    cctv="No";
-  }
-  if (alarm_[0].checked == true) {
-    alarm="Yes";
-  }
-  else{
-   alarm="No";
-  }
-  if (electric_fence_[0].checked == true) {
-    electric_fence="Yes";
-  }
-  else{
-   electric_fence="No";
-  }
-  if (wall_[0].checked == true) {
-    wall="Yes";
-  }
-  else{
-   wall="No";
-  }
-  if (internet_[0].checked == true) {
-    internet="Yes";
-  }
-  else{
-    internet="No";
-  }
-  if (pool_[0].checked == true) {
-    pool="Yes";
-  }
-  else{
-    pool="No";
-  }
-  if (garden_[0].checked == true) {
-    garden="Yes";
-  }
-  else{
-    garden="No";
-  }
-  if (water_storage_[0].checked == true) {
-    water_storage="Yes";
-  }
-  else{
-    water_storage="No";
-  }
-  if (gym_[0].checked == true) {
-    gym="Yes";
-  }
-  else{
-   gym="No";
-  }
-  if (disability_[0].checked == true) {
-    disability="Yes";
-  }
-  else{
-    disability="No";
-  }
-  if (furnished_[0].checked == true) {
-    furnished="Yes";
-  }
-  else{
-    furnished="No";
-  }
+}
+else{
+  hr="No";
+}
+if (cctv_[0].checked == true) {
+  cctv="Yes";
+}
+else{
+  cctv="No";
+}
+if (alarm_[0].checked == true) {
+  alarm="Yes";
+}
+else{
+ alarm="No";
+}
+if (electric_fence_[0].checked == true) {
+  electric_fence="Yes";
+}
+else{
+ electric_fence="No";
+}
+if (wall_[0].checked == true) {
+  wall="Yes";
+}
+else{
+ wall="No";
+}
+if (internet_[0].checked == true) {
+  internet="Yes";
+}
+else{
+  internet="No";
+}
+if (pool_[0].checked == true) {
+  pool="Yes";
+}
+else{
+  pool="No";
+}
+if (garden_[0].checked == true) {
+  garden="Yes";
+}
+else{
+  garden="No";
+}
+if (water_storage_[0].checked == true) {
+  water_storage="Yes";
+}
+else{
+  water_storage="No";
+}
+if (gym_[0].checked == true) {
+  gym="Yes";
+}
+else{
+ gym="No";
+}
+if (disability_[0].checked == true) {
+  disability="Yes";
+}
+else{
+  disability="No";
+}
+if (furnished_[0].checked == true) {
+  furnished="Yes";
+}
+else{
+  furnished="No";
+}
 
-  if (p_option[0].checked == true) {
-    Property_category="House";
-  }
-  if (p_option[1].checked == true) {
-   Property_category="Land";
-  }
-  if (buy_rent_option[0].checked == true) {
-    buy_rent="Sale";
-  }
-  if (buy_rent_option[1].checked == true) {
-    buy_rent="Rent";
-  }
+if (p_option[0].checked == true) {
+  Property_category="House";
+}
+if (p_option[1].checked == true) {
+ Property_category="Land";
+}
+if (buy_rent_option[0].checked == true) {
+  buy_rent="Sale";
+}
+if (buy_rent_option[1].checked == true) {
+  buy_rent="Rent";
+}
 
-  var price= $("#price").val();
-  var description= $("#description").val();
-  var bathroom= $("#bathroom").val();
-  var bedroom= $("#house_bedroom").val();
-  var floors= $("#floors").val();
-  var parking= $("#parking").val();
-  var acres= $("#acre_size").val();
-  var lprice= $("#lprice").val();
-  var ldescription= $("#ldescription").val();
+var price= $("#price").val();
+var description= $("#description").val();
+var bathroom= $("#bathroom").val();
+var bedroom= $("#house_bedroom").val();
+var floors= $("#floors").val();
+var parking= $("#parking").val();
+var acres= $("#acre_size").val();
+var lprice= $("#lprice").val();
+var ldescription= $("#ldescription").val();
 
-  var strUrl = myurl+"cmd=20&county="+county+"&sub_county="+sub_county+"&price="+
-  price+"&description="+description+"&bathroom="+bathroom+"&bedroom="+bedroom+
-  "&floors="+floors+"&parking="+parking +"&acres="+acres+"&lprice="+lprice+
-  "&ldescription="+ldescription+"&p_type="+p_type+"&p_cat="+Property_category+"&buy_rent="+buy_rent+
-  "&hr="+hr+"&cctv="+cctv+"&alarm="+alarm+"&electric_fence="+electric_fence+
-  "&wall="+wall+"&internet="+internet+"&pool="+pool+"&garden="+garden+
-  "&water_storage="+water_storage+"&gym="+gym+"&disability="+disability+"&furnished="+furnished;
+/*validation */
+
+if(county.length == 0) {
+  document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please select the county<i class="material-icons">close</i></div>';
+  $(window).scrollTop(0);
+  return;
+}
+if(sub_county.length == 0) {
+  document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please select the sub county<i class="material-icons">close</i></div>';
+  $(window).scrollTop(0);
+  return;
+}
+if (p_option[0].checked == false && p_option[1].checked == false) {
+ document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please select the property category i.e. House or land<i class="material-icons">close</i></div>';
+ $(window).scrollTop(0);
+ return;
+}
+if (buy_rent_option[0].checked == false && buy_rent_option[1].checked == false) {
+ document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please choose if the property is for sale or rent<i class="material-icons">close</i></div>';
+ $(window).scrollTop(0);
+ return;
+}
+if (p_option[0].checked == true) {
+  if(p_type.length == 0) {
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please select the property type<i class="material-icons">close</i></div>';
+   $(window).scrollTop(0);
+    return;
+  }
+  if(price.length == 0) {
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please enter the price of the property <i class="material-icons">close</i></div>';
+    $(window).scrollTop(0);
+    return;
+  }
+  if(description.length == 0) {
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please enter the description of the property <i class="material-icons">close</i></div>';
+   $(window).scrollTop(0);
+    return;
+  }
+  if((parseFloat(bedroom) == parseInt(bedroom)) && !isNaN(bedroom)){}
+    else{
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Error provide number on bedroom e.g. 2<i class="material-icons">close</i></div>';
+    $(window).scrollTop(0);
+    return;
+  } 
+  if((parseFloat(bathroom) == parseInt(bathroom)) && !isNaN(bathroom)){}
+    else{
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Error provide number on bathroom e.g. 2<i class="material-icons">close</i></div>';
+   $(window).scrollTop(0);
+    return;
+  } 
+
+  if((parseFloat(floors) == parseInt(floors)) && !isNaN(floors)){}
+    else{
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Error provide number on floors e.g. 2<i class="material-icons">close</i></div>';
+   $(window).scrollTop(0);
+    return;
+  } 
+  if((parseFloat(parking) == parseInt(parking)) && !isNaN(parking)){}
+    else{
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Error provide number on parking e.g. 2<i class="material-icons">close</i></div>';
+   $(window).scrollTop(0);
+    return;
+  } 
+}
+if (p_option[1].checked == true) {
+  if(acres.length == 0) {
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Enter the land size<i class="material-icons">close</i></div>';
+   $(window).scrollTop(0);
+    return;
+  }
+  if(lprice.length == 0) {
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please enter the price of the property <i class="material-icons">close</i></div>';
+    $(window).scrollTop(0);
+    return;
+  }
+  if(ldescription.length == 0) {
+    document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please enter the description of the property <i class="material-icons">close</i></div>';
+   $(window).scrollTop(0);
+    return;
+  }
+  if((parseFloat(acres) == parseInt(acres)) && !isNaN(acres)){}
+    else{
+    document.getElementById("add_error").acres = '<div class="chip red white-text">Error provide number on acres<i class="material-icons">close</i></div>';
+    $(window).scrollTop(0);
+    return;
+  }
+  if((parseFloat(lprice) == parseInt(lprice)) && !isNaN(lprice)){}
+    else{
+    document.getElementById("add_error").acres = '<div class="chip red white-text">Error provide number on land price<i class="material-icons">close</i></div>';
+    $(window).scrollTop(0);
+    return;
+  } 
+  
+}
+
+
+
+var strUrl = myurl+"cmd=20&county="+county+"&sub_county="+sub_county+"&price="+
+price+"&description="+description+"&bathroom="+bathroom+"&bedroom="+bedroom+
+"&floors="+floors+"&parking="+parking +"&acres="+acres+"&lprice="+lprice+
+"&ldescription="+ldescription+"&p_type="+p_type+"&p_cat="+Property_category+"&buy_rent="+buy_rent+
+"&hr="+hr+"&cctv="+cctv+"&alarm="+alarm+"&electric_fence="+electric_fence+
+"&wall="+wall+"&internet="+internet+"&pool="+pool+"&garden="+garden+
+"&water_storage="+water_storage+"&gym="+gym+"&disability="+disability+"&furnished="+furnished;
 
     // prompt("url", strUrl);
     var objResult = sendRequest(strUrl);
@@ -680,9 +802,9 @@ function page1Session(){
       // alert(objResult.message);
       return;
     }
-
-    return;
-}
+  window.location.href="property-plan.php";
+    // return;
+  }
 
 function backToPage1(){
 
@@ -788,28 +910,138 @@ function uploadPageSession(){
       for(i=0;i<objResult.picture.length;i++){
        var p1 = document.createElement("img");
        var source;
-       p1.setAttribute("height", "150");
-       p1.setAttribute("width", "150");
+       p1.setAttribute("height", "200");
+       p1.setAttribute("width", "200");
        p1.setAttribute("alt", "Image not uploaded");
        if (i==0) {
+            var newId=0;
+        source=objResult.picture[i].pic0;
+        p1.setAttribute("src", "../uploads/"+source);
+         document.getElementById("delete1").innerHTML='<button id="dltbtn'+newId+'" onclick="deleteImage(this)" type="submit" class="btn  red btn-spacer waves-effect wave-dark center-align">Delete</button>';
+        document.getElementById("picture1").appendChild(p1);
+
+        if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
+      }
+      if (i==1) {
+            var newId=1;
+       source=objResult.picture[i].pic1
+       p1.setAttribute("src", "../uploads/"+source);
+         document.getElementById("delete2").innerHTML='<button id="dltbtn'+newId+'" onclick="deleteImage(this)" type="submit" class="btn  red btn-spacer waves-effect wave-dark center-align">Delete</button>';
+         document.getElementById("picture2").appendChild(p1);
+
+          if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
+     }
+     if (i==2) {
+          var newId=2;
+      source=objResult.picture[i].pic2;
+      p1.setAttribute("src", "../uploads/"+source);
+      document.getElementById("delete3").innerHTML='<button id="dltbtn'+newId+'" onclick="deleteImage(this)" type="submit" class="btn  red btn-spacer waves-effect wave-dark center-align">Delete</button>';
+      document.getElementById("picture3").appendChild(p1);
+
+       if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
+    }
+    if (i==3) {
+          var newId=3;
+     source=objResult.picture[i].pic3;
+     p1.setAttribute("src", "../uploads/"+source);
+     document.getElementById("delete4").innerHTML='<button id="dltbtn'+newId+'" onclick="deleteImage(this)" type="submit" class="btn  red btn-spacer waves-effect wave-dark center-align">Delete</button>';
+     document.getElementById("picture4").appendChild(p1);
+
+      if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
+   }
+
+    }
+
+  }
+}
+
+function deleteImage(newid){
+  
+   var id= newid.getAttribute('id');
+   // alert("id: "+id);
+   var strUrl = myurl+"cmd=30&id="+id;
+    // prompt("url",strUrl);
+    var objResult = sendRequest(strUrl);
+    if(objResult.result == 0) {
+       alert(objResult.message);
+      return;
+    }
+     // alert(objResult.message);
+     location.reload();
+}
+
+function uploadPageSession_review(){
+
+    var strUrl = myurl+"cmd=16";
+    // prompt("url", strUrl);
+    var objResult = sendRequest(strUrl);
+
+    if(objResult.result == 0){
+      // alert(objResult.message);
+      return;
+    }
+    if(objResult.result == 1){  
+      for(i=0;i<objResult.picture.length;i++){
+       var p1 = document.createElement("img");
+       var source;
+       p1.setAttribute("height", "200");
+       p1.setAttribute("width", "200");
+       p1.setAttribute("alt", "Image not uploaded");
+       if (i==0) {
+            var newId=0;
         source=objResult.picture[i].pic0;
         p1.setAttribute("src", "../uploads/"+source);
         document.getElementById("picture1").appendChild(p1);
+
+        if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
       }
       if (i==1) {
+            var newId=1;
        source=objResult.picture[i].pic1
        p1.setAttribute("src", "../uploads/"+source);
-       document.getElementById("picture2").appendChild(p1);
+          document.getElementById("picture2").appendChild(p1);
+
+          if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
      }
      if (i==2) {
+          var newId=2;
       source=objResult.picture[i].pic2;
       p1.setAttribute("src", "../uploads/"+source);
       document.getElementById("picture3").appendChild(p1);
+
+       if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
     }
     if (i==3) {
+          var newId=3;
      source=objResult.picture[i].pic3;
      p1.setAttribute("src", "../uploads/"+source);
-     document.getElementById("picture4").appendChild(p1);
+      document.getElementById("picture4").appendChild(p1);
+
+      if(document.getElementById('dltbtn'+newId)){
+        var getClicked=document.getElementById('dltbtn'+newId);
+        getClicked.setAttribute('id',newId);
+      }
    }
 
     }
@@ -952,6 +1184,7 @@ function addProperty(){
   // alert(objResult.message);
   return;
   } 
+  window.location.href="../my property/index.php";
   // alert(objResult.message);
   return;
 }
@@ -973,10 +1206,15 @@ function getAllUserPosts(){
   if(objResult.result == 1){  
     for(i=1;i<objResult.property.length;i++){
       var newId=objResult.property[i].xx_property_id;
-
       var li = $('<li></li>');
-      li.html('<div class="card property-row"><div class=" col l2 "><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class=" col l8 "><div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div></div> <div class="col l2"> <button onclick="" type="submit" class="btn btn-spacer waves-effect green right center-align col l12 s12" id="edit_btn'+newId+'">Edit</button><button onclick=""  class="btn btn-spacer waves-effect red right center-align col l12 s12 " id="delete_btn'+newId+'">Delete</button> </div></div>');
+       if (objResult.property[i].xx_property_category=="Land" ) {
 
+         li.html( '<div class="card property-row"><div class=" col l2 "><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class=" col l8 "><div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Acres : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div></div> <div class="col l2"> <button onclick="" type="submit" class="btn btn-spacer waves-effect green right center-align col l12 s12" id="edit_btn'+newId+'">Edit</button><button class="btn btn-spacer waves-effect red right center-align col l12 s12 " id="delete_btn'+newId+'" onclick="deleteMyPost(this)">Delete</button> </div></div>');
+        }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2 "><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class=" col l8 "><div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div></div> <div class="col l2"> <button onclick="" type="submit" class="btn btn-spacer waves-effect green right center-align col l12 s12" id="edit_btn'+newId+'">Edit</button><button class="btn btn-spacer waves-effect red right center-align col l12 s12 " id="delete_btn'+newId+'" onclick="deleteMyPost(this)">Delete</button> </div></div>');
+
+      }
       $("#my_post_area_li").append(li);
      
       if(document.getElementById('delete_btn'+newId)){
@@ -1015,7 +1253,13 @@ function getHomePosts(){
       url="uploads/"+url;
      
       var li = $('<li></li>');
-      li.html(' <div class=" col l3 " id=""><div class="card property-row"><div class=" col l12 "><a href="property-detail.php"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></a><div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div></div>');
+      if (objResult.property[i].xx_property_category=="Land" ) {
+        li.html(' <div class=" col l3 " id=""><div class="card property-row"><div class=" col l12 "><a href="my property/property-detail.php"><div class=" center"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div></a><div class="bold_heading"><a href="my property/property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Acres : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div></div>');
+      }
+      else{
+      li.html(' <div class=" col l3 " id=""><div class="card property-row"><div class=" col l12 "><a href="my property/property-detail.php"><div class=" center"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div></a><div class="bold_heading"><a href="my property/property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div></div>');
+      
+      }
       $("#home_posts_li").append(li);
       
     }
@@ -1048,7 +1292,7 @@ function getHousePosts(){
       var newId=objResult.property[i].xx_property_id;
            
       var li = $('<li></li>');
-      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
        $("#search_posts_li").append(li);
       
     }
@@ -1075,7 +1319,7 @@ function getLandPosts(){
       var newId=objResult.property[i].xx_property_id;
         
       var li = $('<li></li>');
-      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
       $("#search_posts_li").append(li);
       
     }
@@ -1103,11 +1347,11 @@ function getAllPosts(){
       var li = $('<li></li>');
 
        if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
       $("#search_posts_li").append(li);
       }
       else{
-      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
        $("#search_posts_li").append(li);
       }
     }
@@ -1225,38 +1469,107 @@ function resetProfileUserPassword(){
       document.getElementById("login_error_area").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
       return;
     }
+    else if(objResult.result == 1){
+
     document.getElementById("login_error_area").innerHTML = '<div class="chip green white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
-    return;
+    // return;
     $("#current_password").val('');
     $("#new_password").val('');
     $("#confirm_password").val('');
-
+    logout();
+    }
 }
-
-
-
 
 
 function deleteMyPost(newid){
- var id= newid.getAttribute('id');
- var strUrl = myurl+"cmd=7&id="+id;
-  // prompt("url",strUrl);
-  var objResult = sendRequest(strUrl);
-  if(objResult.result == 0) {
-    document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
-    return;
-  }
-
-  document.getElementById("my_view_post_error").innerHTML = '<div class="chip green white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
-  location.reload();
+  
+   var id= newid.getAttribute('id');
+   // alert("id: "+id);
+   var strUrl = myurl+"cmd=28&id="+id;
+    // prompt("url",strUrl);
+    var objResult = sendRequest(strUrl);
+    if(objResult.result == 0) {
+       alert(objResult.message);
+      return;
+    }
+     alert(objResult.message);
+     location.reload();
 }
 
+function searchProperty_Refined(){
+
+   var cnty = document.getElementById("Property_county");
+   var county = cnty.options[cnty.selectedIndex].value;
+
+   var sub_cnty = document.getElementById("Property_sub_county");
+   var sub_county = sub_cnty.options[sub_cnty.selectedIndex].value;
+
+   var ptype = document.getElementById("Property_type");
+   var p_type = ptype.options[ptype.selectedIndex].value;
+
+   var p_cat = document.getElementById("Property_category");
+   var p_category = p_cat.options[p_cat.selectedIndex].value;
+
+   var price_from= $("#price_from").val();
+   var price_to= $("#price_to").val();
+
+   var send_option = document.getElementsByName("property_option");
+   var buy_rent;
+   if (send_option[0].checked == true) {
+    buy_rent="Sale";
+    } 
+    else if (send_option[1].checked == true) {
+      buy_rent="Rent";
+    }
+
+   var strUrl = myurl+"cmd=29&county="+county+"&sub_county="+sub_county+"&price_from="+
+    price_from+"&price_to="+price_to+"&p_type="+p_type+"&p_cat="+p_category+"&buy_rent="+buy_rent;
+   prompt("url", strUrl);
+    var objResult = sendRequest(strUrl);
+   
+  if(objResult.result == 0){
+
+    alert(objResult.message);
+    return;
+    }
+   if(objResult.result == 1){ 
+
+     $("#search_posts_li").empty(); 
+     for(i=1;i<objResult.property.length;i++){
+
+      var newId=objResult.property[i].xx_property_id;
+      var li = $('<li></li>');
+
+       if (objResult.property[i].xx_property_category=="Land" ) {
+      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+      $("#search_posts_li").append(li);
+       }
+      else{
+      li.html('<div class="card property-row"><div class=" col l2"><a href="property-detail.php"><img id="picSize" src="'+objResult.property[i].xx_picture_url+'" alt="" class="responsive-img center"></a></div><div class="col l10"> <div class="bold_heading"><a href="property-detail.php" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+       $("#search_posts_li").append(li);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function editMyPost(newid){
- var id= newid.getAttribute('id');
- var strUrl = myurl+"cmd=13&id="+id;
-  // prompt("url",strUrl);
-  var objResult = sendRequest(strUrl);
-  if(objResult.result == 0) {
+   var id= newid.getAttribute('id');
+   var strUrl = myurl+"cmd=13&id="+id;
+   // prompt("url",strUrl);
+    var objResult = sendRequest(strUrl);
+    if(objResult.result == 0) {
     document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
     return;
   } 
@@ -1282,37 +1595,37 @@ function addEditedPost(newid){
   document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">Empty Event Name<i class="material-icons">close</i></div>';
 
   return;
-}
-if(description.length == 0){
-  document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">Empty Event Description<i class="material-icons">close</i></div>';
-  return;
-}
-if(e_date.length == 0){
-  document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">Empty Event Date<i class="material-icons">close</i></div>';
-  return;
-}
-if(e_poster.length == 0){
-  document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">Empty Event Poster<i class="material-icons">close</i></div>';
-  return
-}
+    }
+    if(description.length == 0){
+      document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">Empty Event Description<i class="material-icons">close</i></div>';
+      return;
+    }
+    if(e_date.length == 0){
+      document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">Empty Event Date<i class="material-icons">close</i></div>';
+      return;
+    }
+    if(e_poster.length == 0){
+      document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">Empty Event Poster<i class="material-icons">close</i></div>';
+      return
+    }
 
-var strUrl = myurl+"cmd=6&name="+name+"&description="+description+"&date="+e_date+"&poster="+e_poster+"&id="+id;
-// prompt("url",strUrl);
-var objResult = sendRequest(strUrl);
-document.getElementById("my_view_post_error").innerHTML = '<div class="progress"><div class="indeterminate"></div></div>';
-if(objResult.result == 0) {
-  document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
-  return;
-}
+    var strUrl = myurl+"cmd=6&name="+name+"&description="+description+"&date="+e_date+"&poster="+e_poster+"&id="+id;
+    // prompt("url",strUrl);
+    var objResult = sendRequest(strUrl);
+    document.getElementById("my_view_post_error").innerHTML = '<div class="progress"><div class="indeterminate"></div></div>';
+    if(objResult.result == 0) {
+      document.getElementById("my_view_post_error").innerHTML = '<div class="chip red white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
+      return;
+    }
 
-$("#event_name").val('');
-$("#event_description").val('');
-$("#event_date").val('');
-$("#event_poster").val('');
+    $("#event_name").val('');
+    $("#event_description").val('');
+    $("#event_date").val('');
+    $("#event_poster").val('');
 
-document.getElementById("my_view_post_error").innerHTML = '<div class="chip green white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
+    document.getElementById("my_view_post_error").innerHTML = '<div class="chip green white-text">'+objResult.message+'<i class="material-icons">close</i></div>';
 
-// location.reload();
+    // location.reload();
 }
 function addComment(newid){
   var id= newid.getAttribute('id');

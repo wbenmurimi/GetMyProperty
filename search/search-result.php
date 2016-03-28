@@ -64,15 +64,15 @@ if(!isset($_SESSION["username"])){
            <div id="residential" class="col s12 ">
             <div class="input-field col s6 l6">
               <input onclick="" name="property_option" id="buy_radio" type="radio" class="validate with-gap" autocomplete="off">
-              <label for="buy_radio">Buy</label>
+              <label for="buy_radio">Sale</label>
             </div>
             <div class="input-field col l6 s6">
               <input onclick="" name="property_option" id="rent_radio" type="radio" class="validate with-gap" autocomplete="off">
               <label for="rent_radio">Rent</label>
             </div>
             <div class="input-field col l12 s12 Property_type_search">
-              <select class="Property_type">
-                <option value="Any">Any</option>
+              <select class="Property_type" id="Property_type">
+                <option value="All">All</option>
                 <option value="Apartment">Apartment/Flat</option>
                 <option value="Bedsitter">Bedsitter</option>
                 <option value="House">House</option>
@@ -82,8 +82,8 @@ if(!isset($_SESSION["username"])){
               <label>Property type</label> 
             </div>
             <div class="input-field col l12 s12">
-              <select class="Property_category">
-                <option value="Any">Any</option>
+              <select class="Property_category" id="Property_category">
+                <option value="All">All</option>
                 <option value="House">House</option>
                 <option value="Land">Land</option>
               </select>
@@ -117,7 +117,7 @@ if(!isset($_SESSION["username"])){
              <label for="price_to">Price To </label> 
            </div>
            <div class="center col l12 s12 side-search-btn">
-            <button type="submit" onclick="searchProperty()" class="btn reset-btn waves-effect btnColor center-align col l12 s12">
+            <button type="submit" onclick="searchProperty_Refined()" class="btn reset-btn waves-effect btnColor center-align col l12 s12">
               Search</button>
             </div>
           </div>
@@ -156,6 +156,7 @@ if(!isset($_SESSION["username"])){
   </div>
 </div>
 </div>
+
 
 
 <!--  end of body division-->

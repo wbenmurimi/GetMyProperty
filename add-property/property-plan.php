@@ -49,7 +49,7 @@
         <div class="col l6 s12">
          <div class="card packagePlan">
           <h4 class="center">FEATURED</h4>
-          <h4 class="center">200 KES</h4>
+          <h4 class="center">500 KES</h4>
           <ul class="">
             <li>The property is listed on the site for Three months</li>
             <hr>

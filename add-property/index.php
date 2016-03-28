@@ -19,7 +19,7 @@ else{
   <title>Get My Property</title>
   
   <link rel="stylesheet" href="../css/materialize.min.css">
-  <link rel="stylesheet" href="../css/materialize.css">
+  <!-- <link rel="stylesheet" href="../css/materialize.css"> -->
   <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/bread.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="../font/css/font-awesome.min.css">
@@ -42,7 +42,9 @@ else{
 <div class="template-container">
   <div class="row">
     <div class="">
-
+<div class="center" id="add_error">
+  
+</div>
       <ul class="collapsible " data-collapsible="accordion">
 
        <li>
@@ -216,7 +218,8 @@ else{
 
 
 <div class="right">
- <a href="property-plan.php"> <button onclick="page1Session()"  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">next</button></a>
+ <button onclick="page1Session()"  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">next</button>
+<!--  <a href="property-plan.php"> <button onclick="page1Session()"  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">next</button></a> -->
 </div>
 
 
@@ -235,8 +238,8 @@ else{
 <script src="../js/script.js"></script>
 <script src="../js/county_add.js"></script>
 
-<!-- <script src="https://maps.googleapis.com/maps/api/js"></script>
-  <script src="../js/google-map.js"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="../js/google-map.js"></script>
   <script>
    $(document).ready(function(){
     hide("land_div");

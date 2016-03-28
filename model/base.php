@@ -38,7 +38,7 @@ class base {
     /* query result resource */
     var $result;
 
-    function adb() {
+    function base() {
 
         $this->er_code_prefix = 1000;
         $this->link = false;

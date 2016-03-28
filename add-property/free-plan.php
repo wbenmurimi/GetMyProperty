@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="freePlan()">
+<body onload="freePlan();uploadPageSession()">
  <!--start of navbar-->
  <?php include "../header/header-login.html";?>
  <!-- end of navbar-->
@@ -30,7 +30,7 @@
   <div class="row">
     <div class="card">
       <h4 class="center">Upload property pictures</h4>
-      <div class="col l6 s6 card">
+      <div class="col l12 s12 card center">
 
         <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
           <div class="file-field input-field">
@@ -43,66 +43,57 @@
             </div>
           </div>
           <div class="right">
-           <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+           <button onclick="uploadPageSession()" type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
          </div>
        </form>
+     </div>
+     <div class="input-field col l12 s12">
+     <div class="" id="picture-">
+       <div class="input-field col l3 s6">
+        <div class="picture_preview" id="picture1"> 
+         <div id="delete1"></div>       
 
-     </div>
-     <div class="col l6 s6 card">
-      <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
-        <div class="file-field input-field">
-          <div class="btn">
-            <span>File</span>
-            <input type="file" id="fileToUpload" name="image">
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" >
-          </div>
-        </div>
-        <div class="right">
-         <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
-       </div>
-     </form>
-   </div>
-   <div class="col l6 s6 card">
-    <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
-      <div class="file-field input-field">
-        <div class="btn">
-          <span>File</span>
-          <input type="file" id="fileToUpload" name="image">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
         </div>
       </div>
-      <div class="right">
-       <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
-     </div>
-   </form>
- </div>
- <div class="col l6 s6 card">
-  <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
-    <div class="file-field input-field">
-      <div class="btn">
-        <span>File</span>
-        <input type="file" id="fileToUpload" name="image">
+      <div class="input-field col l3 s6">
+        <div class="picture_preview" id="picture2">  
+        <div id="delete2"></div>      
+
+        </div>
       </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
+       <div class="input-field col l3 s6">
+        <div class="picture_preview" id="picture3">
+        <div id="delete3"></div>  
+
+        </div>
+      </div>
+       <div class="input-field col l3 s6">
+        <div class="picture_preview" id="picture4">
+        <div id="delete4"></div>  
+
+        </div>
       </div>
     </div>
-    <div class="right">
-     <button type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
-   </div>
- </form>
-</div>
-<div class="left">
- <a href="property-plan.php"> <button  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Back</button></a>
-</div>
-<div class="loginfooter right">
- <a href="review-post.php"> <button  type="submit" class="btn btnColor btn-spacer waves-effect wave-dark blue darken-1 center-align">Next</button>
- </a>
-</div>
+  </div>
+<!--   <div class="input-field col l12 s12">
+     <div class="" id="picture-">
+    
+      <div class="input-field col l4 s6">
+        <div class="picture_preview" id="picture4">
+        <div id="delete4"></div>  
+
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="left">
+   <a href="property-plan.php"> <button  type="submit" class="btn btnBack nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Back</button></a>
+ </div>
+ <div class="loginfooter right">
+   <a href="review-post.php"> <button  type="submit" class="btn btnNext btnColor btn-spacer waves-effect wave-dark blue darken-1 center-align">Next</button>
+   </a>
+ </div>
 </div>
 </div>
 </div>

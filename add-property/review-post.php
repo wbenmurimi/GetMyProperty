@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="getAllFields();uploadPageSession()">
+<body onload="getAllFields();uploadPageSession_review()">
  <!--start of navbar-->
  <?php include "../header/header-login.html";?>
  <!-- end of navbar-->
@@ -118,6 +118,7 @@
       <div class="input-field col l3 s6">
         <span class="fieldTitle">Furnished <span class="fieldValue" id="furnished"></span></span>
       </div>
+       <div class="input-field col l12 s12">
       <div class="input-field col l4 s6">
         <div class="picture_preview" id="picture1">
 
@@ -147,6 +148,7 @@
         <div class="picture_preview" id="picture6">
 
         </div>
+      </div>
       </div>
     </div>
     <div class="left">

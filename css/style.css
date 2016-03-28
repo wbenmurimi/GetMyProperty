@@ -61,16 +61,21 @@ footer{
 .btnColor{
   background-color: #3b5998;
 }
-.dropdown-content{
+
+.mycontent{
   background-color: #3b5998;
   margin-top: 60px;
 }
-.dropdown-content li:hover{
+.mycontent li:hover{
   background-color: #3d5998;
 /*#dfe3ee
 #f7f7f7*/
 }
-/*.mynav2 li{
+.mydrop option{
+ margin-top: 60px;
+ color: #3d5998;
+}
+/*/*.mynav2 li{
   width: 150px;
 }*/
 #map {
@@ -382,10 +387,21 @@ input[type=checkbox]:checked + label:before{
   color: #3b5998;
   font-weight: bold;
 }
-.picture_preview{
+/*.picture_preview{
   height: 80px;
   width: 30%;
+}*/
+#picture-m{
+
+  margin-bottom: 50px;
 }
+.btnBack{
+  margin-left: 20px;
+}
+.btnNext{
+  margin-right: 20px;
+}
+.
 .property-row img{
   height: 120px;
   width: 120px;
@@ -402,4 +418,12 @@ input[type=checkbox]:checked + label:before{
   cursor: pointer; 
   cursor: hand;
   font-size: 19px; 
+}
+.search_banner{
+  height: 30px;
+  background-color: #3b5998;
+}
+#picSize{
+  height: 100px;
+  width: 100%; 
 }

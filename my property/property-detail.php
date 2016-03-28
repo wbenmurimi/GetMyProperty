@@ -157,6 +157,9 @@
       <div class="single_property_bold_heading_msg center">
        <span class="" >Contact Ben</span>
      </div>
+      <div class="col l12 m12 s12 bottom-space"> 
+       <button onclick="reportAd()" type="submit" class="btn reset-btn-space waves-effect blue darken-1 center-align col l12 ">Report Ad</button>
+     </div>
      <ul class="collapsible" data-collapsible="accordion">
       <li>
         <div class="collapsible-header"><i class="fa fa-phone prefix"></i>Contact Number</div>
@@ -171,34 +174,14 @@
       <input onclick="buyerMessageOption()" name="buyer" id="buyer_email_radio" type="radio" class="validate with-gap" autocomplete="off">
       <label for="buyer_email_radio">Send Email to Ben</label>
     </div>
-    <div class="input-field col l12 s12 mesage-div">
-      <input onclick="buyerMessageOption()" name="buyer" id="buyer_phone_radio" type="radio" class="validate with-gap" autocomplete="off">
-      <label for="buyer_phone_radio">Send Mesage to Ben</label>
-    </div>
-    <div id="send-buyer-message" class="input-field col l12 s12">
-      <div class="col l12 s12">
-        <input id="sending_name" type="text" class="validate" autocomplete="off"> 
-        <label for="sending_name">Your Name *</label>
-      </div>
-      <div class="input-field col l12 s12"> 
-        <input type="tel" id="demo" placeholder="" class="validate" length="9" autocomplete="off">
-      </div>
-      <div class="input-field col l12 s12 ">
-       <input id="sending_text_mesage" type="text" class="validate materialize-textarea"  placeholder="" autocomplete="off"> 
-       <label for="sending_text_mesage">Mesage *</label>
-     </div>
-     <div class="col l12 m12 s12 bottom-space"> 
-       <button onclick="sendSellerMessage()" type="submit" class="btn reset-btn-space waves-effect blue darken-1 center-align col l12 ">Send Message</button>
-     </div>
-   </div>
-
-   <div id="send-buyer-email" class="col l12 s12">
+   
+     <div id="send-buyer-email" class="col l12 s12">
     <div class="input-field col l12 s12">
       <input id="sending_buyer_name" type="text" class="validate" autocomplete="off">
       <label for="sending_buyer_name">Your Name *</label>
     </div>
     <div class="input-field col l12 s12">
-      <input type="tel" id="demo2" placeholder="" class="validate" length="9"autocomplete="off"> 
+      <input type="tel" id="demo2" placeholder="" class="validate" length="12"autocomplete="off"> 
     </div>
     <div class="input-field col l12 s12">
       <input id="sending_buyer_email" type="email" class="validate" autocomplete="off">

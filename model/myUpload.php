@@ -11,6 +11,7 @@ if(isset($_FILES['image'])){
 
 	$expensions= array("jpeg","jpg","png","gif"); 		
 	if(in_array($file_ext,$expensions)=== false){
+		header("location:../add-property/free-plan.php");
 		$errors[]="Picture extension not allowed, please choose a JPEG,GIF,JPG or PNG file.";
 	}
 
@@ -24,7 +25,9 @@ if(isset($_FILES['image'])){
 	if(!isset($_SESSION["pics"])){
 		 $_SESSION["pics"]=array();		
 	}
-
+if(!isset($_SESSION["new_pics"])){
+     $_SESSION["new_pics"]=array();   
+  }
 
 	if($file_size > 2097152){
 		$errors[]='File size must be excately 2 MB';
@@ -33,10 +36,12 @@ if(isset($_FILES['image'])){
 	$randNo=uniqid();
 	$new_name=$randNo.".".$ext;
 
-	array_push($_SESSION["pics"],"../uploads/".$new_name);
+	
 
 
 	if(empty($errors)==true){
+		array_push($_SESSION["pics"],"../uploads/".$new_name);
+
 		move_uploaded_file($file_tmp,"../uploads/".$new_name);
 		header("location:../add-property/free-plan.php");
 		// echo "Success";
@@ -46,6 +51,9 @@ if(isset($_FILES['image'])){
 	}
 		// 2882656ddf46c815717.58212068  28
 		// 56ddf5ab31137 13
+}
+else{
+	header("location:../add-property/free-plan.php");
 }
 ?>
 

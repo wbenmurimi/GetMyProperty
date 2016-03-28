@@ -161,15 +161,16 @@ class users extends base{
      }
 
       /**
-     * @method boolean changeProfilePassword($password, $current_password) changes the password of the user
+     * @method boolean changeProfilePassword($password, $current_password,$id) changes the password of the user
      * @param $password the new password for the user
      * @param $current_password current password for the user
+     * @param $id the id for the logged in user
      * @return bool
      */
-     function changeProfilePassword($password, $current_password)
+     function changeProfilePassword($password, $current_password,$id)
      {
          $str_query = "UPDATE _system_users SET xx_user_password=md5('$password')
-         WHERE xx_user_password=md5('$current_password')";
+         WHERE xx_user_password=md5('$current_password') AND xx_user_id='$id'";
          
          return $this->query($str_query);
      }

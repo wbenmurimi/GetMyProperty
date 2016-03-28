@@ -91,6 +91,15 @@ switch ($cmd) {
   case 27:
   resetProfileUserPassword();
   break;
+  case 28:
+  deleteProperty();
+  break;
+  case 29:
+  searchPropertyRefined();
+  break;
+  case 30:
+  deleteImage();
+  break;
   default:
   echo '{"result": 0, "message": "Unknown command"}';
   return;
@@ -198,6 +207,35 @@ function saveFeaturedPlan(){
   return;
 }
 }
+function deleteImage(){
+ $id=$_GET['id'];
+
+ if(isset( $_SESSION["pics"])){
+
+ $_SESSION["new_pics"]=array();
+
+  for ($i=$id; $i <count( $_SESSION["pics"])-1; $i++) { 
+   $_SESSION["pics"][$i]=$_SESSION["pics"][$i+1];
+ }
+
+ for ($k=0; $k <count( $_SESSION["pics"]); $k++) { 
+   array_push($_SESSION["new_pics"],$_SESSION["pics"][$k]);
+ }
+
+ $_SESSION["pics"]=array();
+
+ for ($j=0; $j <count($_SESSION["new_pics"])-1; $j++) { 
+   array_push($_SESSION["pics"],$_SESSION["new_pics"][$j]);
+ }
+
+ echo '{"result": 1, "message": "picture deleted successfully"}';
+ return;
+}
+else{
+  echo '{"result": 0, "message": "Image not deleted"}';
+  return;
+}
+}
 
 function logout(){
 
@@ -299,22 +337,22 @@ function subscribeAlert(){
      $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status,$userID)){
     echo '{"result": 0, "message": "Email alert was not created"}';
   return;
-  }
-  echo '{"result": 1, "message": "Email alert created successfully"}';
+}
+echo '{"result": 1, "message": "Email alert created successfully"}';
 
-  return;
-  }
-  if (isset($_GET['phone'])) {
-   $phone = $_GET['phone'];
-   if(!$myAlert->setAnAlertPhone($phone,$property_type,$property_category,
-     $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status,$userID)){
-     echo '{"result": 0, "message": "Message alert was not created"}';
-   return;
-  }
-  echo '{"result": 1, "message": "Message alert created successfully"}';
+return;
+}
+if (isset($_GET['phone'])) {
+ $phone = $_GET['phone'];
+ if(!$myAlert->setAnAlertPhone($phone,$property_type,$property_category,
+   $county, $sub_county, $buyrent, $price_from, $price_to,$bedroom,$bathroom,$acre,$status,$userID)){
+   echo '{"result": 0, "message": "Message alert was not created"}';
+ return;
+}
+echo '{"result": 1, "message": "Message alert created successfully"}';
 
-  return;
-  }
+return;
+}
 }
 
 function searchAlerts(){
@@ -413,7 +451,9 @@ function addProperty(){
     if(!empty( $_SESSION["pics"])){
 
       for ($i=0; $i <count( $_SESSION["pics"]); $i++) { 
-        $post->addPropertyPictures($_SESSION["pics"][$i],$p_id);
+        if(!$_SESSION["pics"][$i]==""){
+          $post->addPropertyPictures($_SESSION["pics"][$i],$p_id);
+        }
       } 
     }
     destroySession();
@@ -505,7 +545,6 @@ if(!isset( $_SESSION["disability"])){
 if(!isset( $_SESSION["furnished"])){
  $_SESSION["furnished"];
 }
-
 
 if (isset($_GET['hr'])) {
   $_SESSION["hr"]=$_GET['hr'];
@@ -610,11 +649,15 @@ function getPageoneSession(){
 }
 
 function getUploadPageSession(){
-
+// unset($_SESSION["pics"]);
+// unset($_SESSION["new_pics"]);
   $mydata=array();
   if(!empty( $_SESSION["pics"])){
+
     for ($i=0; $i <count( $_SESSION["pics"]); $i++) { 
-      $mydata[]=array('pic'.$i=>$_SESSION["pics"][$i]);
+      if(!$_SESSION["pics"][$i]==""){
+        $mydata[]=array('pic'.$i=>$_SESSION["pics"][$i]);
+      }
     }
     
     echo '{"result": 1, "picture":';
@@ -658,10 +701,11 @@ function destroySession(){
   unset($_SESSION['p_cat']);
   unset($_SESSION['buy_rent']);
   unset($_SESSION["pics"]);
+  unset($_SESSION["new_pics"]);
 
-  echo '{"result": 1, "message": "session destroyed"}';
+  // echo '{"result": 1, "message": "session destroyed"}';
 
-  return;
+  // return;
 }
 
 /**
@@ -829,7 +873,7 @@ function getPostCount(){
   include "../classes/post.php";
 
   $post = new Post();
- $id=$_SESSION['userId'];
+  $id=$_SESSION['userId'];
   $row = $post->propertyCountPerUser($id);
   if(!$row){
     echo '{"result": 0, "message": "You have not made any posts"}';
@@ -852,26 +896,26 @@ function getPostCount(){
 *Method to fetch the count of alerts set by a user
 */
 function getAlertCount(){
-   include "../classes/alerts.php";
+ include "../classes/alerts.php";
 
-    $myAlert = new Alerts();
-    $id=$_SESSION['userId'];
-    $row = $myAlert->alertCountPerUser($id);
-    if(!$row){
-      echo '{"result": 0, "message": "You have not made any alerts"}';
-      return;
-    }
+ $myAlert = new Alerts();
+ $id=$_SESSION['userId'];
+ $row = $myAlert->alertCountPerUser($id);
+ if(!$row){
+  echo '{"result": 0, "message": "You have not made any alerts"}';
+  return;
+}
 
-    echo '{"result": 1, "alert": [';
-    while($row){
-      echo json_encode($row);
-      $row = $myAlert->fetch();
-      if($row){
-        echo ',';
-      }
-    }
-    echo "]}";
-    return;
+echo '{"result": 1, "alert": [';
+while($row){
+  echo json_encode($row);
+  $row = $myAlert->fetch();
+  if($row){
+    echo ',';
+  }
+}
+echo "]}";
+return;
 }
 /**
 *Method to reset user password from the profile
@@ -882,17 +926,362 @@ function resetProfileUserPassword(){
   $myuser = new users();
   $password = $_GET['password'];
   $current_password= $_GET['c_password'];
-
-  if(!$myuser->changeProfilePassword($password, $current_password)){
+  $id=$_SESSION['userId'];
+  // echo "string ".  $id;
+  if(!$myuser->changeProfilePassword($password, $current_password,$id)){
     echo '{"result": 0, "message": "User password was not changed"}';
     return;
   }
-  else{
   echo '{"result": 1, "message": "password change was successful"}';
+  return;
+
+}
+
+/**
+*Method to delete a post from the database
+*/
+function deleteProperty(){
+  include "../classes/post.php";
+
+  $post = new Post();
+  $postId = $_GET['id'];
+
+  if(!$post->deletePost($postId)){
+    echo '{"result": 0, "message": "Post was not deleted "}';
+    return;
+  }
+  if(!$post->deletePictures($postId)){
+   echo '{"result": 0, "message": "Pictures were not deleted "}';
+ }
+ if(!$post->deletePropertyFeatures($postId)){
+   echo '{"result": 0, "message": "Features were not deleted "}';
+ }
+ if(!$post->deleteLand($postId)){
+   echo '{"result": 0, "message": "Land was not deleted "}';
+ }
+
+ echo '{"result": 1, "message": "Post was deleted successful"}';
+
  return;
 }
 
+/**
+*Method to search all properties on the refined search
+*/
+function searchPropertyRefined(){
+  include "../classes/post.php";
+
+  $post = new Post();
+
+  $county= $_GET["county"];
+  $sub_county= $_GET["sub_county"];
+  $property_category=$_GET['p_cat'];
+  $buyrent= $_GET["buy_rent"];
+  $p_type=$_GET["p_type"];
+  $price_from=$_GET["price_from"];
+  $price_to=$_GET["price_to"];
+
+  if ($price_from=="") {
+    $price_from=0;
+  }
+  if ($price_to=="") {
+    $price_to=50000000;
+  }
+  if ($county!=="" && $sub_county !=="" && $buyrent !=="") {
+
+    if(strcmp($property_category,"House")==0){
+      echo "only house";
+
+      if ($sub_county =="All") {
+        echo "all sub county";
+        $row = $post->refinedCountyAllSubCountySearch($county,$buyrent,$p_type,$price_from,$price_to);
+
+        if(!$row){
+          echo '{"result": 0, "message": "No house with the search parameters"}';
+          return;
+        }
+
+        echo '{"result": 1, "property": [';
+        while($row){
+          echo json_encode($row);
+          $row = $post->fetch();
+          if($row){
+            echo ',';
+          }
+        }
+        echo "]}";
+        return;
+      }
+      else{
+        echo "specific sub county";
+        $row = $post->refinedHouseSearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to);
+        if(!$row){
+          echo '{"result": 0, "message": "No house with the search parameters"}';
+          return;
+        }
+
+        echo '{"result": 1, "property": [';
+        while($row){
+          echo json_encode($row);
+          $row = $post->fetch();
+          if($row){
+            echo ',';
+          }
+        }
+        echo "]}";
+        return;
+      }
+    }
+    if(strcmp($property_category,"Land")==0){
+      echo "only land";
+      $row = $post->refinedLandSearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to);
+      if(!$row){
+        echo '{"result": 0, "message": "No land with the search parameters"}';
+        return;
+      }
+
+      echo '{"result": 1, "property": [';
+      while($row){
+        echo json_encode($row);
+        $row = $post->fetch();
+        if($row){
+          echo ',';
+        }
+      }
+      echo "]}";
+      return;
+    }
+
+    if(strcmp($property_category,"All")==0){
+      echo "all category";
+      if ($county!=="" && $sub_county =="All" && $buyrent =="" || $buyrent=="undefined" ) {
+        echo "county: ".$county;
+
+        $row = $post->refinedCountySearch($county,$price_from,$price_to);
+        if(!$row){
+          echo '{"result": 0, "message": "No property in the county 1"}';
+          return;
+        }
+
+        echo '{"result": 1, "property": [';
+        while($row){
+          echo json_encode($row);
+          $row = $post->fetch();
+          if($row){
+            echo ',';
+          }
+        }
+        echo "]}";
+        return; 
+      }
+      else if ($county=="" && $sub_county =="All" && $buyrent !=="") {
+       echo "rent: ".$buyrent;
+       $row = $post->refinedSaleRentSearch($buyrent,$price_from,$price_to);
+       if(!$row){
+        echo '{"result": 0, "message": "No property for rent or sale 1"}';
+        return;
+      }
+
+      echo '{"result": 1, "property": [';
+      while($row){
+        echo json_encode($row);
+        $row = $post->fetch();
+        if($row){
+          echo ',';
+        }
+      }
+      echo "]}";
+      return;
+
+    } 
+    else if ($county!=="" && $sub_county =="All" && $buyrent !=="") {
+
+  // echo "rent: ".$buyrent." county: ".$county." to ".$price_to." From: ".$price_from;
+     $row = $post->refinedCountyRentSearch($county,$buyrent,$price_from,$price_to);
+     if(!$row){
+      echo '{"result": 0, "message": "No property from the county with buy rent 1"}';
+      return;
+    }
+
+    echo '{"result": 1, "property": [';
+    while($row){
+      echo json_encode($row);
+      $row = $post->fetch();
+      if($row){
+        echo ',';
+      }
+    }
+    echo "]}";
+    return;
+    
+  }
+  else{
+
+    $row = $post->refinedPropertySearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to);
+    if(!$row){
+      echo '{"result": 0, "message": "search all posts"}';
+      return;
+    }
+
+    echo '{"result": 1, "property": [';
+    while($row){
+      echo json_encode($row);
+      $row = $post->fetch();
+      if($row){
+        echo ',';
+      }
+    }
+    echo "]}";
+    return;
+  }
 }
+} // closing county subcounty and rent options
+
+else if ($county!=="" && $sub_county =="All" && $buyrent =="") {
+  echo "county: ".$county;
+
+  $row = $post->refinedCountySearch($county,$price_from,$price_to);
+  if(!$row){
+    echo '{"result": 0, "message": "No property in the county"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return; 
+}
+else if ($county!=="" && $sub_county =="" && $buyrent !=="") {
+ echo "rent: ".$buyrent;
+
+ if ($county=="All" && $buyrent =="undefined") {
+
+  echo "undefined buy rent with all county";
+  $row = $post->refinedAllCountySearch($price_from,$price_to);
+  if(!$row){
+    echo '{"result": 0, "message": "No property in the county 0"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return; 
+}
+else{
+ $row = $post->refinedSaleRentSearch($buyrent,$price_from,$price_to);
+ if(!$row){
+  echo '{"result": 0, "message": "No property for rent or sale"}';
+  return;
+}
+
+echo '{"result": 1, "property": [';
+while($row){
+  echo json_encode($row);
+  $row = $post->fetch();
+  if($row){
+    echo ',';
+  }
+}
+echo "]}";
+return;
+}
+} 
+else if ($county!=="" && $sub_county =="All" && $buyrent !=="") {
+
+ echo "rent: ".$buyrent." county: ".$county;
+
+ if ($county=="All" && $buyrent !=="undefined" ) {
+  echo "only county but use rent";
+  $row = $post->refinedSaleRentSearch($buyrent,$price_from,$price_to);
+  if(!$row){
+    echo '{"result": 0, "message": "No property for rent or sale"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
+
+if ($county=="All" && $buyrent =="undefined") {
+
+  echo "undefined buy rent with all county";
+  $row = $post->refinedAllCountySearch($price_from,$price_to);
+  if(!$row){
+    echo '{"result": 0, "message": "No property in the county 0"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return; 
+}
+$row = $post->refinedCountyRentSearch($county,$buyrent,$price_from,$price_to);
+if(!$row){
+  echo '{"result": 0, "message": "No property from the county with buy rent"}';
+  return;
+}
+
+echo '{"result": 1, "property": [';
+while($row){
+  echo json_encode($row);
+  $row = $post->fetch();
+  if($row){
+    echo ',';
+  }
+}
+echo "]}";
+return;  
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -927,6 +1316,9 @@ function getAllProperty(){
   echo "]}";
   return;
 }
+
+
+
 
 /**
 *Function to return the upcoming posts in the database
@@ -998,23 +1390,7 @@ function getEditProperty(){
   return;
 }
 
-/**
-*Method to delete a post from the database
-*/
-function deleteProperty(){
-  include "../classes/post.php";
 
-  $post = new Post();
-  $postId = $_GET['id'];
-
-  if(!$post->deletePost($postId)){
-    echo '{"result": 0, "message": "Post was not deleted "}';
-    return;
-  }
-  echo '{"result": 1, "message": "Post was deleted successful"}';
-
-  return;
-}
 
 
 

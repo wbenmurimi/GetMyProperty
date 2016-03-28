@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
 
 </head>
-<body onload=" searchAlerts();">
+<body onload="">
  <!--start of navbar-->
  <?php 
  if($_SESSION["username"]){
@@ -87,7 +87,7 @@
  $(document).ready(function(){
  // loadCounty();
 showFirstName();
- // searchAlerts();
+ searchAlerts();
    // Activate the side menu 
    $(".button-collapse").sideNav();
    $("#demo").intlTelInput();
@@ -99,9 +99,9 @@ $('select').material_select();
 $('.modal-trigger').leanModal();
 $(".dropdown-button").dropdown();
   // hide("listAlertsDiv");
-  $('#jsontable').DataTable( {
-    responsive: true
-} );
+//   $('#jsontable').DataTable( {
+//     responsive: true
+// } );
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year

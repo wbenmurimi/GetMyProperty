@@ -7,6 +7,10 @@ include "../model/base.php";
 
 class Post extends base{
 
+// Dashboard query
+
+//   SELECT _property.* ,_property_features.*,_land.*,_pictures.* FROM _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID LEFT JOIN _pictures on _property.xx_property_id = _pictures.xx_property_ID WHERE _property.xx_user_identity=1 GROUP BY _property.xx_property_id ORDER BY _property.xx_property_id
+
    /**
      * addPopertyBasics($county,$sub_county,$buyrent,$userId,$property_category,$longitude, $latitude,$price,$description )adds a new property to the database
      * @param $county county that the property is located
@@ -51,10 +55,10 @@ class Post extends base{
 
     function addPopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym, $disability, $water, $furnished,$p_id){
 
-     $str_query = "INSERT INTO _property_features (xx_property_type, xx_bathroom, xx_bedroom, xx_floors,xx_parking_space ,xx_24_security,xx_cctv,xx_alarm_system,xx_electric_fence,xx_wall,xx_internet_access,xx_swimming_pool, xx_garden,  xx_gym, xx_disability_access,xx_water_storage, xx_fully_furnished, xx_property_no ) 
-     VALUES('$p_type','$bathroom','$bedroom','$floors','$parking','$hr','$cctv','$alarm', '$electric_fence', '$wall','$internet','$pool','$garden','$gym','$disability','$water', '$furnished', '$p_id')";
-     return $this->query($str_query);
- }
+       $str_query = "INSERT INTO _property_features (xx_property_type, xx_bathroom, xx_bedroom, xx_floors,xx_parking_space ,xx_24_security,xx_cctv,xx_alarm_system,xx_electric_fence,xx_wall,xx_internet_access,xx_swimming_pool, xx_garden,  xx_gym, xx_disability_access,xx_water_storage, xx_fully_furnished, xx_property_no ) 
+       VALUES('$p_type','$bathroom','$bedroom','$floors','$parking','$hr','$cctv','$alarm', '$electric_fence', '$wall','$internet','$pool','$garden','$gym','$disability','$water', '$furnished', '$p_id')";
+       return $this->query($str_query);
+   }
 
     /**
      *addLandFeatures($acre,$p_id) adds land property features to the database
@@ -65,10 +69,10 @@ class Post extends base{
 
     function addLandFeatures($acre,$p_id){
 
-     $str_query = "INSERT INTO _land (xx_acres, xx_propertyID ) 
-     VALUES('$acre', '$p_id')";
-     return $this->query($str_query);
- }
+       $str_query = "INSERT INTO _land (xx_acres, xx_propertyID ) 
+       VALUES('$acre', '$p_id')";
+       return $this->query($str_query);
+   }
 
     /**
      *addPropertyPictures($url,$p_id)adds  property pictures to the database
@@ -79,17 +83,17 @@ class Post extends base{
 
     function addPropertyPictures($url,$p_id){
 
-     $str_query = "INSERT INTO _pictures (xx_picture_url, xx_property_ID ) 
-     VALUES('$url', '$p_id')";
-     return $this->query($str_query);
-    }
+       $str_query = "INSERT INTO _pictures (xx_picture_url, xx_property_ID ) 
+       VALUES('$url', '$p_id')";
+       return $this->query($str_query);
+   }
 
     /**
      * @method boolean getLastProrpertyId()gets the last property Id that has been added to the database
      * @return boolean
      **/
 
-     function getLastProrpertyId(){
+    function getLastProrpertyId(){
         return $this-> get_insert_id();
     }
 
@@ -101,46 +105,46 @@ class Post extends base{
 
     function getMyProperty($userId)
     {
-      $str_query = "SELECT _property.*,_property_features.*, _land.*, _pictures.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID AND _property.xx_user_identity='$userId' GROUP BY _property.xx_property_id LIMIT 25";
+        $str_query = "SELECT _property.* ,_property_features.*,_land.*,_pictures.* FROM _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID LEFT JOIN _pictures on _property.xx_property_id = _pictures.xx_property_ID WHERE _property.xx_user_identity='$userId' GROUP BY _property.xx_property_id ORDER BY _property.xx_property_id DESC LIMIT 25";
       
       return $this->query($str_query);
-    }
+  }
 
    /**
     * @method boolean fetchHomePageProperty()gets property that was added by a particular user in the database
     * @return boolean
     **/
 
-    function fetchHomePageProperty()
-    {
+   function fetchHomePageProperty()
+   {
       $str_query = "SELECT  _property.*,_property_features.*, _land.*, _pictures.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE _property.xx_plan ='Featured' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
       
       return $this->query($str_query);
-    }
+  }
 
-     /**
+    /**
     * @method boolean fetchHouses()gets all houses in the database
     * @return boolean
     **/
 
     function fetchHouses()
-    {
+     {
       $str_query = "SELECT _property.*,_property_features.*, _pictures.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no WHERE _property.xx_property_category ='House' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
       
       return $this->query($str_query);
-    }
+  }
 
  /**
     * @method boolean fetchLands()gets all the lands in the database
     * @return boolean
     **/
 
-    function fetchLands()
-    {
-      $str_query = "SELECT _property.*,_land.*, _pictures.* FROM _pictures, _property LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE _property.xx_property_category ='Land' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
-      
-      return $this->query($str_query);
-    }
+ function fetchLands()
+ {
+  $str_query = "SELECT _property.*,_land.*, _pictures.* FROM _pictures, _property LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE _property.xx_property_category ='Land' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+
+  return $this->query($str_query);
+}
 
     /**
     * @method boolean fetchLands()gets all the lands in the database
@@ -152,7 +156,7 @@ class Post extends base{
       $str_query = "SELECT _property.*,_land.*, _pictures.*,_property_features.* FROM _pictures, _property LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
       
       return $this->query($str_query);
-    }
+  }
 
     /**
     * @method boolean propertyCountPerUser($id)gets the count of property added by a user
@@ -164,15 +168,194 @@ class Post extends base{
       $str_query = "SELECT count(xx_property_id) as post_count FROM  _property WHERE xx_user_identity='$id' ";
       
       return $this->query($str_query);
-    }
+  }
 
+      /**
+     * @method boolean deletePost($id) deletes a property with a given property id in the database
+     * @param $id property id in the database
+     * @return boolean
+     **/
 
-    function viewProperty() 
+      function deletePost($id)
+      {
+          $str_query="DELETE FROM _property WHERE   xx_property_id='$id'";
+          return $this->query($str_query);
+      }
+
+     /**
+     * @method boolean deletePictures($id) deletes property pictures with a given property id in the database
+     * @param $id property id in the database
+     * @return boolean
+     **/
+
+     function deletePictures($id)
+     {
+      $str_query="DELETE FROM _pictures WHERE   xx_property_ID='$id'";
+      return $this->query($str_query);
+  }
+
+    /**
+     * @method boolean deleteLand($id) deletes property land with a given property id in the database
+     * @param $id property id in the database
+     * @return boolean
+     **/
+
+    function deleteLand($id)
     {
-      $str_query = "SELECT * FROM xx_property order by post_time DESC LIMIT 25";
+      $str_query="DELETE FROM _land WHERE   xx_propertyID='$id'";
+      return $this->query($str_query);
+  }
+
+    /**
+     * @method boolean deletePropertyFeatures($id) deletes property features with a given property id in the database
+     * @param $id property id in the database
+     * @return boolean
+     **/
+
+    function deletePropertyFeatures($id)
+    {
+      $str_query="DELETE FROM _property_features WHERE   xx_property_no='$id'";
+      return $this->query($str_query);
+  }
+
+   /**
+    * @method boolean refinedHouseSearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to) searchyes all houses in the database with the given parameters
+    * @param $county county where the property is located
+    * @param $sub_county sub county where the property is located
+    * @param $buyrent property for rent or sale
+    * @param $p_type property type
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedHouseSearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_property_features.*, _pictures.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no WHERE _property.xx_property_category ='House' AND xx_county LIKE'%$county' AND xx_sub_county LIKE '%$sub_county'  AND xx_rent_sale= '$buyrent'  AND xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
       
       return $this->query($str_query);
     }
+
+    /**
+    * @method boolean refinedLandSearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to) searchyes all houses in the database with the given parameters
+    * @param $county county where the property is located
+    * @param $sub_county sub county where the property is located
+    * @param $buyrent property for rent or sale
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedLandSearch($county,$sub_county,$buyrent,$price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_land.*, _pictures.* FROM _pictures, _property LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE _property.xx_property_category ='Land' AND xx_county='$county' AND xx_sub_county='$sub_county' AND xx_rent_sale= '$buyrent' AND xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+      
+      return $this->query($str_query);
+    }
+
+    /**
+    * @method boolean refinedPropertySearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to) searchyes all properties in the database with the given parameters
+    * @param $county county where the property is located
+    * @param $sub_county sub county where the property is located
+    * @param $buyrent property for rent or sale
+    * @param $p_type property type
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedPropertySearch($county,$sub_county,$buyrent,$p_type,$price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_property_features.*, _pictures.*, _land.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE  xx_county='$county' AND xx_sub_county='$sub_county' AND xx_rent_sale= '$buyrent' AND _property_features.xx_property_type='$p_type' AND xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+      
+      return $this->query($str_query);
+    }
+
+     /**
+    * @method boolean refinedCountySearch($county,$price_from,$price_to)searchyes all properties in the database with the given parameters
+    * @param $county county where the property is located
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedCountySearch($county,$price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_property_features.*, _pictures.*, _land.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE  xx_county='$county'AND xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+      
+      return $this->query($str_query);
+    } 
+
+     /**
+    * @method boolean refinedSaleRentSearch($buyrent,$price_from,$price_to) searchyes all properties in the database with the given parameters
+    * @param $buyrent property for rent or sale
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedSaleRentSearch($buyrent,$price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_property_features.*, _pictures.*, _land.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE   xx_rent_sale= '$buyrent'  AND xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+      
+      return $this->query($str_query);
+    } 
+
+     /**
+    * @method boolean refinedCountyRentSearch($county,$buyrent,$price_from,$price_to) searchyes all properties in the database with the given parameters
+    * @param $county county where the property is located
+    * @param $buyrent property for rent or sale
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedCountyRentSearch($county,$buyrent,$price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_property_features.*, _pictures.*, _land.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE   xx_rent_sale= '$buyrent' AND xx_county='$county' AND xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+      
+      return $this->query($str_query);
+    } 
+
+     /**
+    * @method boolean refinedAllCountySearch($price_from,$price_to)searchyes all properties in the database with the given parameters
+    * @param $county county where the property is located
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedAllCountySearch($price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_property_features.*, _pictures.*, _land.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID WHERE  xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+      
+      return $this->query($str_query);
+    } 
+
+    /**
+    * @method boolean refinedCountyAllSubCountySearch($county,$buyrent,$p_type,$price_from,$price_to) searchyes all houses in the database with the given parameters
+    * @param $county county where the property is located
+    * @param $sub_county sub county where the property is located
+    * @param $buyrent property for rent or sale
+    * @param $p_type property type
+    * @param $price_from minimum price
+    * @param $price_to maximum price
+    * @return boolean
+    **/
+
+    function refinedCountyAllSubCountySearch($county,$buyrent,$p_type,$price_from,$price_to)
+     {
+      $str_query = "SELECT _property.*,_property_features.*, _pictures.* FROM _pictures, _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no WHERE _property.xx_property_category ='House' AND xx_county LIKE'%$county' AND xx_rent_sale= '$buyrent'  AND xx_price between '$price_from' AND '$price_to' GROUP BY _property.xx_property_id ORDER BY xx_plan ASC LIMIT 25";
+      
+      return $this->query($str_query);
+    }
+
+  function viewProperty() 
+  {
+      $str_query = "SELECT * FROM xx_property order by post_time DESC LIMIT 25";
+      
+      return $this->query($str_query);
+  }
 
 
 
@@ -242,17 +425,7 @@ class Post extends base{
     //  return $this->query($str_query);
     // }
 
-    /**
-     * @method boolean deletePost($id) deletes a property with a given id in the database
-     * @param $id property id in the database
-     * @return boolean
-     **/
 
-    function deletePost($id)
-    {
-      $str_query="DELETE FROM xx_property WHERE   xx_property_id='$id'";
-      return $this->query($str_query);
-    }
 
     /**
      * @method boolean searchPost($searchItem) searches for a property with a given key word in the database
@@ -266,7 +439,7 @@ class Post extends base{
       $str_query="SELECT * FROM xx_property WHERE event_name LIKE '%$searchItem%' OR description LIKE '%$searchItem%'
       OR event_time LIKE '%$searchItem%' OR poster LIKE '%$searchItem%";
       return $this->query($str_query);
-    }
+  }
 
 
     /**
@@ -279,7 +452,7 @@ class Post extends base{
     {
       $str_query = "SELECT * FROM xx_property where xx_property_id='$postId'";
       return $this->query($str_query);
-    }
+  }
 }
 
 ?>

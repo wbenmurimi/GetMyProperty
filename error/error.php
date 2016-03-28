@@ -27,8 +27,8 @@
 <div class="template-container">
   <div class="row">
     <div class="col m12 s12 card">
-      <h3 class="center">Please Login to continue with this task</h3> <hr>s
-      <h4 class="center">Cick <a href="../login/">here</a> to go to the login pge </h4>
+      <h3 class="center">Please <a href="../login/">Login</a> to continue with this task</h3> <hr>
+       
     </div>
   </div>
 </div>
