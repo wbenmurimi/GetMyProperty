@@ -91,9 +91,8 @@ if(!isset($_SESSION["username"])){
               </div>
               <div class="input-field col l12 s12">
                 <select class="Property_category" id="Property_category">
-                  <option value="All">All</option>
-                  <option value="House">House</option>
                   <option value="Land">Land</option>
+                  <option value="House">House</option>
                 </select>
                 <label>Category</label> 
               </div>
@@ -139,7 +138,7 @@ if(!isset($_SESSION["username"])){
           </div>
         </div>
           <div class="row center">
-            <div class="col  myPagination center black-text" >
+            <div class="col  myPagination   center black-text" >
              <ul class="pagination center" id="pagen">
 
 
@@ -284,7 +283,6 @@ if(!isset($_SESSION["username"])){
               <div id="appendBtn">
                 
               </div>
-
             </div>
           </li>
         </ul>
@@ -355,9 +353,8 @@ if(!isset($_SESSION["username"])){
 <script>
 
  $(document).ready(function(){
-  // getHousePosts();
-  // getLandPosts();
-  getAllPostsAll();
+
+ getAllPostsAllLand();
   showFirstName();
   hide("pDetailsDiv");
  

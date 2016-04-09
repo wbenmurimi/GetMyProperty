@@ -29,7 +29,10 @@
 <div class="template-container">
   <div class="row">
     <div class="card">
-      <h4 class="center">Upload property pictures</h4>
+      <h4 class="center">Upload property pictures (Max: 4)</h4>
+      <div class=" center limit_error" id="limit_error" style="color: red; font-weight: bold;">
+        
+      </div>
       <div class="col l12 s12 card center">
 
         <form action="../model/myUpload.php" method="POST" enctype="multipart/form-data" multiple="true">
@@ -43,7 +46,7 @@
             </div>
           </div>
           <div class="right">
-           <button onclick="uploadPageSession()" type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
+           <button onclick="uploadPageSession();" type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Upload</button>
          </div>
        </form>
      </div>
@@ -70,6 +73,12 @@
        <div class="input-field col l3 s6">
         <div class="picture_preview" id="picture4">
         <div id="delete4"></div>  
+
+        </div>
+      </div>
+       <div class="input-field col l3 s6">
+        <div class="picture_preview" id="picture5">
+        <div id="delete5"></div>  
 
         </div>
       </div>

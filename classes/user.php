@@ -6,6 +6,8 @@
 include "../model/base.php";
 
 class users extends base{
+
+    
     /**
      * @method boolean Login($username, $user_password) username and password to enable user to log in
      * @param $username
@@ -43,9 +45,20 @@ class users extends base{
      */
     function getUsers()
     {
-        $str_query = "SELECT * FROM _system_users order by user_type";
+        $str_query = "SELECT * FROM _system_users order by xx_user_type";
         return $this->query($str_query);
     }
+
+    /**
+     * @method boolean getSellerrDetail($id) fetches all the details of a user
+        * @return bool
+     */
+    function getSellerDetail($id)
+    {
+        $str_query = "SELECT _system_users.*, xx_property_id, xx_user_identity FROM _system_users, _property WHERE xx_property_id='$id' AND _property.xx_user_identity=xx_user_id ";
+        return $this->query($str_query);
+    }
+
     /**
      * @method boolean getUserDetails() fetches all the details of a user in the database
         * @return bool

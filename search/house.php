@@ -35,7 +35,7 @@ if(!isset($_SESSION["username"])){
   <div class="mybreadcrumb col s12 l12">
     <div class="breadcrumb flat ">
       <a href="../index.php" class="">Home</a>
-      <a href="search-result.php" class="active">Search Result</a>
+      <a href="house.php" class="active">Houses</a>
     </div>
   </div>
   <!-- end of navbar-->
@@ -91,7 +91,6 @@ if(!isset($_SESSION["username"])){
               </div>
               <div class="input-field col l12 s12">
                 <select class="Property_category" id="Property_category">
-                  <option value="All">All</option>
                   <option value="House">House</option>
                   <option value="Land">Land</option>
                 </select>
@@ -139,7 +138,7 @@ if(!isset($_SESSION["username"])){
           </div>
         </div>
           <div class="row center">
-            <div class="col  myPagination center black-text" >
+            <div class="col  myPagination   center black-text" >
              <ul class="pagination center" id="pagen">
 
 
@@ -157,7 +156,7 @@ if(!isset($_SESSION["username"])){
   <div class="mybreadcrumb col s12 l12">
     <div class="breadcrumb flat ">
       <a href="../index.php" class="">Home</a>
-      <a href="search-result.php" class="">All Properties</a>
+      <a href="house.php" class="">Houses</a>
       <a href="index.php" class="active">property details</a>
     </div>
   </div>
@@ -281,10 +280,9 @@ if(!isset($_SESSION["username"])){
             <div class="collapsible-header"><i class="fa fa-close prefix"></i>Report Add</div>
             <div class="collapsible-body">
               <p class="contact-space">Report this post to the administrator</p>
-              <div id="appendBtn">
+             <div id="appendBtn">
                 
               </div>
-
             </div>
           </li>
         </ul>
@@ -355,9 +353,8 @@ if(!isset($_SESSION["username"])){
 <script>
 
  $(document).ready(function(){
-  // getHousePosts();
-  // getLandPosts();
-  getAllPostsAll();
+  
+  getAllPostsAllHouse();
   showFirstName();
   hide("pDetailsDiv");
  

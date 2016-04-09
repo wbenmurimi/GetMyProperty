@@ -32,7 +32,7 @@ if(!isset($_SESSION["new_pics"])){
 	if($file_size > 2097152){
 		$errors[]='File size must be excately 2 MB';
 	}
-	if(count( $_SESSION["pics"])<4){
+	if(count( $_SESSION["pics"])<6){
 	$ext = pathinfo($file_name, PATHINFO_EXTENSION);
 	$randNo=uniqid();
 	$new_name=$randNo.".".$ext;
@@ -42,7 +42,7 @@ if(!isset($_SESSION["new_pics"])){
 		array_push($_SESSION["pics"],"../uploads/".$new_name);
 
 		move_uploaded_file($file_tmp,"../uploads/".$new_name);
-		header("location:../add-property/free-plan.php");
+		header("location:../add-property/featured-plan.php");
 		// echo "Success";
 	}
 	else{
@@ -51,16 +51,16 @@ if(!isset($_SESSION["new_pics"])){
 }
 else{
 	if(!isset($_SESSION["limit"])){
-		 $_SESSION["limit"]="Sorry, you can only upload maximum of 4 pictures";		
+		 $_SESSION["limit"]="Sorry, you can only upload maximum of 6 pictures";		
 	}
-	header("location:../add-property/free-plan.php");
+	header("location:../add-property/featured-plan.php");
 
 }
 		// 2882656ddf46c815717.58212068  28
 		// 56ddf5ab31137 13
 }
 else{
-	header("location:../add-property/free-plan.php");
+	header("location:../add-property/featured-plan.php");
 }
 ?>
 

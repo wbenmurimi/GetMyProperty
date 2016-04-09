@@ -97,6 +97,9 @@ footer{
 #search_posts_li{
   list-style-type: none;
 }
+#search_posts_li2{
+  list-style-type: none;
+}
 #comment_area{
   list-style-type: none;
 }
@@ -276,6 +279,15 @@ input[type="radio"]:checked+label{
   padding: 10px;
   text-transform: uppercase;
 }
+.s-property2{
+  font-size: 18px;
+  color: white;
+  background-color: #3b5998;
+  border-radius: 5px;
+  height: 35px;
+  padding: 10px;
+  text-transform: uppercase;
+}
 .btn-more-detail{
   margin-top: 40px;
 }
@@ -426,4 +438,35 @@ input[type=checkbox]:checked + label:before{
 #picSize{
   height: 100px;
   width: 100%; 
+}
+.btnl{
+  width: 80%;
+}
+.sendEmaildiv{
+  margin-bottom: 15px;
+}
+.slidepic{
+  height: 150px;
+}
+.homeSearchBtn{
+  margin-bottom: 0px;
+}
+#no-results{
+  color: red;
+}
+.boldHead{
+  font-weight: bold;
+  font-size: 16px;
+  color: #3b5998;
+}
+.myPagination{
+  width: 50%;
+  margin-left: 25%;
+  margin-right: auto;
+
+}
+.pageText{
+   font-weight: bold;
+  /*font-size: 16px;*/
+  color: #3b5998;
 }

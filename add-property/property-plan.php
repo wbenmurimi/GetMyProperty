@@ -29,10 +29,12 @@
   <div class="row">
     <div class="card">
       <h3 class="center">Choose your prefered plan</h3>
-      <a href="free-plan.php">
+      
         <div class="col l6 s12">
           <div class="card packagePlan">
-            <h4 class="center">FREE</h4>
+            <div class="center">
+          <a href="free-plan.php" > <button  type="submit" class="btnl btn btnColor btn-spacer waves-effect wave-dark center-align">FREE</button></a>
+          </div>
             <ul class=" free-plan ">
               <li>The property is listed on the site for two months</li>
               <hr>
@@ -44,11 +46,13 @@
             </ul>
           </div>
         </div>
-      </a>
-      <a href="featured-plan.php"> 
+    
+      
         <div class="col l6 s12">
          <div class="card packagePlan">
-          <h4 class="center">FEATURED</h4>
+         <div class="center">
+         <a href="featured-plan.php" ><button  type="submit" class="btnl btn btnColor btn-spacer waves-effect wave-dark center-align">FEATURED</button></a>
+          </div>
           <h4 class="center">500 KES</h4>
           <ul class="">
             <li>The property is listed on the site for Three months</li>
@@ -62,7 +66,6 @@
         </div>
 
     </div>
-    </a>
   </div>
 </div>
 </div>

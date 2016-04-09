@@ -2,24 +2,25 @@
 /**
 *@author Benson Wachira
 *@version 1.0.0
-*Test class for backend php classes
+*Test class for users,post and alerts php classes
 */
-include "../classes/post.php";
+
 include "../classes/user.php";
-include "../classes/alerts.php";
+
 class testClass extends PHPUnit_Framework_TestCase
 {
+
     /**
-     * @method  testViewUsers() tests method for 
+     * @method  testGetDetails() tests method for displaying all the users details given their id
      * @param no parameter
      * @return bool
      **/
-    public function testViewUsers()
+    public function testGetDetails()
     {
-
         $us = new users();
+        $id="1";
 
-        $this->assertEquals(-1, $us->getUsers());
+        $this->AssertTrue($us->getUserDetail($id));
     }
 
 
@@ -29,6 +30,44 @@ class testClass extends PHPUnit_Framework_TestCase
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /**
+     * @method  testViewUsers() tests method for displaying all the users
+     * @param no parameter
+     * @return bool
+     **/
+    // public function testViewUsers()
+    // {
+    //     $us = new users();
+
+    //     $this->assertEquals(-1, $us->getUsers());
+    // }
+
+
+
+// include "../classes/post.php";
 
 
 

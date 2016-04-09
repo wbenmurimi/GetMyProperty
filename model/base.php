@@ -11,10 +11,10 @@ define("DB_USER", "root");
 define("DB_PWORD", "");
 
 // define("DB_HOST", 'localhost');
-// define("DB_NAME", 'csashesi_benson-wachira');
+// define("DB_NAME", 'ashesics_benson_wachira');
 // define("DB_PORT", 3306);
-// define("DB_USER","csashesi_bw16");
-// define("DB_PWORD","db!Q8WFF");
+// define("DB_USER","ashesics_bw1260");
+// define("DB_PWORD","0wZwc1k9PSS");
 
 define("LOG_LEVEL_SEC", 0);
 define("LOG_LEVEL_DB_FAIL", 0);
