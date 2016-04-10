@@ -39,6 +39,23 @@ class users extends base{
         $str_query = "INSERT INTO _system_users SET xx_fname='$fname',xx_lname='$lname',xx_dob='$dob', xx_gender='$gender', xx_username='$username', xx_user_password=md5('$password'),xx_user_status='$user_status', xx_user_email='$user_email',xx_user_phone='$phone',xx_user_type='$usertype'";
         return $this->query($str_query);
     }
+
+
+        /**
+     * @method boolean updateAccount($fname,$lname,$dob,$user_email,$phone) update user account
+     * @param $fname user first name
+     * @param $lname user last name
+     * @param $dob user date of birth
+     * @param $user_email email of user
+     * @param $phone phone number of user
+     * @return bool
+     */
+    function updateAccount($fname,$lname,$dob,$user_email,$phone,$id)
+    {
+        $str_query = "UPDATE  _system_users SET xx_fname='$fname',xx_lname='$lname',xx_dob='$dob', xx_user_email='$user_email',xx_user_phone='$phone' WHERE xx_user_id='$id'";
+        return $this->query($str_query);
+    }
+
     /**
      * @method boolean getUsers() fetches all the users in the database
         * @return bool

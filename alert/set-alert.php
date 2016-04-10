@@ -34,7 +34,7 @@
   <div class="row">
     <div class="card">
       <div class="center">
-        <h5 >Sign up for Free Email and SMS Alerts</h5>
+        <h5 >Subscribe for free Email and SMS Alerts</h5>
         <div class="error_div_alert center" id="error_div_alert">
 
         </div>
@@ -145,7 +145,7 @@
    </div>
  </div> 
  <div class=" center verification-space">
-  <button type="submit" onclick="subscribeAlert()" class="btn reset-btn-space waves-effect wave-dark teal lighten-2 right ">
+  <button type="submit" onclick="subscribeAlert()" class="btn btn-spacer reset-btn-space waves-effect wave-dark btnColor right ">
     Save alert</button>
   </div>
 </div>

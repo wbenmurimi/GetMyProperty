@@ -219,7 +219,6 @@ else{
 
 <div class="right">
  <button onclick="page1Session()"  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">next</button>
-<!--  <a href="property-plan.php"> <button onclick="page1Session()"  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">next</button></a> -->
 </div>
 
 

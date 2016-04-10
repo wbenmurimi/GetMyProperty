@@ -7,9 +7,6 @@ include "../model/base.php";
 
 class Post extends base{
 
-// Dashboard query
-
-//   SELECT _property.* ,_property_features.*,_land.*,_pictures.* FROM _property LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID LEFT JOIN _pictures on _property.xx_property_id = _pictures.xx_property_ID WHERE _property.xx_user_identity=1 GROUP BY _property.xx_property_id ORDER BY _property.xx_property_id
 
    /**
      * addPopertyBasics($county,$sub_county,$buyrent,$userId,$property_category,$longitude, $latitude,$price,$description )adds a new property to the database
@@ -98,6 +95,102 @@ class Post extends base{
     }
 
     /**
+     * @method boolean searchSubscribedAlerts($county,$category,$price,$buyrent) to view all the subscribed alerts on a given user
+     * @return boolean
+     **/
+
+    function searchSubscribedAlerts($county,$category,$price,$buyrent)
+    {
+      $str_query = "SELECT xx_alert_id, xx_message_alert,xx_email_alert,
+        xx_price_to,xx_county, xx_price_from, xx_userId,
+    xx_alert_status
+     FROM _alerts
+     WHERE xx_county like '%$county%' 
+     AND xx_property_category='$category'
+     AND xx_buy_rent='$buyrent'
+     AND xx_price_from <='$price' 
+     AND xx_price_to >= '$price' 
+     AND xx_alert_status='enabled' ";
+
+      return $this->query($str_query);
+    }
+
+    /**
+     * @method boolean getUserDetails() fetches all the details of a user in the database
+        * @return bool
+     */
+    function getUserDetail($id)
+    {
+        $str_query = "SELECT * FROM _system_users where xx_user_id='$id' ";
+        return $this->query($str_query);
+    }
+
+
+    /**
+     * updatePopertyBasics($county,$sub_county,$buyrent,$property_category,$price,$description,$p_id) updates property basic features to the database
+     * @param $county county that the property is located
+     * @param $subcounty sub-county that the property is located
+     * @param description property description
+     * @param $price the price for the property
+     * @param $buyrent if the property is for sale or rent
+     * @param $property_category the type of property that the person is adding 
+     * @return boolean
+     **/
+
+   function updatePopertyBasics($county,$sub_county,$buyrent,$property_category,$price,$description,$p_id)
+   {
+    $str_query = "UPDATE _property 
+    SET xx_county='$county', xx_sub_county='$sub_county', xx_rent_sale='$buyrent', xx_property_category='$property_category',xx_price='$price', xx_description='$description' 
+    WHERE xx_property_id='$p_id' ";
+    return $this->query($str_query);
+  }
+
+
+    
+    /**
+     * updatePopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym,$disability,$water,$furnished,$p_id) updates house property features to the database
+     * @param $bedroom number of bedrooms
+     * @param $bathroom number of bathrooms
+     * @param $gym property ammenities
+     * @param $water_storage property ammenities
+     * @param $swimming_pool swimming pool in the property
+     * @param $garden garden in the property
+     * @param $internet-access access to internet in the property
+     * @param $disability_access a path for the disabled to access the property
+     * @param $hr 24 hrs security in the property
+     * @param $cctv cctv cameras in the property
+     * @param $alarm alarm security in the property
+     * @param $electric_fence electric fence in the property
+     * @param $wall the property is sorrounded by a wall
+     * @param $floors number of floors in the property
+     * @param $parking the size of parking space in the property
+     * @return boolean
+     **/
+
+    function updatePopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym,$disability,$water,$furnished,$p_id){
+
+     $str_query = "UPDATE _property_features 
+     SET xx_property_type='$p_type', xx_bathroom='$bathroom', xx_bedroom='$bedroom', xx_floors='$floors',xx_parking_space='$parking' ,xx_24_security='$hr',xx_cctv='$cctv',xx_alarm_system='$alarm',xx_electric_fence='$electric_fence',xx_wall='$wall',xx_internet_access='$internet',xx_swimming_pool='$pool', xx_garden='$garden',  xx_gym='$gym', xx_disability_access='$disability',xx_water_storage='$water', xx_fully_furnished='$furnished'
+      WHERE xx_property_no='$p_id' ";
+     return $this->query($str_query);
+   }
+
+   /**
+     *updateLandFeatures($acres,$p_id) update land property features to the database
+     * @param $acre the size of the land
+     * @param $p_id user id of the person adding the property
+     * @return boolean
+     **/
+
+    function updateLandFeatures($acres,$p_id){
+
+     $str_query = "UPDATE _land
+      SET xx_acres='$acres'
+     WHERE xx_propertyID='$p_id' ";
+     return $this->query($str_query);
+   }
+
+    /**
      * @method boolean getMyProperty($userId)gets property that was added by a particular user in the database
      * @param $userId the id of the person that added the property
      * @return boolean
@@ -134,6 +227,26 @@ class Post extends base{
     GROUP BY _property.xx_property_id 
     ORDER BY xx_plan ASC 
     LIMIT 8";
+
+    return $this->query($str_query);
+  }
+
+
+
+   /**
+    * @method boolean  fetchEditProperty($id)gets property that was added by a particular user in the database
+    * @return boolean
+    **/
+
+   function fetchEditProperty($id)
+   {
+    $str_query = "SELECT _property.* ,_property_features.*,_land.*,_pictures.*
+    FROM _property 
+    LEFT JOIN _property_features on _property.xx_property_id = _property_features.xx_property_no 
+    LEFT JOIN _land on _property.xx_property_id = _land.xx_propertyID
+    LEFT JOIN _pictures on _property.xx_property_id = _pictures.xx_property_ID 
+    WHERE _property.xx_property_id ='$id'
+    GROUP BY _property.xx_property_id";
 
     return $this->query($str_query);
   }
@@ -687,30 +800,6 @@ function searchCount($county,$sub_county,$property_category,$buyrent,$price_from
 
 
  return $this->query($str_query);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function viewProperty() 
-{
-  $str_query = "SELECT * FROM xx_property order by post_time DESC LIMIT 25";
-
-  return $this->query($str_query);
 }
 
 

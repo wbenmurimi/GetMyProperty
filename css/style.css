@@ -103,6 +103,10 @@ footer{
 #comment_area{
   list-style-type: none;
 }
+.statsOl{
+  list-style: none;
+  font-size: 16px;
+}
 .hide{
   display: none;
 }
@@ -174,7 +178,10 @@ input[type="radio"]:checked+label{
   margin-bottom: 20px;
 }
 .free-plan{
-  margin-bottom: 70px;
+  margin-bottom: 50px;
+}
+.leftMargin{
+  margin-left: 10px;
 }
 .nextfooter{
   margin-right: 30px;
@@ -394,6 +401,7 @@ input[type=checkbox]:checked + label:before{
 .hoverSpace :hover{
   background-color:#dfe3ee;
 }
+
 .packagePlan{
   background-color: #dfe3ee;
   color: #3b5998;
@@ -419,17 +427,23 @@ input[type=checkbox]:checked + label:before{
   width: 120px;
 }
 .stats{
-  color: #3b5998;
+  color: white;
   font-size: 18px; 
 }
 .myStats{
   font-weight: bold;
-  font-size: 16px;
+  background-color: #3b5998
 }
-.stats:hover {
+.myStats:hover {
   cursor: pointer; 
   cursor: hand;
   font-size: 19px; 
+}
+
+.iconClick{
+  cursor: pointer; 
+  cursor: hand;
+  font-size: 17px;
 }
 .search_banner{
   height: 30px;
@@ -440,6 +454,7 @@ input[type=checkbox]:checked + label:before{
   width: 100%; 
 }
 .btnl{
+  margin-top: 5px;
   width: 80%;
 }
 .sendEmaildiv{

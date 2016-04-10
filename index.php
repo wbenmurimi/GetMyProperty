@@ -184,7 +184,6 @@ if(!isset($_SESSION["username"])){
                     <option value="date_posted">Date posted</option>
                     <option value="asceding">Price (Low to High)</option>
                     <option value="desceding">Price (High to Low)</option>
-                    <option value="county">County</option>
                   </select>
                   <label>Sort by</label> 
                 </div>

@@ -78,9 +78,35 @@ class Alerts extends base{
     {
       $str_query = "SELECT xx_alert_id, xx_message_alert,xx_email_alert,
         xx_property_category,xx_sub_county, xx_buy_rent, 
-    xx_alert_status,Date_Format(xx_start_time,'%Y-%m-%d') As start_date, xx_end_time FROM _alerts where xx_userId='$userID'";
+    xx_alert_status,Date_Format(xx_start_time,'%Y-%m-%d') As start_date, xx_end_time 
+    FROM _alerts 
+    where xx_userId='$userID'";
       return $this->query($str_query);
     }
+
+
+
+    /**
+     * @method boolean searchSubscribedAlerts($county,$category,$price,$buyrent) to view all the subscribed alerts on a given user
+     * @return boolean
+     **/
+
+    function searchSubscribedAlerts($county,$category,$price,$buyrent)
+    {
+      $str_query = "SELECT xx_alert_id, xx_message_alert,xx_email_alert,
+        xx_price_to,xx_county, xx_price_from, xx_userId,
+    xx_alert_status
+     FROM _alerts
+     WHERE xx_county like '%$county%' 
+     AND xx_property_category='$category'
+     AND xx_buy_rent='$buyrent'
+     AND xx_price_from <='$price' 
+     AND xx_price_to >= '$price' 
+     AND xx_alert_status='enabled' ";
+
+      return $this->query($str_query);
+    }
+
 
     /**
      * @method boolean phoneAlertSearch($phone)to view all the subscribed alerts on a given phone
@@ -108,14 +134,31 @@ class Alerts extends base{
     }
 
     /**
-     * @method boolean unsubscribeAlert($email_phone,$status) to unsubscribe from alerts
+     * @method boolean enableAlert($id) to unsubscribe from alerts
      * @param $phone phone number to receive the alerts
      * @return boolean
      **/
 
-    function unsubscribeAlert($email_phone,$status)
+    function enableAlert($id)
     {
-      $str_query="UPDATE xx_property_alerts SET xx_alert_status='$status' WHERE xx_email='$email_phone' or xx_phone='$email_phone'";
+      $str_query="UPDATE _alerts 
+      SET xx_alert_status='enabled'
+       WHERE xx_alert_id='$id'";
+       
+      return $this->query($str_query);
+    }
+
+    /**
+     * @method boolean disableAlert($id) to unsubscribe from alerts
+     * @param $phone phone number to receive the alerts
+     * @return boolean
+     **/
+
+    function disableAlert($id)
+    {
+      $str_query="UPDATE _alerts 
+      SET xx_alert_status='disabled'
+       WHERE xx_alert_id='$id'";
       return $this->query($str_query);
     }
 

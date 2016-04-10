@@ -28,7 +28,7 @@
  <div class="mybreadcrumb col s12 l12">
   <div class="breadcrumb flat ">
     <a href="../index.php" class="">Home</a>
-    <a href="reset-password.php" class="active">Reset password</a>
+    <a href="unsubscribe-alert.php" class="active">My Alerts</a>
   </div>
 </div>
 <!--  start of body division-->
@@ -47,6 +47,8 @@
             <th>Start Time</th>
             <th>End Time</th>
             <th>Status</th>
+            <th>Disable</th>
+            <th>Enable</th>
           </tr>
         </thead>
         
@@ -61,6 +63,8 @@
             <th>Start Time</th>
             <th>End Time</th>
             <th>Status</th>
+            <th>Disable</th>
+            <th>Enable</th>
           </tr>
         </tfoot>
       </table>

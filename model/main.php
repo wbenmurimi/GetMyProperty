@@ -130,6 +130,21 @@ switch ($cmd) {
   case 40:
   reportPost();
   break;
+  case 41:
+  enableAlert();
+  break;
+  case 42:
+  disableAlert();
+  break;
+  case 43:
+  updateUserAccount();
+  break;
+  case 44:
+  getEditProperty();
+  break;
+  case 45:
+  saveEditedProperty();
+  break;
   default:
   echo '{"result": 0, "message": "Unknown command"}';
   return;
@@ -194,8 +209,29 @@ function userSignUp(){
   return;
 }
 
+function updateUserAccount(){
+  include "../classes/user.php";
+
+  $myuser = new users();
+  $fname = $_GET['fname'];
+  $lname = $_GET['lname'];
+  $dob = date("Y-m-d",strtotime($_GET['dob']));
+  $phone = $_GET['phone'];
+  $user_email = $_GET['email'];
+  $id=$_SESSION['userId'];
+
+  if(!$myuser->updateAccount($fname,$lname,$dob,$user_email,$phone,$id)){
+    echo '{"result": 0, "message": "Acount update failed"}';
+    return;
+  }
+  echo '{"result": 1, "message": "Account update was successful"}';
+
+  return;
+}
+
+
 function returnUserFirstName(){
-  if (  $_SESSION['fname']) {
+  if (isset($_SESSION['fname'])) {
     $loginName[] =array("person"=>$_SESSION['fname']);
     echo '{"result": 1, "uname": ';   
     echo json_encode($loginName);
@@ -436,6 +472,7 @@ function addProperty(){
 
   $post = new Post();
 
+
   if (isset($_SESSION['p_cat'])) {
 
     $county= $_SESSION["county"];
@@ -444,72 +481,111 @@ function addProperty(){
     $buyrent= $_SESSION["buy_rent"];
     $userId= $_SESSION['userId'];
     $free_featured= $_SESSION["free"];
+    $price="";
 
     
-    if(strcmp($property_category,"House")==0){
-      $price=$_SESSION["price"];
-      $description=$_SESSION["description"];
-    }
-    else{
-      $price=$_SESSION["lprice"];
-      $description=$_SESSION["ldescription"];
-    }
+    if(strcmp($property_category,"House")==0){  
+     $price=$_SESSION["price"];
+     $description=$_SESSION["description"]; 
+   } 
+   else{
+    $price=$_SESSION["lprice"];  
+    $description=$_SESSION["ldescription"]; 
+  }
 
-    $longitude =4.2130450;
-    $latitude=0.01254365;
+  $longitude =3.01452464;
+  $latitude=0.01254365;
 
-    if($post->addPopertyBasics($county,$sub_county,$free_featured,$buyrent,$userId,$property_category,$longitude, $latitude,$price,$description )){
+  if($post->addPopertyBasics($county,$sub_county,$free_featured,$buyrent,$userId,$property_category,$longitude, $latitude,$price,$description )){
       // echo '{"result": 1, "message": "Prorpety added successfully"}';
-    }
-    $p_id= $post->getLastProrpertyId();
-    // echo "p id: "+$p_id;
+  }
+  $p_id= $post->getLastProrpertyId();
 
- //    $p_id="6";
-    if(strcmp($_SESSION["p_cat"],"House")==0){
+  if(strcmp($_SESSION["p_cat"],"House")==0){
 
-      $bathroom= $_SESSION["bathroom"];
-      $bedroom= $_SESSION["bedroom"];
-      $floors= $_SESSION["floors"];
-      $parking= $_SESSION["parking"];
-      $hr=$_SESSION["hr"];
-      $cctv=$_SESSION["cctv"];
-      $alarm=$_SESSION["alarm"];
-      $electric_fence=$_SESSION["electric_fence"];
-      $wall=$_SESSION["wall"];
-      $internet=$_SESSION["internet"];
-      $pool= $_SESSION["pool"];
-      $garden=$_SESSION["garden"];
-      $gym=$_SESSION["gym"];
-      $disability= $_SESSION["disability"];
-      $water = $_SESSION["water_storage"];
-      $furnished=$_SESSION["furnished"];
-      $p_type=$_SESSION["p_type"];
+    $bathroom= $_SESSION["bathroom"];
+    $bedroom= $_SESSION["bedroom"];
+    $floors= $_SESSION["floors"];
+    $parking= $_SESSION["parking"];
+    $hr=$_SESSION["hr"];
+    $cctv=$_SESSION["cctv"];
+    $alarm=$_SESSION["alarm"];
+    $electric_fence=$_SESSION["electric_fence"];
+    $wall=$_SESSION["wall"];
+    $internet=$_SESSION["internet"];
+    $pool= $_SESSION["pool"];
+    $garden=$_SESSION["garden"];
+    $gym=$_SESSION["gym"];
+    $disability= $_SESSION["disability"];
+    $water = $_SESSION["water_storage"];
+    $furnished=$_SESSION["furnished"];
+    $p_type=$_SESSION["p_type"];
 
-      if($post->addPopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym,$disability,$water,$furnished,$p_id)){
+    if($post->addPopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym,$disability,$water,$furnished,$p_id)){
         // echo '{"result": 1, "message": "Prorpety features added successfully"}';
+    }
+  }
+
+  if(strcmp($_SESSION["p_cat"],"Land")==0){
+    $acres=$_SESSION["acre_size"];
+    if($post->addLandFeatures($acres,$p_id)){
+    }
+  }
+
+  if(!empty( $_SESSION["pics"])){
+
+    for ($i=0; $i <count( $_SESSION["pics"]); $i++) { 
+      if(!$_SESSION["pics"][$i]==""){
+        $post->addPropertyPictures($_SESSION["pics"][$i],$p_id);
       }
     }
-
-    if(strcmp($_SESSION["p_cat"],"Land")==0){
-      $acres=$_SESSION["acre_size"];
-      if($post->addLandFeatures($acres,$p_id)){
-       // echo '{"result": 1, "message": "Land features added successfully"}';
-      }
-    }
-
-    if(!empty( $_SESSION["pics"])){
-
-      for ($i=0; $i <count( $_SESSION["pics"]); $i++) { 
-        if(!$_SESSION["pics"][$i]==""){
-          $post->addPropertyPictures($_SESSION["pics"][$i],$p_id);
-        }
-      } 
-    }
-    destroySession();
-    echo '{"result": 1, "message": "Property added successfully"}';
-    return;
 
   }
+  $category=$property_category;
+
+  $row = $post->searchSubscribedAlerts($county,$category,$price,$buyrent);
+  if($row){
+
+    while($row = $post->fetch()){
+
+      $userId=$row['xx_userId'];
+      $email=$row['xx_email_alert'];
+      $phone=$row['xx_message_alert'];
+
+      if ($post-> getUserDetail($userId)) {
+
+        while($user = $post->fetch()){
+
+          if($email==""){
+           //send message
+
+           $user_phone=$user['xx_user_phone']; 
+          // echo "send message to: ".$user_phone;
+           include "smsGateway.php";
+           $smsGateway = new SmsGateway('wbenmurimi@gmail.com', 'murimi2015');
+
+           $deviceID = 14246;
+           $number = '+'.$user_phone;
+           $message = 'The property you were searching for has been posted. Please visit www.getmyproperty.com for more details';
+
+           $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID);
+         }
+         else{
+            //send email
+          $user_email=$user['xx_user_email'];
+        }
+      }
+
+    }
+
+  }
+}
+
+destroySession();
+echo '{"result": 1, "message": "Property added successfully"}';
+return;
+
+}
 }
 
 
@@ -890,6 +966,8 @@ while($row){
 echo "]}";
 return;
 }
+
+
 /**
 *Method to reset user password from the profile
 */
@@ -1239,6 +1317,142 @@ function reportPost(){
     return;
   }
 }
+
+function enableAlert(){
+ include "../classes/alerts.php";
+
+ $myAlert = new Alerts();
+ $id=$_GET['id'];
+
+ $row = $myAlert->enableAlert($id);
+ if(!$row){
+  echo '{"result": 0, "message": "Enabling alert failed"}';
+  return;
+}
+else{
+  echo '{"result": 1, "message": "Enabled"}';
+  return;
+}
+}
+
+function disableAlert(){
+ include "../classes/alerts.php";
+
+ $myAlert = new Alerts();
+ $id=$_GET['id'];
+
+ $row = $myAlert->disableAlert($id);
+ if(!$row){
+  echo '{"result": 0, "message": "Alert disabling failed"}';
+  return;
+}
+else{
+  echo '{"result": 1, "message": "Disabled"}';
+  return;
+}
+
+}
+
+
+function getEditProperty(){
+  include "../classes/post.php";
+
+  $post = new Post();
+
+  $id= $_GET['id'];
+
+  $row = $post->fetchEditProperty($id);
+  if(!$row){
+    echo '{"result": 0, "message": "No lands"}';
+    return;
+  }
+
+  echo '{"result": 1, "property": [';
+  while($row){
+    echo json_encode($row);
+    $row = $post->fetch();
+    if($row){
+      echo ',';
+    }
+  }
+  echo "]}";
+  return;
+}
+
+
+function saveEditedProperty(){
+
+  include "../classes/post.php";
+
+  $post = new Post();
+
+
+  if (isset($_GET['p_cat'])) {
+
+    $county= $_GET["county"];
+    $sub_county= $_GET["sub_county"];
+    $property_category=$_GET['p_cat'];
+    $buyrent= $_GET["buy_rent"];
+    $price="";
+    $p_id= $_GET['id'];
+    
+    if(strcmp($property_category,"House")==0){  
+     $price=$_GET["price"];
+     $description=$_GET["description"]; 
+   } 
+   else{
+    $price=$_GET["lprice"];  
+    $description=$_GET["ldescription"]; 
+  }
+
+  if($post->updatePopertyBasics($county,$sub_county,$buyrent,$property_category,$price,$description,$p_id )){
+      // echo '{"result": 1, "message": "Prorpety added successfully"}';
+  }
+  
+
+  if(strcmp($_GET["p_cat"],"House")==0){
+
+    $bathroom= $_GET["bathroom"];
+    $bedroom= $_GET["bedroom"];
+    $floors= $_GET["floors"];
+    $parking= $_GET["parking"];
+    $hr=$_GET["hr"];
+    $cctv=$_GET["cctv"];
+    $alarm=$_GET["alarm"];
+    $electric_fence=$_GET["electric_fence"];
+    $wall=$_GET["wall"];
+    $internet=$_GET["internet"];
+    $pool= $_GET["pool"];
+    $garden=$_GET["garden"];
+    $gym=$_GET["gym"];
+    $disability= $_GET["disability"];
+    $water = $_GET["water_storage"];
+    $furnished=$_GET["furnished"];
+    $p_type=$_GET["p_type"];
+
+    if($post->updatePopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym,$disability,$water,$furnished,$p_id)){
+        
+    }
+  }
+
+  if(strcmp($_GET["p_cat"],"Land")==0){
+    $acres=$_GET["acres"];
+    if($post->updateLandFeatures($acres,$p_id)){
+    }
+  }
+
+  echo '{"result": 1, "message": "Property updated"}';
+  return;
+}
+}
+
+
+
+
+
+
+
+
 
 
 /**
@@ -1725,297 +1939,6 @@ function getAllProperty(){
 
 
 
-
-/**
-*Function to return the upcoming posts in the database
-*/
-function getUpcomingPosts(){
-  include "post.php";
-
-  $post = new Post();
-  $row = $post->viewUpcomingEvents();
-  if(!$row){
-    echo '{"result": 0, "message": "You have no upcoming events in the database"}';
-    return;
-  }
-
-  echo '{"result": 1, "post": [';
-  while($row){
-    echo json_encode($row);
-    $row = $post->fetch();
-    if($row){
-      echo ',';
-    }
-  }
-  echo "]}";
-  return;
-}
-/**
-*Method to edit a post to the database
-*/
-function editProperty(){
- include "../classes/post.php";
-
- $post = new Post();
-
- $name = $_GET['name'];
- $description = $_GET['description'];
- $date = $_GET['date'];
- $poster = $_GET['poster'];
- $id = $_GET['id'];
-
- if(!$post->editPost($name,$description,$date,$poster,$id)){
-  echo '{"result": 0, "message": "Post was not edited"}';
-  return;
-}
-echo '{"result": 1, "message": "Post was edited successfully"}';
-
-return;
-}
-
-function getEditProperty(){
-  include "../classes/post.php";
-
-  $post = new Post();
-  $postId = $_GET['id'];
-  $row = $post->viewOnePost($postId);
-  if(!$row){
-    echo '{"result": 0, "message": "You have no posts in the database"}';
-    return;
-  }
-
-  echo '{"result": 1, "post": [';
-  while($row){
-    echo json_encode($row);
-    $row = $post->fetch();
-    if($row){
-      echo ',';
-    }
-  }
-  echo "]}";
-  return;
-}
-
-
-
-
-
-function getAppUsers(){
-  include "../classes/user.php";
-
-  $user = new user();
-
-  $row = $user->getUsers();
-  if(!$row){
-    echo '{"result": 0, "message": "You have no active users"}';
-    return;
-  }
-
-  echo '{"result": 1, "user": [';
-  while($row){
-    echo json_encode($row);
-    $row = $user->fetch();
-    if($row){
-      echo ',';
-    }
-  }
-  echo "]}";
-  return;
-}
-
-/**
-*Method to add a post to the database
-*/
-function addComment(){
- include "comment.php";
-
- $comm = new Comment();
-
- $postId = $_GET['id'];
- $comment = $_GET['description'];
- $user= $_SESSION['username'];
-
- if(!$comm->addMyComment($postId,$comment,$user)){
-  echo '{"result": 0, "message": "Comment was not added"}';
-  return;
-}
-echo '{"result": 1, "message": "Comment was added successfully"}';
-
-return;
-}
-
-
-/**
-*Function to return all the posts in the database
-*/
-function getAllComments(){
-  include "comment.php";
-
-  $comment = new Comment();
-  $postId = $_GET['id'];
-  $row = $comment->viewComments($postId);
-  if(!$row){
-    echo '{"result": 0, "message": "You have no comments in this post"}';
-    return;
-  }
-
-  echo '{"result": 1, "comment": [';
-  while($row){
-    echo json_encode($row);
-    $row = $comment->fetch();
-    if($row){
-      echo ',';
-    }
-  }
-  echo "]}";
-  return;
-}
-
-/**
-*Method to add likes to the database
-*/
-function addLikes(){
- include "post.php";
-
- $post = new Post();
-
- $like = $_GET['likes'];
- $postId = $_GET['id'];
-
- if(!$post->editLikes($like,$postId)){
-  echo '{"result": 0, "message": "You did not like"}';
-  return;
-}
-echo '{"result": 1, "message": "You liked this post"}';
-
-return;
-}
-
-function editUserType(){
- include "../classes/user.php";
-
- $user = new user();
-
- $type = $_GET['user'];
- $id = $_GET['id'];
-
- if(!$user->editUserType($type,$id)){
-  echo '{"result": 0, "message": "User type was not edited"}';
-  return;
-}
-echo '{"result": 1, "message": "User type was edited successfully"}';
-
-return;
-}
-
-function sendMessage(){
- $phone = $_GET['phone'];
- include "smsGateway.php";
- $smsGateway = new SmsGateway('wbenmurimi@gmail.com', 'murimi2015');
-
- $deviceID = 14246;
- $number = '+'.$phone;
- $message = 'Download Mushene app from www.benanconstruction.com and get ontime updates of campus events';
-
- $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID);
-
-}
-
-
-//file upload
-
-function upload_file(){
-
-  if (!empty($_FILES['postername'])) {
-
-    $myFile = $_FILES['postername'];
-    $name = preg_replace("/[^A-Z0-9._-]/i","_",$myFile["name"]);
-    $extension = pathinfo($name, PATHINFO_EXTENSION);
-    if ($myFile['error'] !== UPLOAD_ERR_OK) {
-
-      echo '{"results":0,"message":"Had an error uploading file."}';
-      exit;
-    }
-
-    if ($extension == "JPG" || $extension == "PNG" ) {
-
-    } else{
-      echo '{"results":0,"message":"Only jpeg,png format files are allowed"}';
-      exit;
-    }
-    $i=0;
-    $parts=pathinfo($name);
-
-    while (file_exists(UPLOAD_DIR.$name)) {
-
-      $i++;
-      $name = $parts["filename"] . "-" . $i ."." . $parts["extension"];
-    }
-
-    $success = move_uploaded_file($myFile["tmp_name"],UPLOAD_DIR . $name);
-
-    if (!$success) {
-      echo '{"results":0,"message":"Could not successfully move the file to target directory"}';
-      exit;
-    }
-    else{
-      include "post.php";
-
-      $post = new Post();
-      $name = $_REQUEST['ename'];
-      $description = $_REQUEST['description'];
-      $d= $_REQUEST['event_date'];
-      $date=date("Y-m-d",strtotime($d));;
-                // $image=$_REQUEST['postername'];
-      $user= $_SESSION['username'];
-      if(!$post->addMyPost($name,$description,$date,$filename,$user)){
-        echo '{"result": 0, "message": "post was not added"}';
-        return;
-      }
-      echo '{"result": 1, "message": "post was added successfully"}';
-
-      return;
-    }
-
-
-  }
-  else{
-    echo '{"results":"Empty file called"}';
-  }
-}
-
-
-function getuserSession(){
-  if(!$_SESSION["username"]){
-    echo '{"result": 0, "message": "No session stored"}';
-    return;  
-  }
-  echo '{"result": 1, "message": "'.$_SESSION["username"].'"}';
-
-  return;
-
-}
-
-  // Sanitize E-mail Address
-// $email =filter_var($email, FILTER_SANITIZE_EMAIL);
-// // Validate E-mail Address
-// $email= filter_var($email, FILTER_VALIDATE_EMAIL);
-// if (!$email){
-// echo "Invalid Sender's Email";
-// }
-        // $to = $email;
-        // $subject = "Verification code";
-        // $txt = "The code to change your password is 2000.";
-        // $headers = "From: wbenmurimi@gmail.com";
-
-//mail($to,$subject,$txt,$headers);
-
-            // $admin_email = "wbenmurimi@gmail.com";
-            // $email = $_REQUEST['email'];
- // $subject = $_REQUEST['subject'];
-  //$comment = $_REQUEST['comment'];
-
-            // mail($admin_email, $subject, $txt, $headers);
 
 
 ob_end_flush();

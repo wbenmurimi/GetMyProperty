@@ -33,16 +33,18 @@
         <div class="col l6 s12">
           <div class="card packagePlan">
             <div class="center">
-          <a href="free-plan.php" > <button  type="submit" class="btnl btn btnColor btn-spacer waves-effect wave-dark center-align">FREE</button></a>
+          <a href="free-plan.php" > <button  type="submit" class="btnl btn btnColor btn-spacer waves-effect wave-dark center-align"><i class="fa fa-angle-double-right prefix fa-2"> </i>  FREE</button></a>
           </div>
             <ul class=" free-plan ">
-              <li>The property is listed on the site for two months</li>
+            <h4></h4>
+            <h4></h4>
+              <li class="leftMargin">The property is listed on the site for two months</li>
               <hr>
-              <li>Upload a maximum of 4 pictures</li>
+              <li class="leftMargin">Upload a maximum of 4 pictures</li>
               <hr>
-              <li>Your property is listed normally</li>
+              <li class="leftMargin">Your property is listed normally</li>
               <hr>
-              <li>Your property get less views compared to the featured plan</li>
+              <li class="leftMargin">Your property get less views compared to the featured plan</li>
             </ul>
           </div>
         </div>
@@ -51,17 +53,17 @@
         <div class="col l6 s12">
          <div class="card packagePlan">
          <div class="center">
-         <a href="featured-plan.php" ><button  type="submit" class="btnl btn btnColor btn-spacer waves-effect wave-dark center-align">FEATURED</button></a>
+         <a href="featured-plan.php" ><button  type="submit" class="btnl btn btnColor btn-spacer waves-effect wave-dark center-align"><i class="fa fa-cc-visa prefix fa-2"> </i>   FEATURED</button></a>
           </div>
           <h4 class="center">500 KES</h4>
           <ul class="">
-            <li>The property is listed on the site for Three months</li>
+            <li class="leftMargin">The property is listed on the site for Three months</li>
             <hr>
-            <li>Upload a maximum of 6 pictures</li>
+            <li class="leftMargin">Upload a maximum of 6 pictures</li>
             <hr>
-            <li>Your property is ranked at the top during searches</li>
+            <li class="leftMargin">Your property is ranked at the top during searches</li>
             <hr>
-            <li>Your property get more views than on the free plan</li>
+            <li class="leftMargin">Your property get more views than on the free plan</li>
           </ul>
         </div>
 

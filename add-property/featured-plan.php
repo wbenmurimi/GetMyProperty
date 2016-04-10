@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="freePlan();uploadPageSession()">
+<body onload="featuredPlan();uploadPageSession()">
  <!--start of navbar-->
  <?php include "../header/header-login.html";?>
  <!-- end of navbar-->

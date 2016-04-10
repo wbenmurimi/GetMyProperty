@@ -19,7 +19,6 @@
  session_start();
  if(isset($_SESSION["username"])){
    if($_SESSION["username"]){
-    echo $_SESSION['username'];
     include "../header/header-login.html";
   }
   else if(!$_SESSION["username"]){
@@ -33,7 +32,7 @@ if(!isset($_SESSION["username"])){
 <div class="mybreadcrumb col s12 l12">
   <div class="breadcrumb flat ">
     <a href="../index.php" class="">Home</a>
-    <a href="contact-us.php" class="active">Contact us</a>
+    <a href="profile.php" class="active">My profile</a>
   </div>
 </div>
 <!-- end of navbar-->
@@ -45,9 +44,12 @@ if(!isset($_SESSION["username"])){
       <img src="../image/user_icon.jpg">
     </div>
     <h4 class="center-align">Statistics</h4>
-      <ol class="center btn-spacer">
-        <li class="myStats">Total ads : <a href="index.php"><span class="stats" id="total_adds"> </span> </a></li>
-        <li class="myStats">Total alerts : <a href="../alert/unsubscribe-alert.php"><span class="stats" id="total_alerts"></span></a> </li>
+      <ol class="center btn-spacer statsOl">
+       <a href="../my property/index.php"> <li class="myStats">Total ads : <span class="stats" id="total_adds"> </span> </li></a>
+        <br>
+        <hr>
+        <br>
+        <a href="../alert/unsubscribe-alert.php"><li class="myStats">Total alerts : <span class="stats" id="total_alerts"></span></li></a>
       </ol>
     </div>
     <div class="col m8 s12 card">
@@ -81,7 +83,7 @@ if(!isset($_SESSION["username"])){
                 <label for="confirm_password">Confirm Password</label>
               </div>
               <div class="loginfooter right">
-                <button onclick="resetProfileUserPassword()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Change</button>
+                <button onclick="resetProfileUserPassword()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Update Password</button>
               </div>
 
             </div>
@@ -140,7 +142,7 @@ if(!isset($_SESSION["username"])){
                 <label for="created">Created on</label>
               </div>
               <div class="loginfooter right">
-                <button onclick="saveProfile()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Save</button>
+                <button onclick="saveProfile()" type="submit" class="btn btn-spacer waves-effect btnColor center-align">Update Profile</button>
               </div>
             </div>
           </div>
