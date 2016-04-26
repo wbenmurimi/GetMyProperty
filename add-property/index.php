@@ -197,12 +197,12 @@ else{
         <label>Sub County</label> 
       </div>
       <div class="input-field col l3 s6">
-        <input id="longitude" type="text" class="validate"  >
-        <label for="longitude">Longitude</label> 
+        <input id="longitude" type="text" class="validate" disabled >
+        <!-- <label for="longitude">Longitude</label>  -->
       </div>
       <div class="input-field col l3 s6">
-       <input id="latitude" type="text" class="validate"  >
-       <label for="latitude">Latitude</label> 
+       <input id="latitude" type="text" class="validate" disabled >
+       <!-- <label for="latitude">Latitude</label>  -->
      </div>
      <div class="row">
       <div class="col s12">

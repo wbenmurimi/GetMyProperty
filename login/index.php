@@ -3,7 +3,6 @@
 <head>
   <title>Login</title>
   <link rel="stylesheet" href="../css/materialize.min.css">
-  <link rel="stylesheet" href="../css/materialize.css">
   <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/bread.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="../font/css/font-awesome.min.css">
@@ -52,8 +51,8 @@
         <div class="col l12">
           <div class="card white">
             <ul class="tabs color">
-              <li class="tab col s3"><a class="active text-color"  href="#login">Login</a></li>
-              <li class="tab col s3"><a href="#signup">Sign up</a></li>
+              <li class="tab col s3" class="white-text"><a class="active " class="white-text" href="#login">Login</a></li>
+              <li class="tab col s3"><a href="#signup" class="white-text"><span class="white-text">Sign up</span></a></li>
             </ul>
 
             <div id="login" class="col s12 textcontainer ">
@@ -62,12 +61,12 @@
               </div>
               <div class="input-field col s12">
                 <i class="fa fa-user prefix"></i>
-                <input id="login_username" type="text" class="validate" autocomplete="off">
+                <input id="login_username" type="text" class="validate" autocomplete="off" required>
                 <label for="login_username">Username</label>
               </div>
               <div class="input-field col s12 mypass">
                 <i class="fa fa-key prefix"></i>
-                <input id="login_password" type="password" class="validate" autocomplete="off">
+                <input id="login_password" type="password" class="validate" autocomplete="off" required>
                 <label for="login_password">Password</label>
               </div>
               <div class="left">
@@ -84,17 +83,17 @@
                 </div>
 
                 <div class="input-field col s12">
-                  <i class="fa fa-user prefix"></i>
-                  <input id="fname" type="text" class="validate" autocomplete="off">
+                  <i class="fa fa-user prefix"> <span class="requiredField">*</span></i>
+                  <input id="fname" type="text" class="validate" autocomplete="off" required>
                   <label for="fname">First name</label>
                 </div>
                 <div class="input-field col s12">
-                  <i class="fa fa-user prefix"></i>
-                  <input id="lname" type="text" class="validate" autocomplete="off">
+                  <i class="fa fa-user prefix"><span class="requiredField">*</span></i>
+                  <input id="lname" type="text" class="validate" autocomplete="off" required>
                   <label for="lname">Last name</label>
                 </div>
                 <div class="input-field col s12">
-                  <i class="fa fa-venus prefix"></i>
+                  <i class="fa fa-venus prefix"><span class="requiredField">*</span></i>
                   <select class="gender" id="gender">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -103,34 +102,34 @@
 
                 </div>
                 <div class="input-field col s12">
-                  <i class="fa fa-calendar prefix"></i>
-                  <input id="dob" type="date" class="datepicker" autocomplete="off">
+                  <i class="fa fa-calendar prefix"><span class="requiredField">*</span></i>
+                  <input id="dob" type="date" class="datepicker" autocomplete="off" required>
                   <label for="dob">Date of Birth</label>
                 </div>
                 <div class="input-field col s12">
-                  <i class="fa fa-user prefix"></i>
-                  <input id="username" type="text" class="validate" autocomplete="off">
+                  <i class="fa fa-user prefix"><span class="requiredField">*</span></i>
+                  <input id="username" type="text" class="validate" autocomplete="off" required>
                   <label for="username">Username</label>
                 </div>
                 <div class="input-field col s12">
                   <i class="fa fa-envelope prefix"></i>
-                  <input id="email" type="email" class="validate" autocomplete="off">
+                  <input id="email" type="email" class="validate" autocomplete="off" >
                   <label for="email">Email</label>
                 </div>
                 <div class="input-field col s12">
-                  <i class="fa fa-phone prefix"></i>
-                  <input id="phone" type="tel" class="validate" autocomplete="off">
+                  <i class="fa fa-phone prefix"><span class="requiredField">*</span></i>
+                  <input id="phone" type="tel" class="validate" autocomplete="off" required>
                   <label for="phone">Phone</label>
                 </div>
                 
                 <div class="input-field col s12 mypass">
-                  <i class="fa fa-key prefix"></i>
-                  <input id="password" type="password" class="validate" autocomplete="off">
+                  <i class="fa fa-key prefix"><span class="requiredField">*</span></i>
+                  <input id="password" type="password" class="validate" autocomplete="off" required>
                   <label for="password">Password</label>
                 </div>
                 <div class="input-field col s12 mypass">
-                  <i class="fa fa-key prefix"></i>
-                  <input id="confirm_password" type="password" class="validate" autocomplete="off">
+                  <i class="fa fa-key prefix"><span class="requiredField">*</span></i>
+                  <input id="confirm_password" type="password" class="validate" autocomplete="off" required>
                   <label for="confirm_password">Confirm Password</label>
                 </div>
                 <div class="loginfooter right">

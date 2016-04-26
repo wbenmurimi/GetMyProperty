@@ -5,11 +5,8 @@
   <title>Get My Property</title>
   
   <link rel="stylesheet" href="../css/materialize.min.css">
-  <link rel="stylesheet" href="../css/materialize.css">
-  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/bread.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="stylesheet" href="../font/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../plugin/countrycode/build/css/intlTelInput.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -32,6 +29,8 @@
     </div>
   </div>
 </div>
+
+
 <!--  end of body division-->
 <!--  footer section-->        
 <?php include "../footer/footer.html";?>

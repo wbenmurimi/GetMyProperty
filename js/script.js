@@ -1375,10 +1375,18 @@ function getAllUserPosts(){
    var objResult = sendRequest(strUrl);
    if(objResult.result == 0){
 
-    return;
+    var li = $('<li></li>');
+    li.html(' <div class="row"><div class="col m12 s12 card"><h3 class="center">You do not have any property </h3> <hr><h4 class="center">Click <a href="../add-property/index.php">here</a> to add a property</h4><hr><h4 class="center" >OR</h4><hr><h4 class="center" >Click <a href="../alert/set-alert.php">here</a> to set an alert</h4> </div></div>');
+    $("#my_post_area_li").append(li);
+    
   }
   if(objResult.result == 1){  
+    if (objResult.property.length==1) {
 
+      var li = $('<li></li>');
+      li.html(' <div class="row"><div class="col m12 s12 card"><h3 class="center">You do not have any property </h3> <hr><h4 class="center">Click <a href="../add-property/index.php">here</a> to add a property</h4><hr><h4 class="center" >OR</h4><hr><h4 class="center" >Click <a href="../alert/set-alert.php">here</a> to set an alert</h4> </div></div>');
+      $("#my_post_area_li").append(li);
+    }
     for(i=1;i<objResult.property.length;i++){
       var newId=objResult.property[i].xx_property_id;
       var newid=objResult.property[i].xx_property_id;
@@ -1502,19 +1510,31 @@ function getAllPosts(){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
+      else{
+       li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+       $("#search_posts_li").append(li);
+     }
+   }
+   else{
+    if (objResult.property[i].xx_plan=="Featured" ) {
+      li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
       $("#search_posts_li").append(li);
     }
     else{
       li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
       $("#search_posts_li").append(li);
     }
-
-    if(document.getElementById('item'+newid)){
-      var getClicked=document.getElementById('item'+newid);
-      getClicked.setAttribute('id',newid);
-    }
   }
+
+  if(document.getElementById('item'+newid)){
+    var getClicked=document.getElementById('item'+newid);
+    getClicked.setAttribute('id',newid);
+  }
+}
 }
 }
 
@@ -1552,19 +1572,31 @@ function getAllPostsAll(){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
+      else{
+       li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+       $("#search_posts_li").append(li);
+     }
+   }
+   else{
+     if (objResult.property[i].xx_plan=="Featured" ) {
+      li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
       $("#search_posts_li").append(li);
     }
     else{
       li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
       $("#search_posts_li").append(li);
     }
-
-    if(document.getElementById('item'+newid)){
-      var getClicked=document.getElementById('item'+newid);
-      getClicked.setAttribute('id',newid);
-    }
   }
+
+  if(document.getElementById('item'+newid)){
+    var getClicked=document.getElementById('item'+newid);
+    getClicked.setAttribute('id',newid);
+  }
+}
 }
 }
 
@@ -1602,19 +1634,32 @@ function getAllPostsAllHouse(){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
-    }
-    else{
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
-    }
+      if (objResult.property[i].xx_plan=="l" ) {
 
-    if(document.getElementById('item'+newid)){
-      var getClicked=document.getElementById('item'+newid);
-      getClicked.setAttribute('id',newid);
-    }
-  }
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
+      else{
+       li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+       $("#search_posts_li").append(li);
+     }
+   }
+   else{
+    if (objResult.property[i].xx_plan=="Featured" ) {
+     li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+     $("#search_posts_li").append(li);
+   }
+   else{
+     li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+     $("#search_posts_li").append(li);
+   }
+ }
+
+ if(document.getElementById('item'+newid)){
+  var getClicked=document.getElementById('item'+newid);
+  getClicked.setAttribute('id',newid);
+}
+}
 }
 }
 
@@ -1652,19 +1697,31 @@ function getAllPostsAllLand(){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     else{
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
-    }
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
+      else{
+       li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+       $("#search_posts_li").append(li);
+     }
+   }
 
-    if(document.getElementById('item'+newid)){
-      var getClicked=document.getElementById('item'+newid);
-      getClicked.setAttribute('id',newid);
-    }
+   if(document.getElementById('item'+newid)){
+    var getClicked=document.getElementById('item'+newid);
+    getClicked.setAttribute('id',newid);
   }
+}
 }
 }
 
@@ -2076,20 +2133,32 @@ function getRelatedPosts(myid){
       var li = $('<li></li>');
 
       if (objResult.property[i].xx_property_category=="Land" ) {
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li2").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li2").append(li);
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li2").append(li);
+        }
       }
       else{
+        if (objResult.property[i].xx_plan=="Featured" ) {
+         li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+         $("#search_posts_li2").append(li);
+       }
+       else{
         li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
         $("#search_posts_li2").append(li);
       }
+    }
 
-      if(document.getElementById('item'+newid)){
-        var getClicked=document.getElementById('item'+newid);
-        getClicked.setAttribute('id',newid);
-      }
+    if(document.getElementById('item'+newid)){
+      var getClicked=document.getElementById('item'+newid);
+      getClicked.setAttribute('id',newid);
     }
   }
+}
 }
 }
 
@@ -2114,12 +2183,26 @@ function getRelatedPosts2(myid){
       var li = $('<li></li>');
 
       if (objResult.property[i].xx_property_category=="Land" ) {
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li2").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li2").append(li);
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li2").append(li);
+        }
       }
       else{
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li2").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li2").append(li);
+          
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#"onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li2").append(li);
+        }
       }
 
       if(document.getElementById('item'+newid)){
@@ -2438,18 +2521,32 @@ function searchHomeProperty_Refined(){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     else{
+      if (objResult.property[i].xx_plan=="Featured" ) {
+
+       li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+       $("#search_posts_li").append(li); 
+     }
+     else{
       li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
       $("#search_posts_li").append(li);
     }
-    if(document.getElementById('item'+newid)){
-      var getClicked=document.getElementById('item'+newid);
-      getClicked.setAttribute('id',newid);
-    }
   }
+  if(document.getElementById('item'+newid)){
+    var getClicked=document.getElementById('item'+newid);
+    getClicked.setAttribute('id',newid);
+  }
+}
 }
 }
 
@@ -2513,19 +2610,33 @@ function searchFolderProperty_Refined(){
       var li = $('<li></li>');
 
       if (objResult.property[i].xx_property_category=="Land" ) {
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+          
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
       }
       else{
+        if (objResult.property[i].xx_plan=="Featured" ) {
+
+         li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+         $("#search_posts_li").append(li); 
+       }
+       else{
         li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
         $("#search_posts_li").append(li);
       }
-      if(document.getElementById('item'+newid)){
-        var getClicked=document.getElementById('item'+newid);
-        getClicked.setAttribute('id',newid);
-      }
+    }
+    if(document.getElementById('item'+newid)){
+      var getClicked=document.getElementById('item'+newid);
+      getClicked.setAttribute('id',newid);
     }
   }
+}
 }
 
 function searchFolderProperty_RefinedNext(k){
@@ -2588,12 +2699,26 @@ function searchFolderProperty_RefinedNext(k){
       var li = $('<li></li>');
 
       if (objResult.property[i].xx_property_category=="Land" ) {
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+          
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
       }
       else{
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+          
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
       }
       if(document.getElementById('item'+newid)){
         var getClicked=document.getElementById('item'+newid);
@@ -2663,12 +2788,26 @@ function searchFolderProperty_RefinedBack(k){
       var li = $('<li></li>');
 
       if (objResult.property[i].xx_property_category=="Land" ) {
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+          
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
       }
       else{
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
       }
       if(document.getElementById('item'+newid)){
         var getClicked=document.getElementById('item'+newid);
@@ -2738,12 +2877,26 @@ function searchFolderProperty_RefinedThis(k){
       var li = $('<li></li>');
 
       if (objResult.property[i].xx_property_category=="Land" ) {
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
       }
       else{
-        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-        $("#search_posts_li").append(li);
+        if (objResult.property[i].xx_plan=="Featured" ) {
+          li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+          
+        }
+        else{
+          li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails3(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+          $("#search_posts_li").append(li);
+        }
       }
       if(document.getElementById('item'+newid)){
         var getClicked=document.getElementById('item'+newid);
@@ -3033,12 +3186,26 @@ function searchProperty_RefinedBack(k){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     else{
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     if(document.getElementById('item'+newid)){
       var getClicked=document.getElementById('item'+newid);
@@ -3108,12 +3275,26 @@ function searchProperty_RefinedNext(k){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     else{
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     if(document.getElementById('item'+newid)){
       var getClicked=document.getElementById('item'+newid);
@@ -3182,12 +3363,26 @@ function searchProperty_RefinedThis(k){
      var li = $('<li></li>');
 
      if (objResult.property[i].xx_property_category=="Land" ) {
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Land size : <span id="bd_qty">'+objResult.property[i].xx_acres+' </span></span> </div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     else{
-      li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
-      $("#search_posts_li").append(li);
+      if (objResult.property[i].xx_plan=="Featured" ) {
+        li.html('<div class="card property-row" style="background-color: #dfe3ee;"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+
+      }
+      else{
+        li.html('<div class="card property-row"><div class=" col l2"><img id="picSize" src="'+url+'" alt="" class="responsive-img center"></div><div class="col l10"> <div class="bold_heading"><a href="#" onclick="showDetails(this)" id="item'+newid+'" class="property-link"><span id="title_area" class="title_area">'+objResult.property[i].xx_property_category+' for '+objResult.property[i].xx_rent_sale+' in '+objResult.property[i].xx_county+' ,'+objResult.property[i].xx_sub_county+'</span></a> <span id="cost_area" class="cost_area right" >'+objResult.property[i].xx_price+ ' KES </span> </div><div><span class="description_area">'+objResult.property[i].xx_description+'</span> </div><div class=""><span class="bedroom">Bedroom <span id="bd_qty">'+objResult.property[i].xx_bedroom+' </span></span> <span class="bathroom"> Bathroom <span id="bath_qty">'+objResult.property[i].xx_bathroom+'</span> </span></div><div><span class="posted_on">'+objResult.property[i].xx_time_added+'</span> <span class="seen right"><i class="fa fa-eye prefix" >50</i></span></div><div><span class="p_location" onclick="" >'+objResult.property[i].xx_sub_county+'</span></div> </div></div>');
+        $("#search_posts_li").append(li);
+      }
     }
     if(document.getElementById('item'+newid)){
       var getClicked=document.getElementById('item'+newid);
@@ -3582,9 +3777,9 @@ function editMyPost(newid){
   hide("pDetailsDiv");
   hide("myPropertyDiv");
   show("editPost");
-   var newid=objResult.property[1].xx_property_id;
+  var newid=objResult.property[1].xx_property_id;
 
-document.getElementById("updateBtn").innerHTML=' <button id="item'+newid+'" onclick="addEditedPost(this)"  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Update Property</button>' 
+  document.getElementById("updateBtn").innerHTML=' <button id="item'+newid+'" onclick="addEditedPost(this)"  type="submit" class="btn nextfooter btnColor btn-spacer waves-effect wave-dark center-align">Update Property</button>' 
 
   $("#Property_county").val(objResult.property[1].xx_county);
   $('select').material_select();
@@ -3619,41 +3814,41 @@ document.getElementById("updateBtn").innerHTML=' <button id="item'+newid+'" oncl
     $("#Property_type").val(objResult.property[1].xx_property_type);
 
     if (hr_.localeCompare("Yes")==0) {
-    $( "#24hr_radio" ).prop( "checked", true );
-  }
-  if (cctv_.localeCompare("Yes")==0) {
-    $( "#cctv_radio" ).prop( "checked", true );
-  }
-  if (alarm_.localeCompare("Yes")==0) {
-    $( "#alarm_radio" ).prop( "checked", true );
-  }
-  if (electric_fence_.localeCompare("Yes")==0) {
-    $( "#electric_radio" ).prop( "checked", true );
-  }
-  if (wall_.localeCompare("Yes")==0) {
-    $( "#wall_radio" ).prop( "checked", true );
-  }
-  if (internet_.localeCompare("Yes")==0) {
-    $( "#internet_radio" ).prop( "checked", true );
-  }
-  if (pool_.localeCompare("Yes")==0) {
-    $( "#pool_radio" ).prop( "checked", true );
-  }
-  if (garden_.localeCompare("Yes")==0) {
-    $( "#garden_radio" ).prop( "checked", true );
-  }
-  if (water_storage_.localeCompare("Yes")==0) {
-    $( "#water_radio" ).prop( "checked", true );
-  }
-  if (gym_.localeCompare("Yes")==0) {
-    $( "#gym_radio" ).prop( "checked", true );
-  }
-  if (disability_.localeCompare("Yes")==0) {
-    $( "#disability_radio" ).prop( "checked", true );
-  }
-  if (furnished_.localeCompare("Yes")==0) {
-    $( "#furnished_radio" ).prop( "checked", true );
-  }
+      $( "#24hr_radio" ).prop( "checked", true );
+    }
+    if (cctv_.localeCompare("Yes")==0) {
+      $( "#cctv_radio" ).prop( "checked", true );
+    }
+    if (alarm_.localeCompare("Yes")==0) {
+      $( "#alarm_radio" ).prop( "checked", true );
+    }
+    if (electric_fence_.localeCompare("Yes")==0) {
+      $( "#electric_radio" ).prop( "checked", true );
+    }
+    if (wall_.localeCompare("Yes")==0) {
+      $( "#wall_radio" ).prop( "checked", true );
+    }
+    if (internet_.localeCompare("Yes")==0) {
+      $( "#internet_radio" ).prop( "checked", true );
+    }
+    if (pool_.localeCompare("Yes")==0) {
+      $( "#pool_radio" ).prop( "checked", true );
+    }
+    if (garden_.localeCompare("Yes")==0) {
+      $( "#garden_radio" ).prop( "checked", true );
+    }
+    if (water_storage_.localeCompare("Yes")==0) {
+      $( "#water_radio" ).prop( "checked", true );
+    }
+    if (gym_.localeCompare("Yes")==0) {
+      $( "#gym_radio" ).prop( "checked", true );
+    }
+    if (disability_.localeCompare("Yes")==0) {
+      $( "#disability_radio" ).prop( "checked", true );
+    }
+    if (furnished_.localeCompare("Yes")==0) {
+      $( "#furnished_radio" ).prop( "checked", true );
+    }
   }
   if (prop_category.localeCompare("Land")==0) {
     $( "#land_radio" ).prop( "checked", true );
@@ -3673,19 +3868,19 @@ document.getElementById("updateBtn").innerHTML=' <button id="item'+newid+'" oncl
 
   
 
-   if(document.getElementById('item'+newid)){
-      var getClicked=document.getElementById('item'+newid);
-      getClicked.setAttribute('id',newid);
-    }
-
+  if(document.getElementById('item'+newid)){
+    var getClicked=document.getElementById('item'+newid);
+    getClicked.setAttribute('id',newid);
   }
+
+}
 
 function addEditedPost(newid){
  var id= newid.getAttribute('id');
 
  // alert("new id is "+id);
 
-var cnty = document.getElementById("Property_county");
+ var cnty = document.getElementById("Property_county");
  var county = cnty.options[cnty.selectedIndex].value;
 
  var sub_cnty = document.getElementById("Property_sub_county");
@@ -3909,28 +4104,28 @@ if (p_option[0].checked == true) {
                 document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please enter the price of the land <i class="material-icons">close</i></div>';
                 $(window).scrollTop(0);
                 return;
-      }
-      if((parseFloat(lprice) == parseFloat(lprice)) && !isNaN(lprice)){}
-        else{
-          document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Invalid input. Please provide a number on the price field e.g. 45000 <i class="material-icons">close</i></div>';
-          $(window).scrollTop(0);
-          return;
-        } 
-        if(ldescription.length == 0) {
-          document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please enter the description of the land <i class="material-icons">close</i></div>';
-          $(window).scrollTop(0);
-          return;
-        } 
-      }
+              }
+              if((parseFloat(lprice) == parseFloat(lprice)) && !isNaN(lprice)){}
+                else{
+                  document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Invalid input. Please provide a number on the price field e.g. 45000 <i class="material-icons">close</i></div>';
+                  $(window).scrollTop(0);
+                  return;
+                } 
+                if(ldescription.length == 0) {
+                  document.getElementById("add_error").innerHTML = '<div class="chip red white-text">Please enter the description of the land <i class="material-icons">close</i></div>';
+                  $(window).scrollTop(0);
+                  return;
+                } 
+              }
 
 
-      var strUrl = myurl+"cmd=45&county="+county+"&sub_county="+sub_county+"&price="+
-      price+"&description="+description+"&bathroom="+bathroom+"&bedroom="+bedroom+
-      "&floors="+floors+"&parking="+parking +"&acres="+acres+"&lprice="+lprice+
-      "&ldescription="+ldescription+"&p_type="+p_type+"&p_cat="+Property_category+"&buy_rent="+buy_rent+
-      "&hr="+hr+"&cctv="+cctv+"&alarm="+alarm+"&electric_fence="+electric_fence+
-      "&wall="+wall+"&internet="+internet+"&pool="+pool+"&garden="+garden+
-      "&water_storage="+water_storage+"&gym="+gym+"&disability="+disability+"&furnished="+furnished+"&id="+id;
+              var strUrl = myurl+"cmd=45&county="+county+"&sub_county="+sub_county+"&price="+
+              price+"&description="+description+"&bathroom="+bathroom+"&bedroom="+bedroom+
+              "&floors="+floors+"&parking="+parking +"&acres="+acres+"&lprice="+lprice+
+              "&ldescription="+ldescription+"&p_type="+p_type+"&p_cat="+Property_category+"&buy_rent="+buy_rent+
+              "&hr="+hr+"&cctv="+cctv+"&alarm="+alarm+"&electric_fence="+electric_fence+
+              "&wall="+wall+"&internet="+internet+"&pool="+pool+"&garden="+garden+
+              "&water_storage="+water_storage+"&gym="+gym+"&disability="+disability+"&furnished="+furnished+"&id="+id;
 
     // prompt("url", strUrl);
     var objResult = sendRequest(strUrl);

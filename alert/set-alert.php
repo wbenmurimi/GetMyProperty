@@ -83,20 +83,20 @@
 
           </script>
         </select>
-        <label>County</label> 
+        <label><span class="requiredField">*</span>County</label> 
       </div>
       <div class="input-field col l6 s12" id="selectDiv">
         <select id="Property_sub_county" class="Property_sub_county_alert">
           <option value="">sub county</option>
         </select>
-        <label>Sub County</label> 
+        <label><span class="requiredField">*</span>Sub County</label> 
       </div>
       <div class="input-field col l6 s12">
         <select onchange="changePropertyCategory()" class="Property_category" id="Property_category">
           <option value="House">House</option>
           <option value="Land">Land</option>
         </select>
-        <label>Category</label> 
+        <label><span class="requiredField">*</span>Category</label> 
       </div>
 
       <div class="house_property_div" id="house_property_div">
@@ -108,39 +108,39 @@
             <option value="Room">Rooom</option>
             <option value="Other">Other</option>
           </select>
-          <label>Property type</label> 
+          <label><span class="requiredField">*</span>Property type</label> 
         </div>
 
         <div class="input-field col l6 s6">
           <input id="price_from_alert" type="text" class="validate" autocomplete="off">
-          <label for="price_from_alert">Price From</label> 
+          <label for="price_from_alert"><span class="requiredField">*</span>Price From</label> 
         </div>
         <div class="input-field col l6 s6">
          <input id="price_to_alert" type="text" class="validate" autocomplete="off">
-         <label for="price_to_alert">Price To </label> 
+         <label for="price_to_alert"><span class="requiredField">*</span>Price To </label> 
        </div>
        <div class="input-field col l6 s6">
         <input id="bedroom_alert" type="text" class="validate" autocomplete="off">
-        <label for="bedroom_alert">Bedroom</label> 
+        <label for="bedroom_alert"><span class="requiredField">*</span>Bedroom</label> 
       </div>
       <div class="input-field col l6 s6">
        <input id="bathroom_alert" type="text" class="validate" autocomplete="off">
-       <label for="bathroom_alert">Bathroom</label> 
+       <label for="bathroom_alert"><span class="requiredField">*</span>Bathroom</label> 
      </div>
    </div> 
    <div class="land_property_div" id="land_property_div">
      <div class="input-field col l6 s6">
       <input id="acre_alert" type="text" class="validate" autocomplete="off">
-      <label for="acre_alert">Acres</label> 
+      <label for="acre_alert"><span class="requiredField">*</span>Acres</label> 
     </div>
     <div class="row col l12">
       <div class="input-field col l6 s6 left">
         <input id="land_price_from_alert" type="text" class="validate" autocomplete="off">
-        <label for="land_price_from_alert">Price From</label> 
+        <label for="land_price_from_alert"><span class="requiredField">*</span>Price From</label> 
       </div>
       <div class="input-field col l6 s6 right">
        <input id="land_price_to_alert" type="text" class="validate" autocomplete="off">
-       <label for="land_price_to_alert">Price To </label> 
+       <label for="land_price_to_alert"><span class="requiredField">*</span>Price To </label> 
      </div>
    </div>
  </div> 

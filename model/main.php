@@ -765,21 +765,22 @@ function getMyProperty(){
 
   $userId=$_SESSION['userId'];
   $row = $post->getMyProperty($userId);
-  if(!$row){
-    echo '{"result": 0, "message": "You have not made any posts"}';
+  if($row){
+
+    echo '{"result": 1, "property": [';
+    while($row){
+      echo json_encode($row);
+      $row = $post->fetch();
+      if($row){
+        echo ',';
+      }
+    }
+    echo "]}";
     return;
   }
-
-  echo '{"result": 1, "property": [';
-  while($row){
-    echo json_encode($row);
-    $row = $post->fetch();
-    if($row){
-      echo ',';
-    }
-  }
-  echo "]}";
+  echo '{"result": 0, "message": "You have not made any posts"}';
   return;
+
 }
 
 /**
@@ -1431,7 +1432,7 @@ function saveEditedProperty(){
     $p_type=$_GET["p_type"];
 
     if($post->updatePopertyFeatures($p_type, $bathroom,$bedroom,$floors,$parking,$hr,$cctv,$alarm,$electric_fence,$wall,$internet,$pool,$garden,$gym,$disability,$water,$furnished,$p_id)){
-        
+      
     }
   }
 

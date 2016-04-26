@@ -5,7 +5,6 @@
   <title>Get My Property</title>
   
   <link rel="stylesheet" href="../css/materialize.min.css">
-  <!-- <link rel="stylesheet" href="../css/materialize.css"> -->
   <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/bread.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/highslide.css" type="text/css" rel="stylesheet" media="screen,projection"/>
