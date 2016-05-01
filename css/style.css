@@ -27,17 +27,17 @@
 }
 .side-nav li:hover{
   width: 100%;
-  background-color: #0066ff;
+  background-color: #3b5998;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
 }
 .side-nav li >a:hover{
-  font-size: 18px;
+  font-size: 14px;
   color: white;
 }
 .side-nav li{
   margin-top: 0px;
-  text-align: center;
+  text-align: left;
   color: black;
 }
 .color{

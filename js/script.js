@@ -33,10 +33,10 @@ function sendRequest(u) {
 
      var send_option = document.getElementsByName("reset");
      if (send_option[0].checked == true) {
-      selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_email" type="text" class="validate" autocomplete="off"> <label for="reset_email">Email</label> </div><div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset my password</button></div>';
+      selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_email" type="text" class="validate" autocomplete="off"> <label for="reset_email">Email</label> </div><div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset password</button></div>';
     } 
     else if (send_option[1].checked == true) {
-      selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_phone" type="text" class="validate" autocomplete="off"> <label for="reset_phone">Phone</label> </div> <div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset my password</button></div>';
+      selectedOption.innerHTML='<div class="input-field col l6 s12"><input id="reset_phone" type="text" class="validate" autocomplete="off"> <label for="reset_phone">Phone</label> </div> <div class="col l6 m6 s12"> <button onclick="sendVerificationCode()" type="submit" class="btn reset-btn-space waves-effect wave-dark blue darken-1 center-align ">Reset password</button></div>';
     }
   }
 

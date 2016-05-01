@@ -152,7 +152,7 @@
         </div>
         <div class="row">
           <div class="col l8 s8">
-            <ol>
+            <ol lass="leftSpace">
               <li>Select if you want to get the reset code on email or phone</li>
               <li>Enter the registered email or registered phone number in the textbox </li>
               <li>Check for the verification code in your email inbox or messages</li>
